@@ -1,0 +1,97 @@
+<div class="background"></div>
+
+<div class="container">
+
+    <button (click)="showForm = true; clearFormData();" class="btn btn-maroon">Add User</button>
+    <div class="form-container" *ngIf="showForm">
+
+        <form #addUserData="ngForm" (submit)="saveUser(addUserData.value)">
+            <div>
+                <label for="user">Username</label>
+                <input type="text" name="user" placeholder="username" ngModel>
+
+                <label for="role">Role</label>
+                <select name="role" ngModel>
+                    <option value="Admin">Admin</option>
+                    <option value="User">User</option>
+                </select>
+
+                <label for="Fname">First name</label>
+                <input type="text" name="Fname" placeholder="First name" ngModel [(ngModel)]="editedUserData.Fname">
+
+                <label for="Lname">Last name</label>
+                <input type="text" name="Lname" placeholder="Last name" ngModel [(ngModel)]="editedUserData.Lname">
+
+                <label for="gender">Gender</label>
+                <select name="gender" ngModel>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="Mname">Middle name</label>
+                <input type="text" name="Mname" placeholder="Middle name" ngModel>
+
+                <label for="deptId">Department</label>
+                <select name="deptId" ngModel>
+                    <option value="QA">QA</option>
+                    <option value="Developer">Developer</option>
+                    <option value="HR">HR</option>
+                    <option value="UI/UX">UI/UX</option>
+                </select>
+
+                <label for="password">Password</label>
+                <input type="password" name="password" placeholder="password" ngModel>
+
+                <label for="confirmPassword">Confirm Password</label>
+                <input type="password" name="confirmPassword" placeholder="Confirm Password" ngModel>
+            </div>
+
+            <button type="submit">{{ editMode ? 'Update' : 'Save' }}</button>
+
+        </form>
+
+    </div>
+
+    <div *ngIf="users && users.length" class="table-container">
+        <h2>Saved User Data</h2>
+        <input type="text" placeholder="search" class="searchbox">
+        <table>
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Role</th>
+                    <th>First Name</th>
+                    <th>Middle Name</th>
+                    <th>Last Name</th>
+                    <th>Department</th>
+                    <th>Gender</th>
+                    <th>Action</th>
+                    <!-- <th>Delete</th> -->
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let user of users; let i = index">
+                    <td>{{ user.user }}</td>
+                    <td>{{ user.role }}</td>
+                    <td>{{ user.Fname }}</td>
+                    <td>{{ user.Mname }}</td>
+                    <td>{{ user.Lname }}</td>
+                    <td>{{ user.deptId }}</td>
+                    <td>{{ user.gender }}</td>
+                    <td>
+                        <i class="fa-solid fa-pen-to-square" (click)="editUser(user)"></i>
+                        <span class="icon-space"></span> <!-- Add space here -->
+                        <i class="fa-solid fa-trash-can" (click)="deleteUser(i)"></i>
+                    </td>
+                    <!-- <td><i class="fa-solid fa-pen-to-square" (click)="editUser(user)"></i> <i class="fa-solid fa-trash-can" (click)="deleteUser(i)"></i> </td> -->
+                    <!-- <td><button (click)="editUser(user)">Edit</button></td> -->
+                    <!-- <td><i class="fa-solid fa-trash-can" (click)="deleteUser(i)"></i></td> -->
+                    <!-- <td><button (click)="deleteUser(i)">Delete</button></td> -->
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
