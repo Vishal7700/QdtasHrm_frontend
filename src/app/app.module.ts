@@ -11,6 +11,9 @@ import { HeaderComponent } from './header/header.component';
 import { AddUserComponent } from './add-user/add-user.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { LeaveComponent } from './leave/leave.component';
+import { TimeComponent } from './time/time.component';
+import { MyInfoComponent } from './my-info/my-info.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +22,10 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     ProfileComponent,
     HeaderComponent,
     AddUserComponent,
-    SidenavComponent
+    SidenavComponent,
+    LeaveComponent,
+    TimeComponent,
+    MyInfoComponent
   ],
   imports: [
     BrowserModule,
