@@ -1,3 +1,5 @@
+<div class="body">
+
 <div class="background"> </div>
 
 <div class="container-title">
@@ -9,7 +11,11 @@
     <form class="login-form" #login="ngForm" (ngSubmit)="userLogin(login.value)">
         <h2>Login</h2>
         <div>
+            
+            <div class="label">
+             <mat-icon>person</mat-icon> 
             <label for="email">Email</label>
+            </div>
             <input type="email" id="email" name="email" ngModel #email="ngModel" required
                 pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
                 [ngClass]="{'invalid': email.invalid && (email.dirty || email.touched), 'valid': email.valid && (email.dirty || email.touched)}">
@@ -19,7 +25,10 @@
             </div>
         </div>
         <div>
-            <label for="password">Password:</label>
+            <div class="label">
+            <mat-icon> vpn_key</mat-icon>
+            <label for="password">Password</label>
+            </div>
             <input type="password" id="password" name="password" ngModel #password="ngModel" required
                 pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
                 [ngClass]="{'invalid': password.invalid && (password.dirty || password.touched), 'valid': password.valid && (password.dirty || password.touched)}">
@@ -30,14 +39,29 @@
                     one lowercase letter, one number, and one special character.</span>
             </div>
         </div>
-        <div *ngIf="isLoading" class="loading-spinner">
-            <mat-progress-spinner diameter="50" mode="indeterminate" color="warn"></mat-progress-spinner>
+        <div *ngIf="isLoading" class="loading-bar">
+            <mat-progress-bar  mode="indeterminate" color="warn"></mat-progress-bar>
         </div>
-        <button type="submit" class="btn btn-maroon" [disabled]="login.invalid">Login</button>
+        <button type="submit" class="btn btn-maroon" >Submit</button>
+        
+        <div class="fixed-content">
         <a href="#">Forgot password?</a>
         <p class="version">QDTAS HRM 1.1 <br> ©2023 - 2024 QDTAS HRM, Inc. All rights reserved.</p>
+        </div>
     </form>
 
+    <div class="socials">
+        <a class="btn"  href="#!" role="button">
+            <i class="fab fa-instagram"></i>
+        </a>
+        <a class="btn" href="#!" role="button">
+            <i class="fab fa-facebook-f"></i>
+        </a>
+        
+    </div>
+
     
+
+</div>
 
 </div>

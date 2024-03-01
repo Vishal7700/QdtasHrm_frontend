@@ -1,98 +1,221 @@
-<div class="background"></div>
+<div class="adduser">
 
-<div class="container">
+    <div class="card">
+        <div class="container p-2">
+            <form class="adduserform" #addUserData="ngForm" (submit)="saveUser(addUserData.value)">
+                <div class="inp-row">
+                    <h2 class="title mb-3">Add User</h2>
+                    <div class="inp-field">
+                        <div class="inp">
+                            <label class="form-label">Username</label>
+                            <input type="text" class="form-control" id="username" placeholder="Username" ngModel
+                                name="username">
+                        </div>
+                        <div class="inp">
+                            <label class="form-label">Role</label>
+                            <select class="form-control" ngModel name="role">
+                                <option value="ROLE_ADMIN">Admin</option>
+                                <option value="ROLE_USER">User</option>
+                            </select>
+                        </div>
+                    </div>
 
-    <button (click)="showForm = true; clearFormData();" class="btn btn-maroon">Add User</button>
-    <div class="form-container" *ngIf="showForm">
 
-        <form #addUserData="ngForm" (submit)="saveUser(addUserData.value)">
-            <div>
-                <label for="user">Username</label>
-                <input type="text" name="user" placeholder="username" ngModel>
 
-                <label for="role">Role</label>
-                <select name="role" ngModel>
-                    <option value="Admin">Admin</option>
-                    <option value="User">User</option>
-                </select>
+                    <div class="inp-field">
+                        <div class="inp">
+                            <label class="form-label">First Name</label>
+                            <input type="text" class="form-control" id="firstname" placeholder="First name" ngModel
+                                name="firstName">
+                        </div>
+                        <div class="inp">
+                            <label class="form-label">Middle Name</label>
+                            <input type="text" class="form-control" id="middlename" placeholder="Middle name" ngModel
+                                name="middleName">
+                        </div>
+                    </div>
+                    <div class="inp-field">
+                        <div class="inp">
+                            <label class="form-label">Last Name</label>
+                            <input type="text" class="form-control" id="lastname" placeholder="Last name" ngModel
+                                name="lastName">
+                        </div>
+                        <div class="inp">
+                            <label class="form-label">DOB</label>
+                            <input type="date" name="datafield" value="2020-02-25" class="form-control" id="dob"
+                                placeholder="dd-mm-yy" ngModel name="dob">
+                        </div>
+                    </div>
+                    <div class="inp-field">
+                        <div class="inp">
+                            <label class="form-label" for="password">Password</label>
+                            <input type="password" class="form-control" id="password" placeholder="Password" ngModel
+                                name="password">
+                        </div>
+                        <div class="inp">
+                            <label class="form-label" for="confirm_password">Confirm Password</label>
+                            <input type="password" class="form-control" id="confirm_password"
+                                placeholder="Confirm Password" ngModel name="confirmPassword">
+                        </div>
+                    </div>
 
-                <label for="Fname">First name</label>
-                <input type="text" name="Fname" placeholder="First name" ngModel [(ngModel)]="editedUserData.Fname">
+                    <div class="inp-field">
+                        <div class="inp">
+                            <label class="form-label">Gender</label>
+                            <select class="form-control" ngModel name="gender">
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                            </select>
+                        </div>
+                        <div class="inp">
+                            <label class="form-label">Phone Number</label>
+                            <input type="text" class="form-control" id="phoneno" placeholder="Phone No." ngModel
+                                name="phoneno">
+                        </div>
+                    </div>
 
-                <label for="Lname">Last name</label>
-                <input type="text" name="Lname" placeholder="Last name" ngModel [(ngModel)]="editedUserData.Lname">
 
-                <label for="gender">Gender</label>
-                <select name="gender" ngModel>
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                </select>
-            </div>
 
-            <div>
-                <label for="Mname">Middle name</label>
-                <input type="text" name="Mname" placeholder="Middle name" ngModel>
 
-                <label for="deptId">Department</label>
-                <select name="deptId" ngModel>
-                    <option value="QA">QA</option>
-                    <option value="Developer">Developer</option>
-                    <option value="HR">HR</option>
-                    <option value="UI/UX">UI/UX</option>
-                </select>
 
-                <label for="password">Password</label>
-                <input type="password" name="password" placeholder="password" ngModel>
 
-                <label for="confirmPassword">Confirm Password</label>
-                <input type="password" name="confirmPassword" placeholder="Confirm Password" ngModel>
-            </div>
 
-            <button type="submit">{{ editMode ? 'Update' : 'Save' }}</button>
+                    <div>
+                        <label class="form-label">Department</label>
+                        <select class="form-control department-select" ngModel name="department">
+                            <option value="male">Frontend</option>
+                            <option value="female">Backend</option>
+                            <option value="female">Database</option>
+                            <option value="female">Testing</option>
+                        </select>
+                    </div>
 
+                    <div>
+                        <div class="col text-end suv-btn">
+                            <button class="btn btn-maroon" type="submit">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <div class="card">
+        <div class="container p-2">
+            <form>
+                <input type="text" id="myInput" onkeyup="tableSearch()" placeholder="Search.." name="search">
+
+                <table class="table" id="myTable">
+                    <tr class="header">
+                        <th style="width:15%;">Username</th>
+                        <th style="width:15%;">First name</th>
+                        <th style="width:20%;">Middle name</th>
+                        <th style="width:15%;">Last name</th>
+                        <th style="width:5%;">Gender</th>
+                        <th style="width:15%;">Department</th>
+                        <th style="width:15%;">Phone no.</th>
+                        <th style="width:10%;">Designation</th>
+                        <th style="width:10%;">Action</th>
+                    </tr>
+                    <tr *ngFor="let user of users; let i = index">
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.firstName }}</td>
+                        <td>{{ user.middleName }}</td>
+                        <td>{{ user.lastName }}</td>
+                        <td>{{ user.gender }}</td>
+                        <td>{{ user.department }}</td>
+                        <td>{{ user.phoneno }}</td>
+                        <td>{{ user.role }}</td>
+                        <td><div class="icon-container">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                            <span class="icon-space"></span> 
+                            <i class="fa-solid fa-trash-can"></i>
+                        </div></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+
+    <!-- <div class="card">
+    <div class="container p-2">
+        <form>
+            <input type="text" id="myInput" onkeyup="tableSearch()" placeholder="Search.." name="search">
+
+
+            <table class="table" id="myTable" *ngIf="users && users.length">
+                <tr class="header">
+                    <th style="width:15%;">Username</th>
+                    <th style="width:15%;">First name</th>
+                    <th style="width:20%;">Middle name</th>
+                    <th style="width:15%;">Last name</th>
+                    <th style="width:5%;">Gender</th>
+                    <th style="width:15%;">Department</th>
+                    <th style="width:15%;">Phone no.</th>
+                    <th style="width:10%;">Designation</th>
+                </tr>
+                <tr>
+                    <td>lee12</td>
+                    <td>Leena</td>
+                    <td>Mahesh</td>
+                    <td>Birla</td>
+                    <td>Female</td>
+                    <td>Frontend</td>
+                    <td>1234567890</td>
+                    <td>Fresher</td>
+
+                </tr>
+                <tr>
+                    <td>Tanmay45</td>
+                    <td>Tanmay</td>
+                    <td>Suresh</td>
+                    <td>Waghole</td>
+                    <td>Male</td>
+                    <td>Backend</td>
+                    <td>0987654321</td>
+                    <td>Manager</td>
+                </tr>
+                <tr>
+                    <td *ngFor="let user of users; let i = index"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </table>
         </form>
 
-    </div>
+        <script>
+            function tableSearch() {
+                let input, filter, table, tr, td, i, txtvalue;
 
-    <div *ngIf="users && users.length" class="table-container">
-        <h2>Saved User Data</h2>
-        <input type="text" placeholder="search" class="searchbox">
-        <table>
-            <thead>
-                <tr>
-                    <th>Username</th>
-                    <th>Role</th>
-                    <th>First Name</th>
-                    <th>Middle Name</th>
-                    <th>Last Name</th>
-                    <th>Department</th>
-                    <th>Gender</th>
-                    <th>Action</th>
-                    <!-- <th>Delete</th> -->
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let user of users; let i = index">
-                    <td>{{ user.user }}</td>
-                    <td>{{ user.role }}</td>
-                    <td>{{ user.Fname }}</td>
-                    <td>{{ user.Mname }}</td>
-                    <td>{{ user.Lname }}</td>
-                    <td>{{ user.deptId }}</td>
-                    <td>{{ user.gender }}</td>
-                    <td>
-                        <i class="fa-solid fa-pen-to-square" (click)="editUser(user)"></i>
-                        <span class="icon-space"></span> <!-- Add space here -->
-                        <i class="fa-solid fa-trash-can" (click)="deleteUser(i)"></i>
-                    </td>
-                    <!-- <td><i class="fa-solid fa-pen-to-square" (click)="editUser(user)"></i> <i class="fa-solid fa-trash-can" (click)="deleteUser(i)"></i> </td> -->
-                    <!-- <td><button (click)="editUser(user)">Edit</button></td> -->
-                    <!-- <td><i class="fa-solid fa-trash-can" (click)="deleteUser(i)"></i></td> -->
-                    <!-- <td><button (click)="deleteUser(i)">Delete</button></td> -->
-                </tr>
-            </tbody>
-        </table>
-    </div>
+                input = doucument.getElementById("myInput");
+                filter = input.value.toUpperCase();
+                table = document.getElementById("myTable");
+                tr = getElementsByTagName("tr");
 
-    
+                for (i = 0; i < tr.length; i++) {
+                    td = tr[i].getElementsByTagName("td")[0];
+                    if (td) {
+                        txtValue = td.textContent || td.innerText;
+                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                            tr[i].style.display = "";
+                        } else {
+                            tr[i].style.display = "none";
+                        }
+                    }
+                }
+            }
+
+
+
+        </script>
+
+    </div>
+</div> -->
+
 </div>

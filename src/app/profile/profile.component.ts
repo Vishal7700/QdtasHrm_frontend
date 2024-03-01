@@ -7,15 +7,23 @@ import { UserService } from '../service/userServices';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent {
-  sideNavStatus: boolean = false;
+sideNavStatus: boolean = false;
 
 
-  constructor(private UserService: UserService) {
+  constructor(private UserService:UserService){
 
   }
-  // ngOnInit() {
-  //   this.UserService.profile();
-  // }
+  ngOnInit() {
+    this.UserService.profile();
+    }
 
-}
+ isSidebarExpanded: boolean = true;
+
+
+  onToggleSidebar(expanded: boolean) {
+    this.isSidebarExpanded = expanded;
+  }
+
+  }
+
 

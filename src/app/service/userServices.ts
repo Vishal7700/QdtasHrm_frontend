@@ -27,11 +27,17 @@ export class UserService {
     return this.http.post(BASE_API_URL + `/user/login`, data, { headers: this.getHeaders() });
   }
 
-  // profile() {
-  //   let headers = new HttpHeaders()
-  //     .set("Authorization", `bearer ${localStorage.getItem('token')}`);
-  //   this.http.post("http://localhost:4200/userLogin", {}, { headers }).subscribe((result: any) => { })
+
+  // profile(): Observable<any> {
+  //   return this.http.post(BASE_API_URL + `/user/profile`, {}, { headers: this.getHeaders() });
   // }
+
+  
+   profile() {
+    let headers = new HttpHeaders()
+    .set("Authorization", `bearer ${localStorage.getItem('token')}`);
+     this.http.post("http://localhost:4200/userLogin",{},{headers}).subscribe((result:any)=>{})
+  }
 
   addUser(user: any) {
     let headers = new HttpHeaders().set("Authorization", `bearer ${localStorage.getItem('token')}`);

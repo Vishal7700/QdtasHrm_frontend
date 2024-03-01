@@ -1,25 +1,26 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent  implements OnInit{
 
-  @Output() sideNavToggled = new EventEmitter<boolean>();
-  menuStatus: boolean = false;
+   @Output() toggleSidebarForMe: EventEmitter<any> = new EventEmitter();
 
+  constructor(private router: Router) {}
 
-  constructor () { }
+  ngOnInit(): void {}
 
-  ngOnInit(): void {
-    
+  @Output() sidebarCollapsed = new EventEmitter<boolean>();
+  isCollapsed: boolean = false;
+
+  toggleSidebar(): void {
+    this.isCollapsed = !this.isCollapsed;
+    this.sidebarCollapsed.emit(this.isCollapsed);
   }
 
-  SideNavToggle() {
-    this.menuStatus = !this.menuStatus;
-    this.sideNavToggled.emit(this.menuStatus);
-  }
+
 
 }

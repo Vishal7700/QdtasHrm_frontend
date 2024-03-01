@@ -10,10 +10,25 @@ import { HttpClientModule } from '@angular/common/http';
 import { HeaderComponent } from './header/header.component';
 import { AddUserComponent } from './add-user/add-user.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { LeaveComponent } from './leave/leave.component';
 import { TimeComponent } from './time/time.component';
 import { MyInfoComponent } from './my-info/my-info.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatIconModule} from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatListModule } from '@angular/material/list';
+
+
+
+
+
+
+
 
 @NgModule({
   declarations: [
@@ -32,7 +47,14 @@ import { MyInfoComponent } from './my-info/my-info.component';
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    MatProgressSpinnerModule
+  MatProgressBarModule,
+    BrowserAnimationsModule,
+      MatSidenavModule,
+    MatIconModule,
+    MatButtonModule,
+    MatToolbarModule,
+    MatMenuModule,
+    MatListModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
