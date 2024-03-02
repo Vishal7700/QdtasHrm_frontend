@@ -49,22 +49,17 @@
     width: 60px;
 }
 
-
-
-
-
 .mat-list-item {
     padding: 8px 16px;
-    display: block;
 
 }
-
 
 
 .mat-icon {
     margin-right: 8px;
-}
 
+  
+}
 
 
 .sidebar-link {
@@ -75,7 +70,6 @@
 
 .sidebar-link mat-icon {
     margin-right: 8px;
-    align-items: center;
     /* Adjust this value as needed */
 }
 

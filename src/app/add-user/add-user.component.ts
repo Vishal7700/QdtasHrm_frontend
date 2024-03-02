@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { UserService } from '../service/userServices';
 import { Router } from '@angular/router';
-import { NgForm } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 
 
@@ -14,12 +13,16 @@ import { HttpErrorResponse } from '@angular/common/http';
 
 export class AddUserComponent {
 
+
   constructor(private userService: UserService, private router: Router) {
   }
 
   users: any[] = []; // Array to hold user data
 
   saveUser(userData: any) {
+    
+     this.users.push(userData); // Add submitted data to the users array
+  
     console.log(userData);
     this.userService.addUser(userData).subscribe(
       (response: any) => {
@@ -37,6 +40,14 @@ export class AddUserComponent {
       }
     )
   }
+
+
+  deleteUser(index: number): void {
+    if (confirm("Are you sure you want to delete this user?")) {
+      this.users.splice(index, 1); // Remove user from array
+    }
+  }
+
 
 }
 

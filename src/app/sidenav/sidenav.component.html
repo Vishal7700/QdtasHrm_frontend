@@ -6,16 +6,21 @@
         </div>
         <mat-divider></mat-divider>
 
-        <a mat-list-item routerLinkActive="list-item-active" routerLink="/home" class="sidebar-link">
-            <mat-icon>home</mat-icon> <span class="ml-2">Home</span>
+  
+
+        <a mat-list-item routerLinkActive="list-item-active" routerLink="/profile" class="sidebar-link">
+            <mat-icon>home</mat-icon> <span class="ml-2">Admin</span>
         </a>
-        <a mat-list-item routerLinkActive="list-item-active" routerLink="/dashboard" class="sidebar-link">
-            <mat-icon>dashboard</mat-icon> <span class="ml-2">Dashboard</span>
+        <a mat-list-item routerLinkActive="list-item-active" routerLink="/leave" class="sidebar-link">
+            <mat-icon>calendar_today</mat-icon> <span class="ml-2">Leave</span>
         </a>
-        <a mat-list-item class="sidebar-link"> <mat-icon>edit</mat-icon> <span class="ml-2">Link 3</span> </a>
-        <a mat-list-item class="sidebar-link"> <mat-icon>edit</mat-icon> <span class="ml-2">Link 4</span> </a>
-        <a mat-list-item class="sidebar-link"> <mat-icon>edit</mat-icon> <span class="ml-2">Link 5</span> </a>
-        <a mat-list-item class="sidebar-link"> <mat-icon>edit</mat-icon> <span class="ml-2">Link 6</span> </a>
+        <a mat-list-item routerLinkActive="list-item-active" routerLink="/time" class="sidebar-link">
+            <mat-icon>access_time</mat-icon> <span class="ml-2">Time</span>
+        </a>
+        <a mat-list-item routerLinkActive="list-item-active" routerLink="/myinfo" class="sidebar-link">
+            <mat-icon>info</mat-icon> <span class="ml-2">My Info</span>
+        </a>
+       
     </mat-nav-list>
     <button class="toggle-button" (click)="toggleSidebar()">
         <mat-icon>{{ isExpanded ? 'chevron_right' : 'chevron_left' }}</mat-icon>
