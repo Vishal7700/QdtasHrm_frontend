@@ -29,7 +29,7 @@ export class UserService {
 
 
   login(data: any) {
-    return this.http.post(BASE_API_URL + `/user/login`, data, { headers: this.getHeaders() });
+    return this.http.post(BASE_API_URL + `/user/login`, data);
   }
 
 
