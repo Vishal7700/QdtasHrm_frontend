@@ -19,17 +19,18 @@ export class UserService {
     const token = localStorage.getItem('token');
     return new HttpHeaders().set('Authorization', `Bearer ${token}`);
   }
-  getHeadersWithToken() {
+  getHeadersWithoutToken() {
     const headers = new HttpHeaders({
-      "Authorization": `bearer ${localStorage.getItem('token')}`
-    })
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
+    });
     return headers;
   }
 
 
 
   login(data: any) {
-    return this.http.post(BASE_API_URL + `/user/login`, data);
+    return this.http.post(BASE_API_URL + `/user/login`, data, { headers: this.getHeadersWithoutToken() });
   }
 
 

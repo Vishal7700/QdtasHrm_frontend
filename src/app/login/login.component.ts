@@ -30,9 +30,11 @@ export class LoginComponent {
         }
         else if (error.status == 400) {
           alert("Something went wrong with your request. Please try again later.");
+          console.log(error.status, error.error.message);
         }
         else {
           alert("An unexpected error occurred. Please try again later.");
+          console.log(error.status, error.error.message);
         }
       }
     )
