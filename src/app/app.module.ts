@@ -23,6 +23,8 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatListModule } from '@angular/material/list';
 import { EditUserComponent } from './edit-user/edit-user.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { TempPasswordComponent } from './temp-password/temp-password.component';
 
 
 
@@ -42,7 +44,9 @@ import { EditUserComponent } from './edit-user/edit-user.component';
     LeaveComponent,
     TimeComponent,
     MyInfoComponent,
-    EditUserComponent
+    EditUserComponent,
+    ResetPasswordComponent,
+    TempPasswordComponent
   ],
   imports: [
     BrowserModule,

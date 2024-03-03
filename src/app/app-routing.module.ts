@@ -7,6 +7,8 @@ import { LeaveComponent } from './leave/leave.component';
 import { TimeComponent } from './time/time.component';
 import { MyInfoComponent } from './my-info/my-info.component';
 import { EditUserComponent } from './edit-user/edit-user.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { TempPasswordComponent } from './temp-password/temp-password.component';
 
 const routes: Routes = [
   {
@@ -32,10 +34,22 @@ const routes: Routes = [
    {
     component:MyInfoComponent,
     path: 'myinfo'
-  },{
+  },
+  {
     component:EditUserComponent,
     path: 'edit-user'
+  },
+  {
+    component:ResetPasswordComponent,
+    path:'reset'
+  },
+  {
+    component:TempPasswordComponent,
+    path: 'temp'
   }
+
+ 
+
 
 
 ];
