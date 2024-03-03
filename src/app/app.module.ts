@@ -22,6 +22,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatListModule } from '@angular/material/list';
+import { EditUserComponent } from './edit-user/edit-user.component';
 
 
 
@@ -40,7 +41,8 @@ import { MatListModule } from '@angular/material/list';
     SidenavComponent,
     LeaveComponent,
     TimeComponent,
-    MyInfoComponent
+    MyInfoComponent,
+    EditUserComponent
   ],
   imports: [
     BrowserModule,

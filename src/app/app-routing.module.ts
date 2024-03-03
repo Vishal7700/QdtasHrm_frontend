@@ -6,6 +6,7 @@ import { AddUserComponent } from './add-user/add-user.component';
 import { LeaveComponent } from './leave/leave.component';
 import { TimeComponent } from './time/time.component';
 import { MyInfoComponent } from './my-info/my-info.component';
+import { EditUserComponent } from './edit-user/edit-user.component';
 
 const routes: Routes = [
   {
@@ -31,6 +32,9 @@ const routes: Routes = [
    {
     component:MyInfoComponent,
     path: 'myinfo'
+  },{
+    component:EditUserComponent,
+    path: 'edit-user'
   }
 
 
