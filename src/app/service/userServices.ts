@@ -45,8 +45,6 @@ export class UserService {
   }
 
  
-
- 
   deleteUser(userId: number) {
     let headers = new HttpHeaders().set("Authorization", `bearer ${localStorage.getItem('token')}`);
     this.http.delete(`http://localhost:4200/deleteUser/${userId}`, { headers })

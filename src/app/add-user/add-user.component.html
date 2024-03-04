@@ -140,7 +140,7 @@
                             <select class="form-control" ngModel name="deptId"  required #deptId="ngModel"
                                 [ngClass]="{'invalid': deptId.invalid && (deptId.dirty || deptId.touched), 'valid': deptId.valid && (deptId.dirty ||
                                 deptId.touched)}">
-                                <option selected>Select Department</option>
+                                <option selected [disabled]="true" >Select Department</option>
                                 <option value=1>DEVELOPER</option>
                                 <option value=3>QA</option>
                                 <option value=4>MARKETING</option>
@@ -158,7 +158,7 @@
                                 
                                 [ngClass]="{'invalid': role.invalid && (role.dirty || role.touched), 'valid': role.valid && (role.dirty ||
                                 role.touched)}">
-                                <option selected>Select Role</option>
+                                <option selected [disabled]="true" >Select Role</option>
                                 <option value="ROLE_ADMIN">Admin</option>
                                 <option value="ROLE_USER">User</option>
                                 </select>
@@ -170,7 +170,7 @@
                     </div>
                     <div>
                         <div class="col text-end suv-btn">
-                            <button class="btn btn-maroon" type="submit">Submit</button>
+                            <button class="btn btn-maroon" type="submit"  [disabled]="!addUserData.valid"  >Submit</button>
                         </div>
                     </div>
                 </div>
