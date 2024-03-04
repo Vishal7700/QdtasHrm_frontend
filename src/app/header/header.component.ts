@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
+import { UserService } from '../service/userServices';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -9,7 +10,7 @@ export class HeaderComponent  implements OnInit{
 
    @Output() toggleSidebarForMe: EventEmitter<any> = new EventEmitter();
 
-  constructor(private router: Router) {}
+constructor(private userService: UserService, private router: Router) {}
 
   ngOnInit(): void {}
 
@@ -19,6 +20,21 @@ export class HeaderComponent  implements OnInit{
   toggleSidebar(): void {
     this.isCollapsed = !this.isCollapsed;
     this.sidebarCollapsed.emit(this.isCollapsed);
+  }
+
+  isLoggedIn() {
+    const token = localStorage.getItem("token");
+    if (token == null || token.length <= 0 ) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+
+  logout() {
+    this.userService.clearc(); 
+    this.router.navigate(['/']); 
   }
 
 

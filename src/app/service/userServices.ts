@@ -27,11 +27,26 @@ export class UserService {
     return headers;
   }
 
-
+// <----  Authemtication Services
 
   login(data: any) {
     return this.http.post(BASE_API_URL + `/user/login`, data, { headers: this.getHeadersWithoutToken() });
   }
+
+  clearc() {
+    localStorage.clear();
+  }
+
+  isLoggedIn() {
+    const token = localStorage.getItem("token");
+    if (token == null || token.length <= 0 ) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  //  Authemtication Services ---->
 
 
   profile() {
@@ -43,6 +58,13 @@ export class UserService {
     let headers = new HttpHeaders().set("Authorization", `Bearer ${localStorage.getItem('token')}`);
     return this.http.post<any>(BASE_API_URL + `/user/add`, user, { headers: this.getHeaders() });
   }
+
+
+  //   applyLeave(user: any) {
+  //   let headers = new HttpHeaders().set("Authorization", `Bearer ${localStorage.getItem('token')}`);
+  //   return this.http.post<any>(BASE_API_URL + `/user/leave`, user, { headers: this.getHeaders() });
+  // }
+
 
  
   deleteUser(userId: number) {
