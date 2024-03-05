@@ -3,6 +3,7 @@ import { UserService } from '../service/userServices';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatButton } from '@angular/material/button';
 
 
 @Component({
@@ -28,7 +29,7 @@ export class AddUserComponent {
     this.userService.addUser(userData).subscribe(
       (response: any) => {
         console.log(response);
-        this.openSnackBar(`User added successfully: ${JSON.stringify(response)}`);
+        this.openSnackBar(`User added successfully`);
         window.location.reload();
       },
       (error: HttpErrorResponse) => {
@@ -50,17 +51,28 @@ export class AddUserComponent {
     });
   }
 
-
 deleteUser(index: number): void {
-  const snackBarRef = this.snackBar.open('Are you sure you want to delete?',  'Yes', {
+  const snackBarRef = this.snackBar.open('Are you sure you want to delete?', 'Yes', {
     duration: 0,
-    verticalPosition:'top'
+    verticalPosition: 'top',
+    panelClass: ['custom-snackbar'],
+    
+     // Add a custom class for styling if needed
   });
 
+  // Adding an action for "Yes"
   snackBarRef.onAction().subscribe(() => {
     this.users.splice(index, 1); // Remove user from array
   });
+
+  // Adding an action for "No"
+  snackBarRef.afterDismissed().subscribe((dismissedAction) => {
+    if (!dismissedAction.dismissedByAction) {
+   
+    }
+  });
 }
+
 
 
 
