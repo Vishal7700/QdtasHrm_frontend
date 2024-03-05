@@ -23,7 +23,7 @@ export class UserService {
   getHeadersWithoutToken() {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Origin': '*'
     });
     return headers;
   }
@@ -50,9 +50,12 @@ export class UserService {
   //  Authemtication Services ---->
 
   resetPassword(email: string) {
-    let headers = new HttpHeaders().set("Authorization", `Bearer ${localStorage.getItem('token')}`);
-    const reqParams = new HttpParams().set('email', email);
     return this.http.post<any>(BASE_API_URL + `/user/resetPassword?email=` + email, { headers: this.getHeadersWithoutToken() });
+  }
+
+  changeTempPass(cp: any) {
+    return this.http.post<any>(BASE_API_URL + `/user/changeTempPassword`, cp, { headers: this.getHeadersWithoutToken() });
+
   }
 
   profile() {
@@ -72,7 +75,6 @@ export class UserService {
   getAllUsers(currentPage: number, resultSize: number) {
     return this.http.get<User[]>(BASE_API_URL + `/user/getAll?pgn=` + currentPage + `&sz=` + resultSize, { headers: this.getHeaders() });
   }
-
 
   getUserById(uId: number) {
     return this.http.get<any>(BASE_API_URL + `/user/` + uId, { headers: this.getHeaders() });
