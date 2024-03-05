@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { UserService } from '../service/userServices';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { User } from '../model/user';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -12,19 +14,26 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 
 
-export class AddUserComponent {
+export class AddUserComponent implements OnInit {
+  users: User[] = [];
+  resultPage: number = 1;
+  resultSize: number = 10;
+  hasMoreResult: boolean = true;
+  fetchingResult: boolean = false;
+  sideNavStatus: boolean = false;
+  private subscriptions: Subscription[] = [];
+
 
 
   constructor(private userService: UserService, private router: Router, private snackBar: MatSnackBar) {
   }
 
+  ngOnInit(): void {
+    this.loadUsers(this.resultPage);
+  }
 
-  users: any[] = []; // Array to hold user data
-
-  
-
-    saveUser(userData: any) {
-      this.users.push(userData)
+  saveUser(userData: any) {
+    this.users.push(userData)
     this.userService.addUser(userData).subscribe(
       (response: any) => {
         console.log(response);
@@ -51,17 +60,36 @@ export class AddUserComponent {
   }
 
 
-deleteUser(index: number): void {
-  const snackBarRef = this.snackBar.open('Are you sure you want to delete?',  'Yes', {
-    duration: 0,
-    verticalPosition:'top'
-  });
+  deleteUser(index: number): void {
+    const snackBarRef = this.snackBar.open('Are you sure you want to delete?', 'Yes', {
+      duration: 0,
+      verticalPosition: 'top'
+    });
 
-  snackBarRef.onAction().subscribe(() => {
-    this.users.splice(index, 1); // Remove user from array
-  });
-}
+    snackBarRef.onAction().subscribe(() => {
+      this.users.splice(index, 1); // Remove user from array
+    });
+  }
 
+  loadUsers(currentPage: number): void {
+    this.subscriptions.push(
+      this.userService.getAllUsers(currentPage, this.resultSize).subscribe(
+        (us: User[]) => {
+          us.forEach(usr => this.users.push(usr));
+          if (this.users.length <= 0 && this.resultPage === 1)
+            if (this.users.length <= 0) this.hasMoreResult = false;
+          this.fetchingResult = false;
+          this.resultPage++;
+        }, (error) => {
+          console.log(error.error.message);
+        }
+      )
+    );
+  }
+
+  loadMoreUsers(): void {
+    this.loadUsers(this.resultPage);
+  }
 
 
 }
