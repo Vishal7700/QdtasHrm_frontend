@@ -1,29 +1,30 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { UserService } from '../service/userServices';
+import { User } from '../model/user';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css']
 })
-export class ProfileComponent {
-sideNavStatus: boolean = false;
+export class ProfileComponent implements OnInit {
+
+  isSidebarExpanded: boolean = true;
 
 
-  constructor(private UserService:UserService){
-
+  constructor(private userService: UserService) {
   }
-  ngOnInit() {
-    this.UserService.profile();
-    }
 
- isSidebarExpanded: boolean = true;
+  ngOnInit() {
+    this.userService.profile();
+  }
 
 
   onToggleSidebar(expanded: boolean) {
     this.isSidebarExpanded = expanded;
   }
 
-  }
+}
 
 

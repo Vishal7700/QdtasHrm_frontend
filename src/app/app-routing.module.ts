@@ -12,43 +12,43 @@ import { TempPasswordComponent } from './temp-password/temp-password.component';
 
 const routes: Routes = [
   {
-    component:LoginComponent,
+    component: LoginComponent,
     path: ''
   },
-   {
-    component:ProfileComponent,
+  {
+    component: ProfileComponent,
     path: 'profile'
   },
-   {
-    component:AddUserComponent,
+  {
+    component: AddUserComponent,
     path: 'adduser'
   },
-   {
-    component:LeaveComponent,
+  {
+    component: LeaveComponent,
     path: 'leave'
   },
-   {
-    component:TimeComponent,
+  {
+    component: TimeComponent,
     path: 'time'
   },
-   {
-    component:MyInfoComponent,
+  {
+    component: MyInfoComponent,
     path: 'myinfo'
   },
   {
-    component:EditUserComponent,
+    component: EditUserComponent,
     path: 'edit-user'
   },
   {
-    component:ResetPasswordComponent,
-    path:'reset'
+    component: ResetPasswordComponent,
+    path: 'reset'
   },
   {
-    component:TempPasswordComponent,
-    path: 'temp'
+    component: TempPasswordComponent,
+    path: 'changeTempPassword'
   }
 
- 
+
 
 
 
