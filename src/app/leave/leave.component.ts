@@ -24,5 +24,19 @@ export class LeaveComponent {
   onToggleSidebar(expanded: boolean) {
     this.isSidebarExpanded = expanded;
   }
+  users: any[] = []; // Array to hold user data
+
+  applyLeave(userData: any) {
+    this.users.push(userData); // Add submitted user data to the array
+    // Clear the form fields after submission
+    userData = {};
+  }
+
+    deleteUser(index: number): void {
+    if (confirm("Are you sure you want to delete this user?")) {
+      this.users.splice(index, 1); // Remove user from array
+    }
+  }
+
 
 }

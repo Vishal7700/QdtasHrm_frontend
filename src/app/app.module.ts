@@ -15,7 +15,7 @@ import { LeaveComponent } from './leave/leave.component';
 import { TimeComponent } from './time/time.component';
 import { MyInfoComponent } from './my-info/my-info.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
@@ -61,6 +61,7 @@ import { TempPasswordComponent } from './temp-password/temp-password.component';
     MatToolbarModule,
     MatMenuModule,
     MatListModule,
+    MatSnackBarModule,
   
   ],
   providers: [],

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { UserService } from '../service/userServices';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -14,41 +15,53 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class AddUserComponent {
 
 
-  constructor(private userService: UserService, private router: Router) {
+  constructor(private userService: UserService, private router: Router, private snackBar: MatSnackBar) {
   }
+
 
   users: any[] = []; // Array to hold user data
 
-  saveUser(userData: any) {
-    
-     this.users.push(userData); // Add submitted data to the users array
   
-    console.log(userData);
+
+    saveUser(userData: any) {
+      this.users.push(userData)
     this.userService.addUser(userData).subscribe(
       (response: any) => {
-        console.log(response)
-        alert("User added successfully.");
+        console.log(response);
+        this.openSnackBar(`User added successfully: ${JSON.stringify(response)}`);
         window.location.reload();
-      }, (error: HttpErrorResponse) => {
+      },
+      (error: HttpErrorResponse) => {
         if (error.status == 400) {
-          alert(error.error.message);
-        }
-        else {
-          alert("An unexpected error occurred. Please try again later.");
-          console.log(error.status, error.message)
+          this.openSnackBar(error.error.message);
+        } else {
+          this.openSnackBar("An unexpected error occurred. Please try again later.");
+          console.log(error.status, error.message);
         }
       }
-    )
+    );
+  }
 
-    
+  openSnackBar(message: string): void {
+    this.snackBar.open(message, 'Close', {
+      duration: 60000,
+      verticalPosition: 'top'
+      // 1 minute in milliseconds
+    });
   }
 
 
-  deleteUser(index: number): void {
-    if (confirm("Are you sure you want to delete this user?")) {
-      this.users.splice(index, 1); // Remove user from array
-    }
-  }
+deleteUser(index: number): void {
+  const snackBarRef = this.snackBar.open('Are you sure you want to delete?',  'Yes', {
+    duration: 0,
+    verticalPosition:'top'
+  });
+
+  snackBarRef.onAction().subscribe(() => {
+    this.users.splice(index, 1); // Remove user from array
+  });
+}
+
 
 
 }
