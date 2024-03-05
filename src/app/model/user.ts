@@ -2,7 +2,7 @@ import { Department } from "./department";
 import { Project } from "./project";
 
 export class User {
-     userId: number | undefined;
+     userId!: number;
      userName: string | undefined;
      email: string | undefined;
      password: string | undefined;

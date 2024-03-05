@@ -15,6 +15,7 @@ import { Subscription } from 'rxjs';
 
 
 export class AddUserComponent implements OnInit {
+
   users: User[] = [];
   resultPage: number = 1;
   resultSize: number = 10;
@@ -26,6 +27,7 @@ export class AddUserComponent implements OnInit {
 
 
   constructor(private userService: UserService, private router: Router, private snackBar: MatSnackBar) {
+
   }
 
   ngOnInit(): void {
@@ -33,7 +35,7 @@ export class AddUserComponent implements OnInit {
   }
 
   saveUser(userData: any) {
-    this.users.push(userData)
+    this.users.push(userData);
     this.userService.addUser(userData).subscribe(
       (response: any) => {
         console.log(response);
@@ -60,14 +62,22 @@ export class AddUserComponent implements OnInit {
   }
 
 
-  deleteUser(index: number): void {
+  deleteUser(uId: number): void {
     const snackBarRef = this.snackBar.open('Are you sure you want to delete?', 'Yes', {
       duration: 0,
       verticalPosition: 'top'
     });
 
     snackBarRef.onAction().subscribe(() => {
-      this.users.splice(index, 1); // Remove user from array
+      this.userService.deleteUser(uId).subscribe(
+        (response: any) => {
+          this.openSnackBar(response.message);
+          window.location.reload();
+        },
+        (error: any) => {
+          console.log(error.error.message);
+        }
+      );
     });
   }
 
@@ -93,6 +103,7 @@ export class AddUserComponent implements OnInit {
 
 
 }
+
 
 
 

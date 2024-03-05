@@ -180,6 +180,7 @@
 
                 <table class="table" id="myTable">
                     <tr class="header">
+                        <th style="width:15%;">User-Id</th>
                         <th style="width:15%;">Username</th>
                         <th style="width:15%;">First name</th>
                         <th style="width:20%;">Middle name</th>
@@ -190,7 +191,8 @@
                         <th style="width:10%;">Designation</th>
                         <th style="width:10%;">Action</th>
                     </tr>
-                    <tr *ngFor="let user of users; let i = index">
+                    <tr *ngFor="let user of users;">
+                        <td>{{ user.userId }}</td>
                         <td>{{ user.userName }}</td>
                         <td>{{ user.firstName }}</td>
                         <td>{{ user.middleName }}</td>
@@ -198,12 +200,12 @@
                         <td>{{ user.gender }}</td>
                         <td>{{ user.dept?.deptName }}</td>
                         <td>{{ user.phoneNumber }}</td>
-                        <td>{{ user.role }}</td>
+                        <td>{{ user.designation }}</td>
                         <td>
                             <div class="icon-container">
-                                <i class="fa-solid fa-pen-to-square" routerLink="/edit-user"></i>
+                                <i class="fa-solid fa-pen-to-square" [routerLink]="['/edit-user',user.userId]"></i>
                                 <span class="icon-space"></span>
-                                <i class="fa-solid fa-trash-can" (click)="deleteUser(i)"></i>
+                                <i class="fa-solid fa-trash-can" (click)="deleteUser(user.userId)"></i>
                             </div>
                         </td>
                     </tr>

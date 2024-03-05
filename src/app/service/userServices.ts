@@ -74,13 +74,9 @@ export class UserService {
   }
 
 
-  getUser() {
-    let headers = new HttpHeaders().set("Authorization", `Bearer ${localStorage.getItem('token')}`);
-    return this.http.get<any>(BASE_API_URL + `/user/id/${1}`, { headers: this.getHeaders() });
+  getUserById(uId: number) {
+    return this.http.get<any>(BASE_API_URL + `/user/` + uId, { headers: this.getHeaders() });
   }
-
-
-
 
   //   applyLeave(user: any) {
   //   let headers = new HttpHeaders().set("Authorization", `Bearer ${localStorage.getItem('token')}`);
@@ -89,15 +85,13 @@ export class UserService {
 
 
 
-  // deleteUser(userId: number) {
-  //   let headers = new HttpHeaders().set("Authorization", `bearer ${localStorage.getItem('token')}`);
-  //   this.http.delete(`http://localhost:4200/deleteUser/${userId}`, { headers })
-  //     .subscribe((result: any) => {
-  //     })
-  // }
+  deleteUser(userId: number) {
+    return this.http.post<String>(BASE_API_URL + `/user/deleteUser?uId=` + userId, userId, { headers: this.getHeaders() });
+
+  }
 
   // editUser(userId: number, updatedUser: any) {
-  //   let headers = new HttpHeaders().set("Authorization", `bearer ${localStorage.getItem('token')}`);
+  //   let headers = new HttpHeaders().set("Authorization", `bearer ${ localStorage.getItem('token') }`);
   //   this.http.put(`http://localhost:4200/editUser/${userId}`, updatedUser, { headers })
   //     .subscribe((result: any) => {
   //     })
