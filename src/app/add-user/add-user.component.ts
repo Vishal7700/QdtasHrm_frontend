@@ -3,6 +3,8 @@ import { UserService } from '../service/userServices';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { User } from '../model/user';
+import { Subscription } from 'rxjs';
 
 
 @Component({
