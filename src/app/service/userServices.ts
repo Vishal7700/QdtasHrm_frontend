@@ -23,7 +23,7 @@ export class UserService {
   getHeadersWithoutToken() {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Origin': '*'
     });
     return headers;
   }
@@ -50,9 +50,12 @@ export class UserService {
   //  Authemtication Services ---->
 
   resetPassword(email: string) {
-    let headers = new HttpHeaders().set("Authorization", `Bearer ${localStorage.getItem('token')}`);
-    const reqParams = new HttpParams().set('email', email);
     return this.http.post<any>(BASE_API_URL + `/user/resetPassword?email=` + email, { headers: this.getHeadersWithoutToken() });
+  }
+
+  changeTempPass(cp: any) {
+    return this.http.post<any>(BASE_API_URL + `/user/changeTempPassword`, cp, { headers: this.getHeadersWithoutToken() });
+
   }
 
   profile() {
@@ -73,14 +76,9 @@ export class UserService {
     return this.http.get<User[]>(BASE_API_URL + `/user/getAll?pgn=` + currentPage + `&sz=` + resultSize, { headers: this.getHeaders() });
   }
 
-
-  getUser() {
-    let headers = new HttpHeaders().set("Authorization", `Bearer ${localStorage.getItem('token')}`);
-    return this.http.get<any>(BASE_API_URL + `/user/id/${1}`, { headers: this.getHeaders() });
+  getUserById(uId: number) {
+    return this.http.get<any>(BASE_API_URL + `/user/` + uId, { headers: this.getHeaders() });
   }
-
-
-
 
   //   applyLeave(user: any) {
   //   let headers = new HttpHeaders().set("Authorization", `Bearer ${localStorage.getItem('token')}`);
@@ -89,15 +87,13 @@ export class UserService {
 
 
 
-  // deleteUser(userId: number) {
-  //   let headers = new HttpHeaders().set("Authorization", `bearer ${localStorage.getItem('token')}`);
-  //   this.http.delete(`http://localhost:4200/deleteUser/${userId}`, { headers })
-  //     .subscribe((result: any) => {
-  //     })
-  // }
+  deleteUser(userId: number) {
+    return this.http.post<String>(BASE_API_URL + `/user/deleteUser?uId=` + userId, userId, { headers: this.getHeaders() });
+
+  }
 
   // editUser(userId: number, updatedUser: any) {
-  //   let headers = new HttpHeaders().set("Authorization", `bearer ${localStorage.getItem('token')}`);
+  //   let headers = new HttpHeaders().set("Authorization", `bearer ${ localStorage.getItem('token') }`);
   //   this.http.put(`http://localhost:4200/editUser/${userId}`, updatedUser, { headers })
   //     .subscribe((result: any) => {
   //     })
