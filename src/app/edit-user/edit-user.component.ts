@@ -1,38 +1,30 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { User } from '../model/user';
-import { UserService } from '../service/userServices';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-edit-user',
   templateUrl: './edit-user.component.html',
   styleUrls: ['./edit-user.component.css']
 })
-export class EditUserComponent implements OnInit {
+export class EditUserComponent {
+  selectedField: string = '';
+  newUsername: string = '';
+  newEmail: string = '';
+  newfirstName: string = '';
+  newmiddleName: string = '';
+  newlastName: string = '';
+  newphoneno: number = 0;
+  newbirthdate: string = '';
+  newdeptId: string = '';
+  newgender: string = '';
+  newrole: string = '';
+  newdesignation: string = '';
+  newpassword: string = ' ';
 
-  constructor(private route: ActivatedRoute, private userService: UserService) { }
-  receivedId!: any;
-
-  user!: User;
-
-  ngOnInit() {
-    this.route.paramMap.subscribe(params => {
-      this.receivedId = params.get('uId');
-    });
-    this.getUserById(this.receivedId);
+  onFieldSelect(event: any) {
+    this.selectedField = event.target.value;
   }
 
-  getUserById(uId: number) {
-    this.userService.getUserById(uId).subscribe(
-      (response: User) => {
-        this.user = response;
-        console.log(this.user);
-      },
-      (error: any) => {
-        console.log(error.error.message);
-      }
-    );
-
+  saveEditedData(data:any) {
+    console.log(data)
   }
-
 }
