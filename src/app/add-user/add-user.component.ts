@@ -62,18 +62,8 @@ export class AddUserComponent implements OnInit {
   }
 
 
-<<<<<<< HEAD
-deleteUser(index: number): void {
-  const snackBarRef = this.snackBar.open('Are you sure you want to delete?',  'Yes', {
-    duration: 0,
-    verticalPosition:'top'
-  });
 
-  snackBarRef.onAction().subscribe(() => {
-    this.users.splice(index, 1); // Remove user from array
-  });
-}
-=======
+
   deleteUser(uId: number): void {
     const snackBarRef = this.snackBar.open('Are you sure you want to delete?', 'Yes', {
       duration: 0,
@@ -92,7 +82,7 @@ deleteUser(index: number): void {
       );
     });
   }
->>>>>>> 4c38bc403b95141b2d115a902280b03a20f4fa4e
+
 
   loadUsers(currentPage: number): void {
     this.subscriptions.push(
