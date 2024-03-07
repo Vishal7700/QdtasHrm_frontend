@@ -35,19 +35,17 @@ export class AddUserComponent implements OnInit {
   }
 
   saveUser(userData: any) {
-    this.users.push(userData);
     this.userService.addUser(userData).subscribe(
       (response: any) => {
         console.log(response);
-        this.openSnackBar(`User added successfully: ${JSON.stringify(response)}`);
+        this.openSnackBar(`User added successfully.`);
         window.location.reload();
       },
-      (error: HttpErrorResponse) => {
+      (error: any) => {
         if (error.status == 400) {
           this.openSnackBar(error.error.message);
         } else {
-          this.openSnackBar("An unexpected error occurred. Please try again later.");
-          console.log(error.status, error.message);
+          this.openSnackBar(error.error.message);
         }
       }
     );
@@ -75,7 +73,7 @@ export class AddUserComponent implements OnInit {
           window.location.reload();
         },
         (error: any) => {
-          console.log(error.error.message);
+          this.openSnackBar(error.error.message);
         }
       );
     });

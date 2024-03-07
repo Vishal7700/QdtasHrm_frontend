@@ -29,6 +29,9 @@
                         </div>
                     </div>
                     <div class="inp-field">
+
+                    </div>
+                    <div class="inp-field">
                         <div class="inp">
                             <label class="form-label">First Name</label>
                             <input type="text" class="form-control" id="firstname" placeholder="First name" ngModel
@@ -63,17 +66,12 @@
                                 <span *ngIf="lastName.errors?.['pattern']">Please enter only alphabets</span>
                             </div>
                         </div>
+
                         <div class="inp">
-                            <label class="form-label">DOB</label>
-                            <input type="date" name="datafield" class="form-control" id="dob" placeholder="dd-mm-yy"
-                                ngModel name="birthDate" required #birthDate="ngModel" pattern="\d{4}-\d{2}-\d{2}"
-                                [ngClass]="{'invalid': birthDate.invalid && (birthDate.dirty || birthDate.touched), 'valid': birthDate.valid && (birthDate.dirty ||
-                                birthDate.touched)}">
-                            <div *ngIf="birthDate.invalid && (birthDate.dirty || birthDate.touched)"
-                                class="error-message">
-                                <span *ngIf="birthDate.errors?.['required']">Please enter Birthdate</span>
-                                <span *ngIf="birthDate.errors?.['pattern']">Please enter in YYYY-MM-DD</span>
-                            </div>
+                            <label class="form-label">Designation</label>
+                            <input type="text" class="form-control" id="designation" placeholder="designation" ngModel
+                                required name="designation" #designation="ngModel" [ngClass]="{'invalid': designation.invalid && (designation.dirty || designation.touched), 'valid': designation.valid && (designation.dirty ||
+                                designation.touched)}">
                         </div>
                     </div>
                     <div class="inp-field">
@@ -119,12 +117,13 @@
                         </div>
                         <div class="inp">
                             <label class="form-label">Phone Number</label>
-                            <input type="text" class="form-control" id="phoneno" placeholder="Phone No." ngModel
-                                name="phoneno" required #phoneno="ngModel" pattern="^[0-9]{10}$" [ngClass]="{'invalid': phoneno.invalid && (phoneno.dirty || phoneno.touched), 'valid': phoneno.valid && (phoneno.dirty ||
-                                phoneno.touched)}">
-                            <div *ngIf="phoneno.invalid && (phoneno.dirty || phoneno.touched)" class="error-message">
-                                <span *ngIf="phoneno.errors?.['required']">Please enter phone number</span>
-                                <span *ngIf="phoneno.errors?.['pattern']">please enter 10 digits number</span>
+                            <input type="text" class="form-control" id="phoneNumber" placeholder="Phone No." ngModel
+                                name="phoneNumber" required #phoneNumber="ngModel" pattern="^[0-9]{10}$" [ngClass]="{'invalid': phoneNumber.invalid && (phoneNumber.dirty || phoneNumber.touched), 'valid': phoneNumber.valid && (phoneNumber.dirty ||
+                                phoneNumber.touched)}">
+                            <div *ngIf="phoneNumber.invalid && (phoneNumber.dirty || phoneNumber.touched)"
+                                class="error-message">
+                                <span *ngIf="phoneNumber.errors?.['required']">Please enter phone number</span>
+                                <span *ngIf="phoneNumber.errors?.['pattern']">please enter 10 digits number</span>
                             </div>
                         </div>
                     </div>
@@ -143,7 +142,6 @@
                                 <span *ngIf="deptId.errors?.['required']">Please select department</span>
 
                             </div>
-
                         </div>
                         <div class="inp">
                             <label class="form-label">Role</label>
@@ -159,12 +157,24 @@
 
                         </div>
                     </div>
+                    <div class="inp-field">
+                        <div class="inp">
+                            <label class="form-label">DOB</label>
+                            <input type="date" name="datafield" class="form-control" id="dob" placeholder="dd-mm-yy"
+                                ngModel name="birthDate" required #birthDate="ngModel" pattern="\d{4}-\d{2}-\d{2}"
+                                [ngClass]="{'invalid': birthDate.invalid && (birthDate.dirty || birthDate.touched), 'valid': birthDate.valid && (birthDate.dirty ||
+                                birthDate.touched)}">
+                            <div *ngIf="birthDate.invalid && (birthDate.dirty || birthDate.touched)"
+                                class="error-message">
+                                <span *ngIf="birthDate.errors?.['required']">Please enter Birthdate</span>
+                                <span *ngIf="birthDate.errors?.['pattern']">Please enter in YYYY-MM-DD</span>
+                            </div>
+                        </div>
+                    </div>
                     <div>
                         <div class="col text-end suv-btn">
                             <button class="btn btn-maroon" type="submit" [disabled]="!addUserData.valid">Submit</button>
                         </div>
-
-
                     </div>
                 </div>
             </form>
