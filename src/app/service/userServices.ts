@@ -55,7 +55,10 @@ export class UserService {
 
   changeTempPass(cp: any) {
     return this.http.post<any>(BASE_API_URL + `/user/changeTempPassword`, cp, { headers: this.getHeadersWithoutToken() });
+  }
 
+  updateUser(uId: number, user: any) {
+    return this.http.post<any>(BASE_API_URL + `/user/updateUser/` + uId, user, { headers: this.getHeaders() });
   }
 
   profile() {

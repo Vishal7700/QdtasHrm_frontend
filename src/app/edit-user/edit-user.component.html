@@ -116,12 +116,13 @@
                         <div class="inp">
                             <label class="form-label">New Phone number</label>
                             <input type="text" class="form-control" [(ngModel)]="newphoneno" id="phoneno"
-                                placeholder="Phone No." ngModel name="phoneno" required #phoneno="ngModel"
-                                pattern="^[0-9]{10}$" [ngClass]="{'invalid': phoneno.invalid && (phoneno.dirty || phoneno.touched), 'valid': phoneno.valid && (phoneno.dirty ||
-                                phoneno.touched)}">
-                            <div *ngIf="phoneno.invalid && (phoneno.dirty || phoneno.touched)" class="error-message">
-                                <span *ngIf="phoneno.errors?.['required']">Please enter phone number</span>
-                                <span *ngIf="phoneno.errors?.['pattern']">please enter 10 digits number</span>
+                                placeholder="Phone No." ngModel name="phoneNumber" required #phoneNumber="ngModel"
+                                pattern="^[0-9]{10}$" [ngClass]="{'invalid': phoneNumber.invalid && (phoneNumber.dirty || phoneNumber.touched), 'valid': phoneNumber.valid && (phoneNumber.dirty ||
+                                phoneNumber.touched)}">
+                            <div *ngIf="phoneNumber.invalid && (phoneNumber.dirty || phoneNumber.touched)"
+                                class="error-message">
+                                <span *ngIf="phoneNumber.errors?.['required']">Please enter phone number</span>
+                                <span *ngIf="phoneNumber.errors?.['pattern']">please enter 10 digits number</span>
                             </div>
                         </div>
                     </div>
@@ -172,8 +173,8 @@
                             <select class="form-control" ngModel name="gender" required #gender="ngModel"
                                 [(ngModel)]="newgender" [ngClass]="{'invalid': gender.invalid && (gender.dirty || gender.touched), 'valid': gender.valid && (gender.dirty ||
                                 gender.touched)}">
-                                <option value="male">Male</option>
-                                <option value="female">Female</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
                             </select>
                             <div *ngIf="gender.invalid && (gender.dirty || gender.touched)" class="error-message">
                                 <span *ngIf="gender.errors?.['required']">Select gender</span>
