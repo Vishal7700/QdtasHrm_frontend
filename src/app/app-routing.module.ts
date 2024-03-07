@@ -37,7 +37,7 @@ const routes: Routes = [
   },
   {
     component: EditUserComponent,
-    path: 'edit-user/:uId'
+    path: 'edit-user'
   },
   {
     component: ResetPasswordComponent,

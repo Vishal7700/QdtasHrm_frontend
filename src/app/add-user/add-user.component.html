@@ -29,9 +29,6 @@
                         </div>
                     </div>
                     <div class="inp-field">
-
-                    </div>
-                    <div class="inp-field">
                         <div class="inp">
                             <label class="form-label">First Name</label>
                             <input type="text" class="form-control" id="firstname" placeholder="First name" ngModel
@@ -66,12 +63,17 @@
                                 <span *ngIf="lastName.errors?.['pattern']">Please enter only alphabets</span>
                             </div>
                         </div>
-
                         <div class="inp">
-                            <label class="form-label">Designation</label>
-                            <input type="text" class="form-control" id="designation" placeholder="designation" ngModel
-                                required name="designation" #designation="ngModel" [ngClass]="{'invalid': designation.invalid && (designation.dirty || designation.touched), 'valid': designation.valid && (designation.dirty ||
-                                designation.touched)}">
+                            <label class="form-label">DOB</label>
+                            <input type="date" name="datafield" class="form-control" id="dob" placeholder="dd-mm-yy"
+                                ngModel name="birthDate" required #birthDate="ngModel" pattern="\d{4}-\d{2}-\d{2}"
+                                [ngClass]="{'invalid': birthDate.invalid && (birthDate.dirty || birthDate.touched), 'valid': birthDate.valid && (birthDate.dirty ||
+                                birthDate.touched)}">
+                            <div *ngIf="birthDate.invalid && (birthDate.dirty || birthDate.touched)"
+                                class="error-message">
+                                <span *ngIf="birthDate.errors?.['required']">Please enter Birthdate</span>
+                                <span *ngIf="birthDate.errors?.['pattern']">Please enter in YYYY-MM-DD</span>
+                            </div>
                         </div>
                     </div>
                     <div class="inp-field">
@@ -117,13 +119,12 @@
                         </div>
                         <div class="inp">
                             <label class="form-label">Phone Number</label>
-                            <input type="text" class="form-control" id="phoneNumber" placeholder="Phone No." ngModel
-                                name="phoneNumber" required #phoneNumber="ngModel" pattern="^[0-9]{10}$" [ngClass]="{'invalid': phoneNumber.invalid && (phoneNumber.dirty || phoneNumber.touched), 'valid': phoneNumber.valid && (phoneNumber.dirty ||
-                                phoneNumber.touched)}">
-                            <div *ngIf="phoneNumber.invalid && (phoneNumber.dirty || phoneNumber.touched)"
-                                class="error-message">
-                                <span *ngIf="phoneNumber.errors?.['required']">Please enter phone number</span>
-                                <span *ngIf="phoneNumber.errors?.['pattern']">please enter 10 digits number</span>
+                            <input type="text" class="form-control" id="phoneno" placeholder="Phone No." ngModel
+                                name="phoneno" required #phoneno="ngModel" pattern="^[0-9]{10}$" [ngClass]="{'invalid': phoneno.invalid && (phoneno.dirty || phoneno.touched), 'valid': phoneno.valid && (phoneno.dirty ||
+                                phoneno.touched)}">
+                            <div *ngIf="phoneno.invalid && (phoneno.dirty || phoneno.touched)" class="error-message">
+                                <span *ngIf="phoneno.errors?.['required']">Please enter phone number</span>
+                                <span *ngIf="phoneno.errors?.['pattern']">please enter 10 digits number</span>
                             </div>
                         </div>
                     </div>
@@ -142,6 +143,7 @@
                                 <span *ngIf="deptId.errors?.['required']">Please select department</span>
 
                             </div>
+
                         </div>
                         <div class="inp">
                             <label class="form-label">Role</label>
@@ -157,24 +159,12 @@
 
                         </div>
                     </div>
-                    <div class="inp-field">
-                        <div class="inp">
-                            <label class="form-label">DOB</label>
-                            <input type="date" name="datafield" class="form-control" id="dob" placeholder="dd-mm-yy"
-                                ngModel name="birthDate" required #birthDate="ngModel" pattern="\d{4}-\d{2}-\d{2}"
-                                [ngClass]="{'invalid': birthDate.invalid && (birthDate.dirty || birthDate.touched), 'valid': birthDate.valid && (birthDate.dirty ||
-                                birthDate.touched)}">
-                            <div *ngIf="birthDate.invalid && (birthDate.dirty || birthDate.touched)"
-                                class="error-message">
-                                <span *ngIf="birthDate.errors?.['required']">Please enter Birthdate</span>
-                                <span *ngIf="birthDate.errors?.['pattern']">Please enter in YYYY-MM-DD</span>
-                            </div>
-                        </div>
-                    </div>
                     <div>
                         <div class="col text-end suv-btn">
                             <button class="btn btn-maroon" type="submit" [disabled]="!addUserData.valid">Submit</button>
                         </div>
+
+
                     </div>
                 </div>
             </form>
@@ -185,23 +175,22 @@
     <div class="card">
         <div class="container p-2">
             <form>
-                <input type="text" id="myInput" onkeyup="tableSearch()" placeholder="Search.." name="search">
-
+                <input type="text" id="myInput" onkeyup="tableSearch()" placeholder="Search.." name="search" />
 
                 <table class="table" id="myTable">
                     <tr class="header">
-                        <th style="width:15%;">User-Id</th>
-                        <th style="width:15%;">Username</th>
-                        <th style="width:15%;">First name</th>
-                        <th style="width:20%;">Middle name</th>
-                        <th style="width:15%;">Last name</th>
-                        <th style="width:5%;">Gender</th>
-                        <th style="width:15%;">Department</th>
-                        <th style="width:15%;">Phone no.</th>
-                        <th style="width:10%;">Designation</th>
-                        <th style="width:10%;">Action</th>
+                        <th style="width: 15%">User-Id</th>
+                        <th style="width: 15%">Username</th>
+                        <th style="width: 15%">First name</th>
+                        <th style="width: 20%">Middle name</th>
+                        <th style="width: 15%">Last name</th>
+                        <th style="width: 5%">Gender</th>
+                        <th style="width: 15%">Department</th>
+                        <th style="width: 15%">Phone no.</th>
+                        <th style="width: 10%">Designation</th>
+                        <th style="width: 10%">Action</th>
                     </tr>
-                    <tr *ngFor="let user of users;">
+                    <tr *ngFor="let user of users">
                         <td>{{ user.userId }}</td>
                         <td>{{ user.userName }}</td>
                         <td>{{ user.firstName }}</td>
@@ -213,7 +202,7 @@
                         <td>{{ user.designation }}</td>
                         <td>
                             <div class="icon-container">
-                                <i class="fa-solid fa-pen-to-square" [routerLink]="['/edit-user',user.userId]"></i>
+                                <i class="fa-solid fa-pen-to-square" [routerLink]="['/edit-user', user.userId]"></i>
                                 <span class="icon-space"></span>
                                 <i class="fa-solid fa-trash-can" (click)="deleteUser(user.userId)"></i>
                             </div>
@@ -221,7 +210,9 @@
                     </tr>
                 </table>
                 <button (click)="loadMoreUsers()" *ngIf="hasMoreResult" mat-raised-button color="primary"
-                    class="rounded-pill align-middle text-center">Load More</button>
+                    class="rounded-pill align-middle text-center">
+                    Load More
+                </button>
             </form>
         </div>
     </div>
@@ -305,5 +296,4 @@
 
     </div>
 </div> -->
-
 </div>

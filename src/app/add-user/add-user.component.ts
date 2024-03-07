@@ -38,7 +38,7 @@ export class AddUserComponent implements OnInit {
     this.userService.addUser(userData).subscribe(
       (response: any) => {
         console.log(response);
-        this.openSnackBar(`User added successfully.`);
+        this.openSnackBar(`User added successfully: ${JSON.stringify(response)}`);
         window.location.reload();
       },
       (error: any) => {
@@ -60,6 +60,8 @@ export class AddUserComponent implements OnInit {
   }
 
 
+
+
   deleteUser(uId: number): void {
     const snackBarRef = this.snackBar.open('Are you sure you want to delete?', 'Yes', {
       duration: 0,
@@ -78,6 +80,7 @@ export class AddUserComponent implements OnInit {
       );
     });
   }
+
 
   loadUsers(currentPage: number): void {
     this.subscriptions.push(
