@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { UserService } from '../service/userServices';
+import { User } from '../model/user';
 
 @Component({
   selector: 'app-leave',
@@ -9,16 +10,19 @@ import { UserService } from '../service/userServices';
 export class LeaveComponent {
 
   sideNavStatus: boolean = false;
+  u: User = this.UserService.getAuthUserFromCache();
+  empId: number = this.u.userId as number;
 
-
-  constructor(private UserService:UserService){
+  constructor(private UserService: UserService) {
 
   }
   ngOnInit() {
     this.UserService.profile();
-    }
+  }
 
- isSidebarExpanded: boolean = true;
+
+
+  isSidebarExpanded: boolean = true;
 
 
   onToggleSidebar(expanded: boolean) {
@@ -27,12 +31,20 @@ export class LeaveComponent {
   users: any[] = []; // Array to hold user data
 
   applyLeave(userData: any) {
-    this.users.push(userData); // Add submitted user data to the array
-    // Clear the form fields after submission
+    console.log(this.empId);
+    // this.UserService.applyLeave(userData).subscribe(
+    //   (res: any) => {
+    //     console.log(res);
+
+    //   }, (error: any) => {
+    //     console.log(error);
+    //   }
+    // );
+
     userData = {};
   }
 
-    deleteUser(index: number): void {
+  deleteUser(index: number): void {
     if (confirm("Are you sure you want to delete this user?")) {
       this.users.splice(index, 1); // Remove user from array
     }

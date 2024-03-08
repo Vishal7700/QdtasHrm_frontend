@@ -17,35 +17,36 @@ export class LoginComponent {
 
   isLoading: boolean = false;
 
- 
-userLogin(data: any) {
-  this.isLoading = true;
-  this.userService.login(data).subscribe(
-    (response: any) => {
-      localStorage.setItem("token", response.token);
-      this.router.navigate(['/profile']);
-      this.isLoading = false;
-    }, (error: HttpErrorResponse) => {
-      this.isLoading = false;
-      if (error.status == 401) {
-        this.showSnackBar("Invalid email or password. Please try again.");
-      }
-      else if (error.status == 400) {
-        this.showSnackBar("Something went wrong with your request. Please try again later. Error: " + error.error.message);
-      }
-      else {
-        this.showSnackBar("An unexpected error occurred. Please try again later. Error: " + error.error.message);
-      }
-    }
-  )
-}
 
-showSnackBar(message: string) {
-  this.snackBar.open(message, 'Close', {
-    duration: 5000,
-    verticalPosition: 'top' // 5 seconds
-  });
-}
+  userLogin(data: any) {
+    this.isLoading = true;
+    this.userService.login(data).subscribe(
+      (response: any) => {
+        localStorage.setItem("token", response.token);
+        this.userService.storeAuthUserInCache(response.user);
+        this.router.navigate(['/profile']);
+        this.isLoading = false;
+      }, (error: HttpErrorResponse) => {
+        this.isLoading = false;
+        if (error.status == 401) {
+          this.showSnackBar("Invalid email or password. Please try again.");
+        }
+        else if (error.status == 400) {
+          this.showSnackBar("Something went wrong with your request. Please try again later. Error: " + error.error.message);
+        }
+        else {
+          this.showSnackBar("An unexpected error occurred. Please try again later. Error: " + error.error.message);
+        }
+      }
+    )
+  }
+
+  showSnackBar(message: string) {
+    this.snackBar.open(message, 'Close', {
+      duration: 5000,
+      verticalPosition: 'top' // 5 seconds
+    });
+  }
 
 
 }
