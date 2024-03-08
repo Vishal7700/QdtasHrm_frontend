@@ -13,6 +13,7 @@ export class LeaveComponent {
   u: User = this.UserService.getAuthUserFromCache();
   empId: number = this.u.userId as number;
 
+
   constructor(private UserService: UserService) {
 
   }
@@ -44,11 +45,16 @@ export class LeaveComponent {
     userData = {};
   }
 
+  //   deleteUser(index: number): void {
+  //   if (confirm("Are you sure you want to delete this user?")) {
+  //     this.users.splice(index, 1); // Remove user from array
+  //   }
+  // }
+
+
   deleteUser(index: number): void {
     if (confirm("Are you sure you want to delete this user?")) {
       this.users.splice(index, 1); // Remove user from array
     }
-  }
-
-
+  };
 }

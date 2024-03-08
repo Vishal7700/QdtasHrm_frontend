@@ -2,9 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../service/userServices';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { User } from '../model/user';
 import { Subscription } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+
+import { MatDialogModule } from '@angular/material/dialog';
+import { DialogboxComponent } from '../dialogbox/dialogbox.component';
+
 
 
 @Component({
@@ -26,7 +30,10 @@ export class AddUserComponent implements OnInit {
 
 
 
-  constructor(private userService: UserService, private router: Router, private snackBar: MatSnackBar) {
+  constructor(private userService: UserService,
+     private router: Router,
+     public dialog: MatDialog,
+     ) {
 
   }
 
@@ -38,55 +45,29 @@ export class AddUserComponent implements OnInit {
     this.userService.addUser(userData).subscribe(
       (response: any) => {
         console.log(response);
-        this.openSnackBar(`User added successfully: ${JSON.stringify(response)}`);
+        alert(`User added successfully`);
         window.location.reload();
       },
       (error: any) => {
         if (error.status == 400) {
-          this.openSnackBar(error.error.message);
+          alert(error.error.message);
         } else {
-          this.openSnackBar(error.error.message);
+          alert(error.error.message);
         }
       }
     );
   }
 
-  openSnackBar(message: string): void {
-    this.snackBar.open(message, 'Close', {
-      duration: 60000,
-      verticalPosition: 'top'
-      // 1 minute in milliseconds
-    });
-  }
-
-
-
 
   deleteUser(uId: number): void {
-    const snackBarRef = this.snackBar.open('Are you sure you want to delete?', 'Yes', {
-      duration: 0,
-      verticalPosition: 'top'
-    });
-
-    snackBarRef.onAction().subscribe(() => {
-      this.userService.deleteUser(uId).subscribe(
-        (response: any) => {
-          this.openSnackBar(response.message);
-          window.location.reload();
-        },
-        (error: any) => {
-          this.openSnackBar(error.error.message);
-        }
-      );
-    });
+    this.openConfirmationDialog(uId);
   }
-
 
   loadUsers(currentPage: number): void {
     this.subscriptions.push(
       this.userService.getAllUsers(currentPage, this.resultSize).subscribe(
         (us: User[]) => {
-          us.forEach(usr => this.users.push(usr));
+          this.users.push(...us);
           if (this.users.length <= 0 && this.resultPage === 1)
             if (this.users.length <= 0) this.hasMoreResult = false;
           this.fetchingResult = false;
@@ -103,54 +84,32 @@ export class AddUserComponent implements OnInit {
   }
 
 
+openConfirmationDialog(uId: number): void {
+  const dialogRef = this.dialog.open(DialogboxComponent, {
+    width: '300px',
+    position: { top: '10px' },
+    data: { title: 'Confirmation', message: 'Are you sure you want to delete?' }
+  });
+
+  dialogRef.afterClosed().subscribe(result => {
+    if (result) {
+      this.userService.deleteUser(uId).subscribe(
+        (response: any) => {
+         // alert(response.message);
+          window.location.reload();
+        },
+        (error: any) => {
+          alert(error.error.message);
+        }
+      );
+    }
+  });
 }
 
+  }
+  
 
 
 
 
 
-// import { Component } from '@angular/core';
-// import { NgModule } from '@angular/core';
-// import { BrowserModule } from '@angular/platform-browser';
-// import { FormsModule } from '@angular/forms';
-
-// @Component({
-//   selector: 'app-add-user',
-//   templateUrl: './add-user.component.html',
-//   styleUrls: ['./add-user.component.css']
-// })
-// export class AddUserComponent {
-//   users: any[] = []; // Assuming you have an array to store user data
-//   showForm: boolean = false;
-//   editMode: boolean = false;
-//   editedUserIndex: number = -1;
-//   editedUserData: any = {};
-
-//   saveUser(userData: any) {
-//     if (this.editMode) {
-//       this.users[this.editedUserIndex] = { ...userData };
-//       this.editMode = false;
-//       this.editedUserIndex = -1;
-//     } else {
-//       this.users.push(userData);
-//     }
-//     this.showForm = false;
-//     this.clearFormData();
-//   }
-
-//   editUser(user: any) {
-//     this.showForm = true;
-//     this.editMode = true;
-//     this.editedUserData = { ...user };
-//     this.editedUserIndex = this.users.indexOf(user);
-//   }
-
-//   deleteUser(index: number) {
-//     this.users.splice(index, 1);
-//   }
-
-//    clearFormData() {
-//     this.editedUserData = {};
-//   }
-// }
