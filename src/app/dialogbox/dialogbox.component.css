@@ -1,0 +1,25 @@
+.dialog-title {
+    font-weight: bold;
+}
+
+.dialog-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.no-button {
+    width: 45%;
+        border: 1px solid red;
+        /* Green background */
+        color: black;
+        /* White text */
+}
+
+.yes-button {
+   width: 45%;
+    border: 1px solid green;
+    /* Green background */
+    color: black;
+    /* White text */
+}

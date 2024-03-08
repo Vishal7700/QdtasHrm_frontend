@@ -159,6 +159,23 @@
 
                         </div>
                     </div>
+
+                    <div class="dsgn">
+                        <div class="inp-field">
+                            <div class="inp">
+                                <label class="form-label">Designation</label>
+                                <input type="text" class="form-control" id="designation" placeholder="Designation" id="designation" ngModel
+                                    name="designation" required #designation="ngModel" pattern="^[A-Za-z.]+$" [ngClass]="{'invalid': designation.invalid && (designation.dirty || designation.touched), 'valid': designation.valid && (designation.dirty ||
+                                                                designation.touched)}">
+                                <div *ngIf="designation.invalid && (designation.dirty || designation.touched)" class="error-message">
+                                    <span *ngIf="designation.errors?.['required']">Please enter Designation</span>
+                                    <span *ngIf="designation.errors?.['pattern']">Please enter only alphabets and (.)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
                     <div>
                         <div class="col text-end suv-btn">
                             <button class="btn btn-maroon" type="submit" [disabled]="!addUserData.valid">Submit</button>

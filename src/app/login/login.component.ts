@@ -17,6 +17,9 @@ export class LoginComponent {
 
   isLoading: boolean = false;
 
+  showMessage: boolean = false;
+  message:string='';
+
  
 userLogin(data: any) {
   this.isLoading = true;
@@ -28,13 +31,16 @@ userLogin(data: any) {
     }, (error: HttpErrorResponse) => {
       this.isLoading = false;
       if (error.status == 401) {
-        this.showSnackBar("Invalid email or password. Please try again.");
+        this.message="Invalid email or password. Please try again.";
+        this.showMessage=true;
       }
       else if (error.status == 400) {
-        this.showSnackBar("Something went wrong with your request. Please try again later. Error: " + error.error.message);
+        this.message="Something went wrong with your request. Please try again later. Error: " + error.error.message;
+        this.showMessage=true;
       }
       else {
-        this.showSnackBar("An unexpected error occurred. Please try again later. Error: " + error.error.message);
+        this.message="An unexpected error occurred. Please try again later. Error: " + error.error.message;
+        this.showMessage=true;
       }
     }
   )

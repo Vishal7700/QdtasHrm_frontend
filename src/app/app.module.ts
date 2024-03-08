@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -25,7 +24,9 @@ import { MatListModule } from '@angular/material/list';
 import { EditUserComponent } from './edit-user/edit-user.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { TempPasswordComponent } from './temp-password/temp-password.component';
-
+import { DialogboxComponent } from './dialogbox/dialogbox.component';
+import { MatDialog } from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 
@@ -46,7 +47,8 @@ import { TempPasswordComponent } from './temp-password/temp-password.component';
     MyInfoComponent,
     EditUserComponent,
     ResetPasswordComponent,
-    TempPasswordComponent
+    TempPasswordComponent,
+    DialogboxComponent
   ],
   imports: [
     BrowserModule,
@@ -62,9 +64,13 @@ import { TempPasswordComponent } from './temp-password/temp-password.component';
     MatMenuModule,
     MatListModule,
     MatSnackBarModule,
+    MatDialogModule,
+    
+  
   
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+ 
 })
 export class AppModule { }

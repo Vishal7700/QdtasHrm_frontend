@@ -10,6 +10,10 @@
     <div class="container-form">
         <form class="login-form" #login="ngForm" (ngSubmit)="userLogin(login.value)">
             <h2>Login</h2>
+            <div *ngIf="showMessage" class="alert">
+                <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                <i>{{message}}</i>
+            </div>
             <div>
 
                 <div class="label">
