@@ -5,7 +5,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { User } from '../model/user';
 import { Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
-
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DialogboxComponent } from '../dialogbox/dialogbox.component';
 
@@ -33,6 +33,7 @@ export class AddUserComponent implements OnInit {
   constructor(private userService: UserService,
     private router: Router,
     public dialog: MatDialog,
+    private snackBar: MatSnackBar
   ) {
 
   }
@@ -87,6 +88,7 @@ export class AddUserComponent implements OnInit {
   openConfirmationDialog(uId: number): void {
     const dialogRef = this.dialog.open(DialogboxComponent, {
       width: '300px',
+
       data: { title: 'Confirmation', message: 'Are you sure you want to delete?' }
     });
 
@@ -94,21 +96,24 @@ export class AddUserComponent implements OnInit {
       if (result) {
         this.userService.deleteUser(uId).subscribe(
           (response: any) => {
-            // alert(response.message);
+            this.snackBar.open('User deleted Successfully', 'OK', {
+              duration: 3000,
+              horizontalPosition: 'center',
+              verticalPosition: 'top',
+            })
             window.location.reload();
           },
           (error: any) => {
-            alert(error.error.message);
+            this.snackBar.open('An error occurred while deleting the user', 'OK', {
+              duration: 3000,
+              horizontalPosition: 'center',
+              verticalPosition: 'top',
+            })
           }
         );
       }
     });
   }
 
+
 }
-
-
-
-
-
-

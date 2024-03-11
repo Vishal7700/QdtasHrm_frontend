@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { UserService } from '../service/userServices';
-import { User } from '../model/user';
+import { MatDialogModule } from '@angular/material/dialog';
+import { DialogboxComponent } from '../dialogbox/dialogbox.component';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar'
 
 @Component({
   selector: 'app-leave',
@@ -10,17 +13,14 @@ import { User } from '../model/user';
 export class LeaveComponent {
 
   sideNavStatus: boolean = false;
-  u: User = this.UserService.getAuthUserFromCache();
-  empId: number = this.u.userId as number;
 
 
-  constructor(private UserService: UserService) {
+  constructor(private UserService: UserService, public dialog: MatDialog, private snackBar: MatSnackBar) {
 
   }
   ngOnInit() {
     this.UserService.profile();
   }
-
 
   isSidebarExpanded: boolean = true;
 
@@ -31,7 +31,7 @@ export class LeaveComponent {
   users: any[] = [];
 
   applyLeave(userData: any) {
-    console.log(userData);
+    console.log(this.empId);
     // this.UserService.applyLeave(userData).subscribe(
     //   (res: any) => {
     //     console.log(res);
@@ -45,8 +45,29 @@ export class LeaveComponent {
   }
 
   deleteUser(index: number): void {
-    if (confirm("Are you sure you want to delete this user?")) {
-      this.users.splice(index, 1); // Remove user from array
-    }
-  };
+    this.openConfirmationDialog(index);
+  }
+
+
+  openConfirmationDialog(index: number): void {
+    const dialogRef = this.dialog.open(DialogboxComponent, {
+      width: '300px',
+      data: { title: 'Confirmation', message: 'Are you sure you want to delete?' }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        const response = this.deleteUser(index);
+        this.users.splice(index, 1);
+        this.snackBar.open('User deleted Successfully', 'OK', {
+          duration: 3000,
+          horizontalPosition: 'center',
+          verticalPosition: 'top',
+        })
+      }
+    });
+  }
+
+
+
 }

@@ -10,43 +10,46 @@
                     <form class="leaveform" #leaveForm="ngForm" (submit)="applyLeave(leaveForm.value)">
                         <div class="inp-row">
                             <h2 class="title mb-3">Leave Application</h2>
-                            <input type="hidden" ngModel name="employeeId" value="{{u.userId}}">
-                            <div class="inp-field">
-                                <div class="inp">
-                                    <label class="form-label">Start Date</label>
-                                    <input type="date" class="form-control" id="startDate" ngModel name="startDate">
+                            <<<<<<< HEAD <input type="hidden" ngModel name="employeeId" value="{{empId}}">
+                                =======
+                                <input type="hidden" ngModel name="employeeId">
+                                >>>>>>> aacd4891ccfaa23db37238cca0d9b3b71ee7b70e
+                                <div class="inp-field">
+                                    <div class="inp">
+                                        <label class="form-label">Start Date</label>
+                                        <input type="date" class="form-control" id="startDate" ngModel name="startDate">
+                                    </div>
+                                    <div class="inp">
+                                        <label class="form-label">End Date</label>
+                                        <input type="date" class="form-control" id="endtdate" ngModel name="endDate">
+                                    </div>
                                 </div>
-                                <div class="inp">
-                                    <label class="form-label">End Date</label>
-                                    <input type="date" class="form-control" id="endtdate" ngModel name="endDate">
-                                </div>
-                            </div>
 
 
 
-                            <div class="inp-field">
-                                <div class="inp">
-                                    <label class="form-label">Leave Type</label>
-                                    <select class="form-select" id="leavetype" ngModel>
-                                        <option value="" disabled>---Select---</option>
-                                        <option value="Personal Vacation">Personal</option>
-                                        <option value="Maternity">Vacation</option>
-                                        <option value="Maternity">Maternity</option>
-                                    </select>
+                                <div class="inp-field">
+                                    <div class="inp">
+                                        <label class="form-label">Leave Type</label>
+                                        <select class="form-select" id="leavetype" ngModel>
+                                            <option value="" disabled>---Select---</option>
+                                            <option value="Personal Vacation">Personal</option>
+                                            <option value="Maternity">Vacation</option>
+                                            <option value="Maternity">Maternity</option>
+                                        </select>
+                                    </div>
+                                    <div class="inp">
+                                        <label class="form-label">Reason</label>
+                                        <textarea class="form-control" id="reason" placeholder="Enter Reason for Leave"
+                                            ngModel name="reason"> </textarea>
+                                    </div>
                                 </div>
-                                <div class="inp">
-                                    <label class="form-label">Reason</label>
-                                    <textarea class="form-control" id="reason" placeholder="Enter Reason for Leave"
-                                        ngModel name="reason"> </textarea>
-                                </div>
-                            </div>
 
-                            <div>
-                                <div class="col text-end suv-btn">
-                                    <button class="btn btn-maroon" type="submit">Cancel</button>
-                                    <button class="btn btn-maroon" type="submit">Submit</button>
+                                <div>
+                                    <div class="col text-end suv-btn">
+                                        <button class="btn btn-maroon" type="submit">Cancel</button>
+                                        <button class="btn btn-maroon" type="submit">Submit</button>
+                                    </div>
                                 </div>
-                            </div>
                         </div>
                     </form>
                 </div>

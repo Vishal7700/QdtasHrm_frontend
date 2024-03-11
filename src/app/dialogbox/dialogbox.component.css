@@ -10,16 +10,16 @@
 
 .no-button {
     width: 45%;
-    border: 1px solid red;
     background-color: red;
+    /* Green background */
     color: white;
     /* White text */
 }
 
 .yes-button {
     width: 45%;
-    border: 1px solid green;
     background-color: green;
-    color: white
-        /* White text */
+    /* Green background */
+    color: white;
+    /* White text */
 }
