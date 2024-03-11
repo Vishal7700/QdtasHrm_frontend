@@ -10,7 +10,7 @@
                     <form class="leaveform" #leaveForm="ngForm" (submit)="applyLeave(leaveForm.value)">
                         <div class="inp-row">
                             <h2 class="title mb-3">Leave Application</h2>
-                            <input type="hidden" ngModel name="employeeId" [value]="u">
+                            <input type="hidden" ngModel name="employeeId" value="{{u.userId}}">
                             <div class="inp-field">
                                 <div class="inp">
                                     <label class="form-label">Start Date</label>

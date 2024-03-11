@@ -22,17 +22,16 @@ export class LeaveComponent {
   }
 
 
-
   isSidebarExpanded: boolean = true;
 
 
   onToggleSidebar(expanded: boolean) {
     this.isSidebarExpanded = expanded;
   }
-  users: any[] = []; // Array to hold user data
+  users: any[] = [];
 
   applyLeave(userData: any) {
-    console.log(this.empId);
+    console.log(userData);
     // this.UserService.applyLeave(userData).subscribe(
     //   (res: any) => {
     //     console.log(res);
@@ -44,13 +43,6 @@ export class LeaveComponent {
 
     userData = {};
   }
-
-  //   deleteUser(index: number): void {
-  //   if (confirm("Are you sure you want to delete this user?")) {
-  //     this.users.splice(index, 1); // Remove user from array
-  //   }
-  // }
-
 
   deleteUser(index: number): void {
     if (confirm("Are you sure you want to delete this user?")) {

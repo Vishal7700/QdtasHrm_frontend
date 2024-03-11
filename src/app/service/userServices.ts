@@ -38,9 +38,8 @@ export class UserService {
   }
 
   getAuthUserFromCache(): User {
-    let user = localStorage.getItem("authUser");
-    var myObject: User = JSON.parse(JSON.stringify(user)) as User;
-    return myObject;
+    let user = localStorage.getItem("authUser") as string;
+    return JSON.parse(user) as User;
   }
 
   getAuthUserId(): number {

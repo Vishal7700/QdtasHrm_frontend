@@ -31,9 +31,9 @@ export class AddUserComponent implements OnInit {
 
 
   constructor(private userService: UserService,
-     private router: Router,
-     public dialog: MatDialog,
-     ) {
+    private router: Router,
+    public dialog: MatDialog,
+  ) {
 
   }
 
@@ -84,30 +84,29 @@ export class AddUserComponent implements OnInit {
   }
 
 
-openConfirmationDialog(uId: number): void {
-  const dialogRef = this.dialog.open(DialogboxComponent, {
-    width: '300px',
-    position: { top: '10px' },
-    data: { title: 'Confirmation', message: 'Are you sure you want to delete?' }
-  });
+  openConfirmationDialog(uId: number): void {
+    const dialogRef = this.dialog.open(DialogboxComponent, {
+      width: '300px',
+      data: { title: 'Confirmation', message: 'Are you sure you want to delete?' }
+    });
 
-  dialogRef.afterClosed().subscribe(result => {
-    if (result) {
-      this.userService.deleteUser(uId).subscribe(
-        (response: any) => {
-         // alert(response.message);
-          window.location.reload();
-        },
-        (error: any) => {
-          alert(error.error.message);
-        }
-      );
-    }
-  });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.userService.deleteUser(uId).subscribe(
+          (response: any) => {
+            // alert(response.message);
+            window.location.reload();
+          },
+          (error: any) => {
+            alert(error.error.message);
+          }
+        );
+      }
+    });
+  }
+
 }
 
-  }
-  
 
 
 
