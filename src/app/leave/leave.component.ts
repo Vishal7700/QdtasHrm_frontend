@@ -50,7 +50,7 @@ export class LeaveComponent {
   openConfirmationDialog(index: number): void {
   const dialogRef = this.dialog.open(DialogboxComponent, {
     width: '300px',
-  
+    position: { top: '10px' },
     data: { title: 'Confirmation', message: 'Are you sure you want to delete?' }
   });
 

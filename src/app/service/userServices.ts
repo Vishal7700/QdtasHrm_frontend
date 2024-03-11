@@ -3,7 +3,7 @@ import { Token } from '@angular/compiler';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BASE_API_URL } from '../constansts';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { User } from '../model/user';
 
 
@@ -15,6 +15,8 @@ import { User } from '../model/user';
 export class UserService {
 
   constructor(private http: HttpClient, private router: Router) { }
+  loginSubject = new Subject<User>();
+
 
   private getHeaders(): HttpHeaders {
     const token = localStorage.getItem('token');
@@ -26,6 +28,23 @@ export class UserService {
       'Access-Control-Allow-Origin': '*'
     });
     return headers;
+  }
+
+  storeAuthUserInCache(authUser: User): void {
+    if (authUser != null) {
+      localStorage.setItem("authUser", JSON.stringify(authUser));
+    }
+    this.loginSubject.next(authUser);
+  }
+
+  getAuthUserFromCache(): User {
+    let user = localStorage.getItem("authUser");
+    var myObject: User = JSON.parse(JSON.stringify(user)) as User;
+    return myObject;
+  }
+
+  getAuthUserId(): number {
+    return this.getAuthUserFromCache().userId;
   }
 
   // <----  Authemtication Services
@@ -71,7 +90,6 @@ export class UserService {
   }
 
   applyLeave(user: any) {
-    let headers = new HttpHeaders().set("Authorization", `Bearer ${localStorage.getItem('token')}`);
     return this.http.post<any>(BASE_API_URL + `/leave/create`, user, { headers: this.getHeaders() });
   }
 
