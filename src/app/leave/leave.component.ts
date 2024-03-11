@@ -11,13 +11,15 @@ import { MatSnackBar } from '@angular/material/snack-bar'
   styleUrls: ['./leave.component.css']
 })
 export class LeaveComponent {
-
-  sideNavStatus: boolean = false;
-
-
   constructor(private UserService: UserService, public dialog: MatDialog, private snackBar: MatSnackBar) {
 
   }
+
+  sideNavStatus: boolean = false;
+  empId: number = this.UserService.getAuthUserId();
+
+
+
   ngOnInit() {
     this.UserService.profile();
   }
