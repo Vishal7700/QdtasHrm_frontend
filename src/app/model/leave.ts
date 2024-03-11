@@ -8,6 +8,8 @@ export class Leave {
 
     endDate!: Date;
 
+    type!: string;
+
     reason!: string;
 
     status!: string;

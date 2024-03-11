@@ -4,69 +4,115 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { DialogboxComponent } from '../dialogbox/dialogbox.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar'
+import { User } from '../model/user';
+import { Leave } from '../model/leave';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-leave',
-  templateUrl:'./leave.component.html',
+  templateUrl: './leave.component.html',
   styleUrls: ['./leave.component.css']
 })
 export class LeaveComponent {
+  constructor(private UserService: UserService, public dialog: MatDialog, private snackBar: MatSnackBar) {
+  }
 
   sideNavStatus: boolean = false;
+  u: User = this.UserService.getAuthUserFromCache();
+  empId: number = this.UserService.getAuthUserId();
+  leaves: Leave[] = [];
+  resultPage: number = 1;
+  resultSize: number = 10;
+  hasMoreResult: boolean = true;
+  fetchingResult: boolean = false;
+  private subscriptions: Subscription[] = [];
 
 
-  constructor(private UserService:UserService,public dialog: MatDialog,private snackBar: MatSnackBar){
-
-  }
   ngOnInit() {
     this.UserService.profile();
-    }
+    this.empId = this.UserService.getAuthUserId();
+    this.loadLeaves(this.resultPage);
+  }
 
- isSidebarExpanded: boolean = true;
+  isSidebarExpanded: boolean = true;
 
 
   onToggleSidebar(expanded: boolean) {
     this.isSidebarExpanded = expanded;
   }
-  users: any[] = []; // Array to hold user data
 
   applyLeave(userData: any) {
-    this.users.push(userData); // Add submitted user data to the array
-    // Clear the form fields after submission
-    userData = {};
+    this.UserService.applyLeave(userData, this.empId).subscribe(
+      (response: any) => {
+        this.snackBar.open('Leave Applied Successfully', 'OK', {
+          duration: 5000,
+          horizontalPosition: 'center',
+          verticalPosition: 'bottom',
+        });
+        window.location.reload();
+      },
+      (error: any) => {
+        this.snackBar.open('Something went wrong', 'OK', {
+          duration: 8000,
+          horizontalPosition: 'center',
+          verticalPosition: 'bottom',
+        });
+      }
+    );
   }
 
-  //   deleteUser(index: number): void {
-  //   if (confirm("Are you sure you want to delete this user?")) {
-  //     this.users.splice(index, 1); // Remove user from array
-  //   }
-  // }
+  loadLeaves(currentPage: number) {
+    this.subscriptions.push(
+      this.UserService.getAllLeaves(currentPage, this.resultSize).subscribe(
+        (l: Leave[]) => {
+          this.leaves.push(...l);
+          if (this.leaves.length <= 0 && this.resultPage === 1)
+            if (this.leaves.length <= 0) this.hasMoreResult = false;
+          this.fetchingResult = false;
+          this.resultPage++;
+        }, (error) => {
+          console.log(error.error.message);
+        }
+      )
+    );
+  }
+  loadMoreleaves(): void {
+    this.loadLeaves(this.resultPage);
+  }
 
-
-   deleteUser(index: number): void {
-    this.openConfirmationDialog(index);
+  deleteUser(id: number): void {
+    this.openConfirmationDialog(id);
   }
 
 
   openConfirmationDialog(index: number): void {
-  const dialogRef = this.dialog.open(DialogboxComponent, {
-    width: '300px',
-    data: { title: 'Confirmation', message: 'Are you sure you want to delete?' }
-  });
+    const dialogRef = this.dialog.open(DialogboxComponent, {
+      width: '300px',
+      data: { title: 'Confirmation', message: 'Are you sure you want to delete?' }
+    });
 
-  dialogRef.afterClosed().subscribe(result => {
-    if (result) {
-      const response = this.deleteUser(index);      
-      this.users.splice(index, 1);
-      this.snackBar.open('User deleted Successfully', 'OK' , {
-          duration: 3000, 
-            horizontalPosition: 'center', 
-            verticalPosition: 'top',
-         })
-    }
-  });
-}
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.UserService.deleteLeave(index).subscribe(
+          (response: any) => {
+            this.snackBar.open('Leave deleted Successfully', 'OK', {
+              duration: 5000,
+              horizontalPosition: 'center',
+              verticalPosition: 'bottom',
+            })
+            window.location.reload();
+          },
+          (error: any) => {
+            this.snackBar.open('Something Went wrong.', 'OK', {
+              duration: 5000,
+              horizontalPosition: 'center',
+              verticalPosition: 'bottom',
+            })
+          }
+        );
 
-  
+      }
+    });
+  }
 
 }

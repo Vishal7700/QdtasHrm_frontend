@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../service/userServices';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSnackBarConfig } from '@angular/material/snack-bar';
+
 
 @Component({
   selector: 'app-edit-user',
@@ -10,7 +12,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class EditUserComponent implements OnInit {
 
-  constructor(private userService: UserService, private route: ActivatedRoute, private snackBar: MatSnackBar) { }
+  constructor(private userService: UserService, private route: ActivatedRoute, private snackBar: MatSnackBar,) { }
 
   selectedField: string = '';
   newUsername: string = '';
@@ -48,6 +50,7 @@ export class EditUserComponent implements OnInit {
           duration: 3000, 
             horizontalPosition: 'center', 
             verticalPosition: 'top',
+            
          })
       },
       (error) => {
@@ -55,8 +58,15 @@ export class EditUserComponent implements OnInit {
           duration: 3000, 
             horizontalPosition: 'center', 
             verticalPosition: 'top',
+            
          })
       }
     );
   }
+
+
+  
+
+
+
 }

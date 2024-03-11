@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { BASE_API_URL } from '../constansts';
 import { Observable, Subject } from 'rxjs';
 import { User } from '../model/user';
+import { Leave } from '../model/leave';
 
 
 
@@ -38,8 +39,8 @@ export class UserService {
   }
 
   getAuthUserFromCache(): User {
-    let user = localStorage.getItem("authUser");
-    var myObject: User = JSON.parse(JSON.stringify(user)) as User;
+    let user = localStorage.getItem("authUser") as string;
+    var myObject: User = JSON.parse(user) as User;
     return myObject;
   }
 
@@ -89,10 +90,6 @@ export class UserService {
     return this.http.post<any>(BASE_API_URL + `/user/add`, user, { headers: this.getHeaders() });
   }
 
-  applyLeave(user: any) {
-    return this.http.post<any>(BASE_API_URL + `/leave/create`, user, { headers: this.getHeaders() });
-  }
-
   getAllUsers(currentPage: number, resultSize: number) {
     return this.http.get<User[]>(BASE_API_URL + `/user/getAll?pgn=` + currentPage + `&sz=` + resultSize, { headers: this.getHeaders() });
   }
@@ -113,12 +110,20 @@ export class UserService {
 
   }
 
-  // editUser(userId: number, updatedUser: any) {
-  //   let headers = new HttpHeaders().set("Authorization", `bearer ${ localStorage.getItem('token') }`);
-  //   this.http.put(`http://localhost:4200/editUser/${userId}`, updatedUser, { headers })
-  //     .subscribe((result: any) => {
-  //     })
-  // }
+  // leave methods
 
+  getAllLeaves(currentPage: number, resultSize: number) {
+    return this.http.get<Leave[]>(BASE_API_URL + `/leave/getAllLeaves?pgn=` + currentPage + `&sz=` + resultSize, { headers: this.getHeaders() });
+  }
+  applyLeave(leaveData: any, empId: number) {
+    let headers = new HttpHeaders().set("Authorization", `Bearer ${localStorage.getItem('token')}`);
+    return this.http.post<any>(BASE_API_URL + `/leave/create/` + empId, leaveData, { headers: this.getHeaders() });
+  }
+
+  deleteLeave(leaveId: number) {
+    return this.http.post<String>(BASE_API_URL + `/leave/delete/` + leaveId, leaveId, { headers: this.getHeaders() });
+  }
+
+  // Leave Methods
 }
 

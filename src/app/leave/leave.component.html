@@ -10,7 +10,6 @@
                     <form class="leaveform" #leaveForm="ngForm" (submit)="applyLeave(leaveForm.value)">
                         <div class="inp-row">
                             <h2 class="title mb-3">Leave Application</h2>
-                            <input type="hidden" ngModel name="employeeId" >
                             <div class="inp-field">
                                 <div class="inp">
                                     <label class="form-label">Start Date</label>
@@ -27,10 +26,10 @@
                             <div class="inp-field">
                                 <div class="inp">
                                     <label class="form-label">Leave Type</label>
-                                    <select class="form-select" id="leavetype" ngModel>
-                                        <option value="" disabled>---Select---</option>
-                                        <option value="Personal Vacation">Personal</option>
-                                        <option value="Maternity">Vacation</option>
+                                    <select class="form-select" id="leavetype" name="type" ngModel>
+                                        <option selected>---Select---</option>
+                                        <option value="Personal">Personal</option>
+                                        <option value="Sick">Sick</option>
                                         <option value="Maternity">Maternity</option>
                                     </select>
                                 </div>
@@ -66,21 +65,25 @@
                                 <th style="width:15%;">Reason</th>
                                 <th style="width:10%;">Action</th>
                             </tr>
-                            <tr *ngFor="let user of users; let i = index">
-                                <td>{{ user.startdate }}</td>
-                                <td>{{ user.endtdate }}</td>
-                                <td>{{ user.leavetype }}</td>
-                                <td>{{ user.reason }}</td>
+                            <tr *ngFor="let l of leaves; let i = index">
+                                <td>{{ l.startDate }}</td>
+                                <td>{{ l.endDate }}</td>
+                                <td>{{l.type}}</td>
+                                <td>{{ l.reason }}</td>
 
                                 <td>
                                     <div class="icon-container">
                                         <i class="fa-solid fa-pen-to-square"></i>
                                         <span class="icon-space"></span>
-                                        <i class="fa-solid fa-trash-can" (click)="deleteUser(i)"></i>
+                                        <i class="fa-solid fa-trash-can" (click)="deleteUser(l.leaveId)"></i>
                                     </div>
                                 </td>
                             </tr>
                         </table>
+                        <button (click)="loadMoreleaves()" *ngIf="hasMoreResult" mat-raised-button color="primary"
+                            class="rounded-pill align-middle text-center">
+                            Load More
+                        </button>
                     </form>
                 </div>
             </div>

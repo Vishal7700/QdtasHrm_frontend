@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DialogboxComponent } from '../dialogbox/dialogbox.component';
+import { EditUserComponent } from '../edit-user/edit-user.component';
 
 
 
@@ -31,10 +32,10 @@ export class AddUserComponent implements OnInit {
 
 
   constructor(private userService: UserService,
-     private router: Router,
-     public dialog: MatDialog,
-     private snackBar: MatSnackBar
-     ) {
+    private router: Router,
+    public dialog: MatDialog,
+    private snackBar: MatSnackBar,
+  ) {
 
   }
 
@@ -46,14 +47,26 @@ export class AddUserComponent implements OnInit {
     this.userService.addUser(userData).subscribe(
       (response: any) => {
         console.log(response);
-        alert(`User added successfully`);
+        this.snackBar.open('User added Successfully', 'OK', {
+          duration: 3000,
+          horizontalPosition: 'center',
+          verticalPosition: 'top',
+        })
         window.location.reload();
       },
       (error: any) => {
         if (error.status == 400) {
-          alert(error.error.message);
+          this.snackBar.open('An error occurred while adding the user', 'OK', {
+            duration: 3000,
+            horizontalPosition: 'center',
+            verticalPosition: 'top',
+          })
         } else {
-          alert(error.error.message);
+          this.snackBar.open('An error occurred while addding the user', 'OK', {
+            duration: 3000,
+            horizontalPosition: 'center',
+            verticalPosition: 'top',
+          })
         }
       }
     );
@@ -85,38 +98,40 @@ export class AddUserComponent implements OnInit {
   }
 
 
-openConfirmationDialog(uId: number): void {
-  const dialogRef = this.dialog.open(DialogboxComponent, {
-    width: '300px',
-   
-    data: { title: 'Confirmation', message: 'Are you sure you want to delete?' }
-  });
+  openConfirmationDialog(uId: number): void {
+    const dialogRef = this.dialog.open(DialogboxComponent, {
+      width: '300px',
 
-  dialogRef.afterClosed().subscribe(result => {
-    if (result) {
-      this.userService.deleteUser(uId).subscribe(
-        (response: any) => {
-         this.snackBar.open('User deleted Successfully', 'OK' , {
-          duration: 3000, 
-            horizontalPosition: 'center', 
-            verticalPosition: 'top',
-         })
-          window.location.reload();
-        },
-        (error: any) => {
-         this.snackBar.open('An error occurred while deleting the user', 'OK' , {
-          duration: 3000, 
-            horizontalPosition: 'center', 
-            verticalPosition: 'top',
-         })
-        }
-      );
-    }
-  });
+      data: { title: 'Confirmation', message: 'Are you sure you want to delete?' }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.userService.deleteUser(uId).subscribe(
+          (response: any) => {
+            this.snackBar.open('User deleted Successfully', 'OK', {
+              duration: 3000,
+              horizontalPosition: 'center',
+              verticalPosition: 'top',
+            })
+            window.location.reload();
+          },
+          (error: any) => {
+            this.snackBar.open('An error occurred while deleting the user', 'OK', {
+              duration: 3000,
+              horizontalPosition: 'center',
+              verticalPosition: 'top',
+            })
+          }
+        );
+      }
+    });
+  }
+
+
+
 }
 
-  }
-  
 
 
 
