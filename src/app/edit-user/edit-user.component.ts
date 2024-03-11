@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../service/userServices';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-edit-user',
@@ -9,7 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class EditUserComponent implements OnInit {
 
-  constructor(private userService: UserService, private route: ActivatedRoute) { }
+  constructor(private userService: UserService, private route: ActivatedRoute, private snackBar: MatSnackBar) { }
 
   selectedField: string = '';
   newUsername: string = '';
@@ -43,10 +44,18 @@ export class EditUserComponent implements OnInit {
     console.log(data);
     this.userService.updateUser(this.uId, data).subscribe(
       (res: any) => {
-        alert("User Updated Successfully");
+        this.snackBar.open('User updated Successfully', 'OK' , {
+          duration: 3000, 
+            horizontalPosition: 'center', 
+            verticalPosition: 'top',
+         })
       },
       (error) => {
-        alert("Error in updating user");
+        this.snackBar.open('Error in updating user', 'OK' , {
+          duration: 3000, 
+            horizontalPosition: 'center', 
+            verticalPosition: 'top',
+         })
       }
     );
   }
