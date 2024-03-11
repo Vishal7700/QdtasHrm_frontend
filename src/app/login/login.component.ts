@@ -15,10 +15,10 @@ export class LoginComponent {
   constructor(private userService: UserService, private router: Router, private snackBar: MatSnackBar) {
   }
 
-  isLoading: boolean = false;
-
-  showMessage: boolean = false;
+  isLoading: boolean = false; showMessage: boolean = false;
   message: string = '';
+
+
 
 
   userLogin(data: any) {
