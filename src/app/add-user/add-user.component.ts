@@ -29,7 +29,8 @@ export class AddUserComponent implements OnInit {
   sideNavStatus: boolean = false;
   private subscriptions: Subscription[] = [];
 
-
+  successMessage: string | null = null;
+errorMessage: string | null = null;
 
   constructor(private userService: UserService,
     private router: Router,
@@ -43,30 +44,30 @@ export class AddUserComponent implements OnInit {
     this.loadUsers(this.resultPage);
   }
 
-  saveUser(userData: any) {
+   saveUser(userData: any) {
     this.userService.addUser(userData).subscribe(
       (response: any) => {
         console.log(response);
-        this.snackBar.open('User added Successfully', 'OK', {
-          duration: 3000,
-          horizontalPosition: 'center',
-          verticalPosition: 'top',
-        })
+        this.successMessage = 'User added Successfully'; 
+	 setTimeout(() => {
+        this.successMessage = null;
         window.location.reload();
+      }, 3000);
+        
       },
       (error: any) => {
         if (error.status == 400) {
-          this.snackBar.open('An error occurred while adding the user', 'OK', {
-            duration: 3000,
-            horizontalPosition: 'center',
-            verticalPosition: 'top',
-          })
+          this.errorMessage = 'An error occurred while adding the user'; 
+	 setTimeout(() => {
+        this.successMessage = null;
+      }, 3000);
+
         } else {
-          this.snackBar.open('An error occurred while addding the user', 'OK', {
-            duration: 3000,
-            horizontalPosition: 'center',
-            verticalPosition: 'top',
-          })
+          this.errorMessage = 'An error occurred while adding the user'; 
+	 setTimeout(() => {
+        this.successMessage = null;
+      }, 3000);
+
         }
       }
     );
@@ -109,25 +110,33 @@ export class AddUserComponent implements OnInit {
       if (result) {
         this.userService.deleteUser(uId).subscribe(
           (response: any) => {
-            this.snackBar.open('User deleted Successfully', 'OK', {
-              duration: 3000,
-              horizontalPosition: 'center',
-              verticalPosition: 'top',
-            })
-            window.location.reload();
+            this.successMessage = 'User deleted Successfully'; 
+	 setTimeout(() => {
+        this.errorMessage = null;
+        window.location.reload();
+      }, 3000);
+
+            
           },
           (error: any) => {
-            this.snackBar.open('An error occurred while deleting the user', 'OK', {
-              duration: 3000,
-              horizontalPosition: 'center',
-              verticalPosition: 'top',
-            })
+            this.errorMessage = 'User deleted Successfully'; 
+	 setTimeout(() => {
+        this.errorMessage = null;
+      }, 3000);
+
           }
         );
       }
     });
   }
 
+  dismissSuccessMessage() {
+    this.successMessage = null;
+}
+
+dismissErrorMessage() {
+   this.errorMessage = null;
+}
 
 
 }

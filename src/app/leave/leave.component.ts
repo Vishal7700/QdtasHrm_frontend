@@ -27,6 +27,10 @@ export class LeaveComponent {
   fetchingResult: boolean = false;
   private subscriptions: Subscription[] = [];
 
+   successMessage: string | null = null;
+errorMessage: string | null = null;
+
+
 
   ngOnInit() {
     this.UserService.profile();
@@ -44,19 +48,18 @@ export class LeaveComponent {
   applyLeave(userData: any) {
     this.UserService.applyLeave(userData, this.empId).subscribe(
       (response: any) => {
-        this.snackBar.open('Leave Applied Successfully', 'OK', {
-          duration: 5000,
-          horizontalPosition: 'center',
-          verticalPosition: 'bottom',
-        });
-        window.location.reload();
+        this.successMessage = 'Leave Applied Successfully';
+      setTimeout(() => {
+        this.successMessage = null;
+	window.location.reload();
+      }, 3000);
+        
       },
       (error: any) => {
-        this.snackBar.open('Something went wrong', 'OK', {
-          duration: 8000,
-          horizontalPosition: 'center',
-          verticalPosition: 'bottom',
-        });
+        this.errorMessage = 'Something went wrong';
+      setTimeout(() => {
+        this.errorMessage = null;
+      }, 3000);
       }
     );
   }
@@ -95,24 +98,32 @@ export class LeaveComponent {
       if (result) {
         this.UserService.deleteLeave(index).subscribe(
           (response: any) => {
-            this.snackBar.open('Leave deleted Successfully', 'OK', {
-              duration: 5000,
-              horizontalPosition: 'center',
-              verticalPosition: 'bottom',
-            })
-            window.location.reload();
+           this.successMessage = 'Leave deleted Successfully';
+      setTimeout(() => {
+        this.successMessage = null;
+	window.location.reload();
+      }, 3000);
+            
           },
           (error: any) => {
-            this.snackBar.open('Something Went wrong.', 'OK', {
-              duration: 5000,
-              horizontalPosition: 'center',
-              verticalPosition: 'bottom',
-            })
+            this.errorMessage = 'Something went wrong';
+      setTimeout(() => {
+        this.errorMessage = null;
+      }, 3000);
           }
         );
 
       }
     });
   }
+
+
+  dismissSuccessMessage() {
+    this.successMessage = null;
+}
+
+dismissErrorMessage() {
+   this.errorMessage = null;
+}
 
 }

@@ -1,3 +1,15 @@
+<div *ngIf="successMessage" class="success-message">
+    {{ successMessage }}
+    <mat-icon class="close-icon" (click)="dismissSuccessMessage()">close</mat-icon>
+</div>
+
+<div *ngIf="errorMessage" class="error-message-notification">
+    {{ errorMessage }}
+    <mat-icon class="close-icon" (click)="dismissErrorMessage()">close</mat-icon>
+</div>
+
+
+
 <div class="adduser">
 
     <div class="card">
@@ -134,10 +146,10 @@
                             <select class="form-control" ngModel name="deptId" required #deptId="ngModel" [ngClass]="{'invalid': deptId.invalid && (deptId.dirty || deptId.touched), 'valid': deptId.valid && (deptId.dirty ||
                                 deptId.touched)}">
                                 <option selected [disabled]="true">Select Department</option>
-                                <option value=1>DEVELOPER</option>
-                                <option value=3>QA</option>
+                                <option value=3>DEVELOPER</option>
+                                <option value=10>QA</option>
                                 <option value=4>MARKETING</option>
-                                <option value=5>HR</option>
+                                <option value=13>HR</option>
                             </select>
                             <div *ngIf="deptId.invalid && (deptId.dirty || deptId.touched)" class="error-message">
                                 <span *ngIf="deptId.errors?.['required']">Please select department</span>
@@ -164,12 +176,15 @@
                         <div class="inp-field">
                             <div class="inp">
                                 <label class="form-label">Designation</label>
-                                <input type="text" class="form-control" id="designation" placeholder="Designation" id="designation" ngModel
-                                    name="designation" required #designation="ngModel" pattern="^[A-Za-z.]+$" [ngClass]="{'invalid': designation.invalid && (designation.dirty || designation.touched), 'valid': designation.valid && (designation.dirty ||
+                                <input type="text" class="form-control" id="designation" placeholder="Designation"
+                                    id="designation" ngModel name="designation" required #designation="ngModel"
+                                    pattern="^[A-Za-z.]+$" [ngClass]="{'invalid': designation.invalid && (designation.dirty || designation.touched), 'valid': designation.valid && (designation.dirty ||
                                                                 designation.touched)}">
-                                <div *ngIf="designation.invalid && (designation.dirty || designation.touched)" class="error-message">
+                                <div *ngIf="designation.invalid && (designation.dirty || designation.touched)"
+                                    class="error-message">
                                     <span *ngIf="designation.errors?.['required']">Please enter Designation</span>
-                                    <span *ngIf="designation.errors?.['pattern']">Please enter only alphabets and (.)</span>
+                                    <span *ngIf="designation.errors?.['pattern']">Please enter only alphabets and
+                                        (.)</span>
                                 </div>
                             </div>
                         </div>

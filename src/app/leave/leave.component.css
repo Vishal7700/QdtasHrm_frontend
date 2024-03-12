@@ -91,6 +91,39 @@
     /* Adjust the vertical space as needed */
 }
 
+
+.success-message {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: green;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    z-index: 1000;
+}
+
+.error-message {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: red;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    z-index: 1000;
+}
+
+.close-icon {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
 /* Responsive styling */
 @media (max-width: 767px) {
 

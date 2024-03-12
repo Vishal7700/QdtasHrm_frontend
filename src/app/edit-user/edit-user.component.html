@@ -1,3 +1,15 @@
+<div *ngIf="successMessage" class="success-message">
+    {{ successMessage }}
+    <mat-icon class="close-icon" (click)="dismissSuccessMessage()">close</mat-icon>
+</div>
+
+<div *ngIf="errorMessage" class="error-message">
+    <mat-icon class="close-icon" (click)="dismissErrorMessage()">close</mat-icon>
+    {{ errorMessage }}
+</div>
+
+
+
 <div class="edituser">
     <div class="card">
         <div class="container p-2">
@@ -261,7 +273,9 @@
 
 
                 <div class="col text-end suv-btn">
+                    <button type="submit" class="btn btn-maroon" routerLink="/profile">Cancel</button>
                     <button type="submit" class="btn btn-maroon" [disabled]="!editfrom.valid">Submit</button>
+                    
                 </div>
             </form>
         </div>

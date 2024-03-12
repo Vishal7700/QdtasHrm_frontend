@@ -30,6 +30,9 @@ export class EditUserComponent implements OnInit {
 
   uId: number = this.route.snapshot.params['uId'];
 
+  successMessage: string | null = null;
+errorMessage: string | null = null;
+
 
   ngOnInit() {
     this.userService.getUserById(this.uId).subscribe(
@@ -43,30 +46,32 @@ export class EditUserComponent implements OnInit {
   }
 
   saveEditedData(data: any) {
-    console.log(data);
-    this.userService.updateUser(this.uId, data).subscribe(
-      (res: any) => {
-        this.snackBar.open('User updated Successfully', 'OK' , {
-          duration: 3000, 
-            horizontalPosition: 'center', 
-            verticalPosition: 'top',
-            
-         })
-      },
-      (error) => {
-        this.snackBar.open('Error in updating user', 'OK' , {
-          duration: 3000, 
-            horizontalPosition: 'center', 
-            verticalPosition: 'top',
-            
-         })
-      }
-    );
-  }
+  console.log(data);
+  this.userService.updateUser(this.uId, data).subscribe(
+    (res: any) => {
+      this.successMessage = 'User updated Successfully';
+      setTimeout(() => {
+        this.successMessage = null;
+      }, 3000);
+    },
+    (error) => {
+      this.errorMessage = 'Error in updating user';
+      setTimeout(() => {
+        this.errorMessage = null;
+      }, 3000);
+    }
+  );
+}
 
 
   
+  dismissSuccessMessage() {
+    this.successMessage = null;
+}
 
+dismissErrorMessage() {
+   this.errorMessage = null;
+}
 
 
 }
