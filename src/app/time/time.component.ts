@@ -10,10 +10,10 @@ import { User } from '../model/user';
 export class TimeComponent {
 
   sideNavStatus: boolean = false;
-  date!: string;
+
 
   constructor(private UserService:UserService){
-     this.setTodayDate();
+    
   }
 
  
@@ -28,15 +28,7 @@ export class TimeComponent {
     this.isSidebarExpanded = expanded;
   }
 
-  setTodayDate(): void {
-    const today = new Date();
-    const year = today.getFullYear();
-    const month = String(today.getMonth() + 1).padStart(2, '0');
-    const day = String(today.getDate()).padStart(2, '0');
 
-    this.date = `${day}-${month}-${year}`;
-
-}
 
 saveTimesheet(data: any) {
 console.log(data);
