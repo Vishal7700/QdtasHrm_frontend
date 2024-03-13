@@ -27,6 +27,9 @@ import { TempPasswordComponent } from './temp-password/temp-password.component';
 import { DialogboxComponent } from './dialogbox/dialogbox.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatDialogModule } from '@angular/material/dialog';
+import { FilterPipe } from 'src/app/add-user/filter.pipe';
+
+
 
 
 
@@ -48,7 +51,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     EditUserComponent,
     ResetPasswordComponent,
     TempPasswordComponent,
-    DialogboxComponent
+    DialogboxComponent,
+    FilterPipe
   ],
   imports: [
     BrowserModule,
@@ -67,7 +71,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatDialogModule,
     
   
-  
+
+
   ],
   providers: [],
   bootstrap: [AppComponent],

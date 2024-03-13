@@ -94,6 +94,11 @@ export class UserService {
     return this.http.get<User[]>(BASE_API_URL + `/user/getAll?pgn=` + currentPage + `&sz=` + resultSize, { headers: this.getHeaders() });
   }
 
+  seachUser(currentPage: number, resultSize: number , key :string) {
+    return this.http.get<User[]>(BASE_API_URL + `/user/seachUser?pgn=` + currentPage + `&sz=` + resultSize + `&key=` + key, { headers: this.getHeaders() });
+  }
+
+
   getUserById(uId: number) {
     return this.http.get<any>(BASE_API_URL + `/user/` + uId, { headers: this.getHeaders() });
   }

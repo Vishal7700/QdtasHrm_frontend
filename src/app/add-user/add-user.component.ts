@@ -10,6 +10,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { DialogboxComponent } from '../dialogbox/dialogbox.component';
 import { EditUserComponent } from '../edit-user/edit-user.component';
 
+import { FormsModule } from '@angular/forms';
+
 
 
 @Component({
@@ -32,6 +34,8 @@ export class AddUserComponent implements OnInit {
   successMessage: string | null = null;
 errorMessage: string | null = null;
 
+searchTerm: string = '';
+
   constructor(private userService: UserService,
     private router: Router,
     public dialog: MatDialog,
@@ -42,6 +46,7 @@ errorMessage: string | null = null;
 
   ngOnInit(): void {
     this.loadUsers(this.resultPage);
+
   }
 
    saveUser(userData: any) {
@@ -130,6 +135,8 @@ errorMessage: string | null = null;
     });
   }
 
+
+
   dismissSuccessMessage() {
     this.successMessage = null;
 }
@@ -139,7 +146,11 @@ dismissErrorMessage() {
 }
 
 
+
+
+
 }
+
 
 
 

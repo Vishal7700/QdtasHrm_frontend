@@ -5,8 +5,90 @@
         <app-sidenav (toggle)="onToggleSidebar($event)"></app-sidenav>
 
         <div class="display-area" [ngClass]="{'expanded': isSidebarExpanded, 'collapsed': !isSidebarExpanded}">
-            <p>time</p>
+            <div class="card">
+                <div class="container p-2">
+                    <form class="timesheetform"  #timeSheetForm="ngForm"  (submit)="saveTimesheet(timeSheetForm.value)">
+                        <div class="inp-row">
+                            <h2 class="title mb-3">TimeSheet for:  {{u.userName}} </h2>
+                            <input type="hidden" ngModel name="employeeId">
+                            <div class="inp-field">
+                                <div class="inp">
+                                    <label class="form-label">Start Time</label>
+                                    <input type="time" class="form-control" id="startTime" ngModel name="startTime">
+                                </div>
+                                <div class="inp">
+                                    <label class="form-label">End Time</label>
+                                    <input type="time" class="form-control" id="endTime" ngModel name="endTime">
+                                </div>
+                            </div>
+
+
+
+                            <div class="inp-field">
+                                <div class="inp">
+                                    <label class="form-label">Date</label>
+                                    <input type="text" class="form-control" id="date" [(ngModel)]="date" name="date"
+                                        [disabled]="true">
+                                </div>
+
+                                <div class="inp">
+                                    <label class="form-label">Project</label>
+                                    <input type="text" class="form-control" id="projectId" ngModel name="projectId">
+                                </div>
+                            </div>
+
+
+                            <div class="inp">
+                                <label class="form-label">Note</label>
+                                <textarea class="form-control" id="note" placeholder="Today's Task" ngModel
+                                    name="note"> </textarea>
+                            </div>
+
+
+                            <div>
+                                <div class="col text-end suv-btn">
+                                    <button class="btn btn-maroon" type="submit">Cancel</button>
+                                    <button class="btn btn-maroon" type="submit">Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+
+            <div class="card">
+                <div class="container p-2">
+                    <form>
+                        <input type="text" id="myInput" onkeyup="tableSearch()" placeholder="Search.." name="search">
+
+                        <table class="table" id="myTable">
+                            <tr class="header">
+                                <th style="width:15%;">Date</th>
+                                <th style="width:15%;">Start time</th>
+                                <th style="width:20%;">End time</th>
+                                <th style="width:15%;">Project</th>
+                                <th style="width:15%;">Note</th>
+                                <th style="width:10%;">Action</th>
+                            </tr>
+                            <tr>
+
+                                <td>Date</td>
+                                <td>Start time</td>
+                                <td>End time</td>
+                                <td>Project</td>
+                                <td>Note</td>
+
+                                <td>
+                                    <div class="icon-container">
+                                        <button mat-button>View</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
+            </div>
         </div>
     </main>
 </div>
-

@@ -57,21 +57,26 @@
 
 
 .success-message {
-    position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        background-color: green;
-        color: white;
-        padding: 10px;
-        text-align: center;
-}
-
-.error-message {
 position: absolute;
     bottom: 0;
     left: 0;
-    width: 100%;
+    right: 0;
+    margin: auto;
+    width: 20%;
+    background-color: green;
+    color: white;
+    padding: 10px;
+    text-align: center;
+ 
+}
+
+.error-message-notification {
+position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 20%;
     background-color: red;
     color: white;
     padding: 10px;

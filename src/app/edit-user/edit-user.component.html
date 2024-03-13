@@ -3,7 +3,7 @@
     <mat-icon class="close-icon" (click)="dismissSuccessMessage()">close</mat-icon>
 </div>
 
-<div *ngIf="errorMessage" class="error-message">
+<div *ngIf="errorMessage" class="error-message-notification">
     <mat-icon class="close-icon" (click)="dismissErrorMessage()">close</mat-icon>
     {{ errorMessage }}
 </div>
@@ -41,7 +41,7 @@
                     <div class="inp-field">
                         <div class="inp">
                             <label class="form-label">New Username</label>
-                            <input type="text" class="form-control" [(ngModel)]="newUsername" ngModel required
+                            <input type="text" class="form-control" [(ngModel)]="newUsername" ngModel required  placeholder="Username"
                                 name="userName" #userName="ngModel" pattern="^[A-Za-z]+$" [ngClass]="{
                   invalid:
                     userName.invalid && (userName.dirty || userName.touched),
@@ -128,7 +128,7 @@
                         <div class="inp">
                             <label class="form-label">New Phone number</label>
                             <input type="text" class="form-control" [(ngModel)]="newphoneno" id="phoneno"
-                                placeholder="Phone No." ngModel name="phoneNumber" required #phoneNumber="ngModel"
+                                placeholder="Phone Number" ngModel name="phoneNumber" required #phoneNumber="ngModel"
                                 pattern="^[0-9]{10}$" [ngClass]="{'invalid': phoneNumber.invalid && (phoneNumber.dirty || phoneNumber.touched), 'valid': phoneNumber.valid && (phoneNumber.dirty ||
                                 phoneNumber.touched)}">
                             <div *ngIf="phoneNumber.invalid && (phoneNumber.dirty || phoneNumber.touched)"
@@ -161,7 +161,7 @@
                     <div class="inp-field">
                         <div class="inp">
                             <label class="form-label">New Department</label>
-                            <select class="form-control" ngModel name="deptId" required #deptId="ngModel"
+                            <select class="form-control" ngModel name="deptId" required #deptId="ngModel" 
                                 [(ngModel)]="newdeptId" [ngClass]="{'invalid': deptId.invalid && (deptId.dirty || deptId.touched), 'valid': deptId.valid && (deptId.dirty ||
                                 deptId.touched)}">
                                 <option selected [disabled]="true">Select Department</option>
@@ -181,7 +181,7 @@
                 <div class="inp-row" *ngIf="selectedField === 'gender'">
                     <div class="inp-field">
                         <div class="inp">
-                            <label class="form-label">New Department</label>
+                            <label class="form-label">Select Gender</label>
                             <select class="form-control" ngModel name="gender" required #gender="ngModel"
                                 [(ngModel)]="newgender" [ngClass]="{'invalid': gender.invalid && (gender.dirty || gender.touched), 'valid': gender.valid && (gender.dirty ||
                                 gender.touched)}">

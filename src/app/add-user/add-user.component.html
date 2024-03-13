@@ -207,8 +207,7 @@
     <div class="card">
         <div class="container p-2">
             <form>
-                <input type="text" id="myInput" onkeyup="tableSearch()" placeholder="Search.." name="search" />
-
+                <input type="text" id="myInput" placeholder="Search.." [(ngModel)]="searchTerm" [ngModelOptions]="{standalone: true}" />
                 <table class="table" id="myTable">
                     <tr class="header">
                         <th style="width: 15%">User-Id</th>
@@ -222,7 +221,7 @@
                         <th style="width: 10%">Designation</th>
                         <th style="width: 10%">Action</th>
                     </tr>
-                    <tr *ngFor="let user of users">
+                    <tr *ngFor="let user of users | filter : searchTerm">
                         <td>{{ user.userId }}</td>
                         <td>{{ user.userName }}</td>
                         <td>{{ user.firstName }}</td>

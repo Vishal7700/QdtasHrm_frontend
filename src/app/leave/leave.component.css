@@ -93,10 +93,12 @@
 
 
 .success-message {
-    position: fixed;
+position: fixed;
     bottom: 0;
     left: 0;
-    width: 100%;
+    right: 0;
+    margin: auto;
+    width: 20%;
     background-color: green;
     color: white;
     padding: 10px;
@@ -105,15 +107,16 @@
 }
 
 .error-message {
-    position: fixed;
+position: absolute;
     bottom: 0;
     left: 0;
-    width: 100%;
+    right: 0;
+    margin: auto;
+    width: 20%;
     background-color: red;
     color: white;
     padding: 10px;
     text-align: center;
-    z-index: 1000;
 }
 
 .close-icon {
