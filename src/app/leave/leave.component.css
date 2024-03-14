@@ -106,7 +106,7 @@ position: fixed;
     z-index: 1000;
 }
 
-.error-message {
+.error-message-notification {
 position: absolute;
     bottom: 0;
     left: 0;
