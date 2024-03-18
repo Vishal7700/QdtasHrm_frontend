@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../service/userServices';
-import { Router } from '@angular/router';
+import { Router} from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { User } from '../model/user';
 import { Subscription } from 'rxjs';
@@ -9,8 +9,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DialogboxComponent } from '../dialogbox/dialogbox.component';
 import { EditUserComponent } from '../edit-user/edit-user.component';
-
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 
 
 
@@ -44,6 +43,10 @@ searchTerm: string = '';
 
   }
 
+
+
+
+
   ngOnInit(): void {
     this.loadUsers(this.resultPage);
 
@@ -52,7 +55,7 @@ searchTerm: string = '';
    saveUser(userData: any) {
     this.userService.addUser(userData).subscribe(
       (response: any) => {
-        console.log(response);
+       
         this.successMessage = 'User added Successfully'; 
 	 setTimeout(() => {
         this.successMessage = null;
@@ -124,7 +127,7 @@ searchTerm: string = '';
             
           },
           (error: any) => {
-            this.errorMessage = 'User deleted Successfully'; 
+            this.errorMessage = 'Could not delete user'; 
 	 setTimeout(() => {
         this.errorMessage = null;
       }, 3000);
@@ -136,7 +139,7 @@ searchTerm: string = '';
   }
 
 
-
+  
   dismissSuccessMessage() {
     this.successMessage = null;
 }
@@ -145,14 +148,27 @@ dismissErrorMessage() {
    this.errorMessage = null;
 }
 
+ openEidtUser(uId: number): void {
+    const dialogRef = this.dialog.open(EditUserComponent,  {
+      width: '700px',
+      data: uId,
+    });
 
-
+    dialogRef.afterClosed().subscribe(result => {
+      if (result == 'success') {
+     this.successMessage = 'User updated Successfully'; 
+     setTimeout(() => {
+           window.location.reload();
+     }, 1500);
+     
+      } else if (result == 'failure') {
+        this.errorMessage = 'Could not update user';
+      }
+    });
+  }
 
 
 }
-
-
-
 
 
 

@@ -90,7 +90,7 @@
                 <div class="container p-2">
                     <form>
                        
-
+                        <div class="table-container">
                         <table class="table" id="myTable">
                             <tr class="header">
                                 <th style="width:15%;">Start Date</th>
@@ -114,10 +114,13 @@
                                 </td>
                             </tr>
                         </table>
+                        </div>
+                        <div class="load-button">
                         <button (click)="loadMoreleaves()" *ngIf="hasMoreResult" mat-raised-button color="primary"
                             class="rounded-pill align-middle text-center">
                             Load More
                         </button>
+                        </div>
                     </form>
                 </div>
             </div>

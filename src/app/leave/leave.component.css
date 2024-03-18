@@ -127,11 +127,29 @@ position: absolute;
     cursor: pointer;
 }
 
-/* Responsive styling */
+/* Adjust the form layout for mobile devices */
 @media (max-width: 767px) {
+    .inp-row {
+        display: grid;
+        width: 100vw;
+        padding: 0px !important;
+    }
 
-    .col-md-6 {
-        width: 30%;
+    .container {
+        margin-top: 0% !important;
+    }
+
+    .title {
+        font-size: 24px !important;
+        color: maroon;
+    }
+
+    .card {
+        box-shadow: none;
+        transition: 0.3s;
+        width: 100% !important;
+        margin-top: 0% !important;
+        margin-left: 1% !important;
     }
 
     .adduserform {
@@ -139,9 +157,117 @@ position: absolute;
         flex-direction: column;
     }
 
+    .col-md-6 {
+        width: 50%;
+    }
+
+    /* Add margin to the card */
+    .card {
+        margin: 2px;
+    }
+
+    .inp-field {
+        display: flex;
+        flex-direction: column;
+        gap: 0px !important;
+        /* Reduce the gap between input fields */
+    }
+
+    .inp {
+        width: 100%;
+        /* Set the width of input fields to full */
+    }
+
+    /* Add margin to the card */
+    .card {
+        margin: 2px;
+    }
+
+    .leaveform {
+        margin: 10px;
+        /* Add margin to the form container */
+    }
+
+    .suv-btn {
+        padding: 10px;
+        display: inline-block;
+    }
+
+    .form-control {
+        width: 280px !important;
+    }
+
+    /* Apply overflow properties for portrait orientation */
+    .table-container {
+        overflow-x: auto;
+        overflow-y: auto;
+    }
+
+    .card-container {
+        max-width: 100%;
+        overflow-x: auto;
+        overflow-y: auto;
+    }
 
 
+          .success-message {
+              position: fixed;
+              bottom: 0;
+              left: 0;
+              right: 0;
+              margin: auto;
+              width: 70% !important;
+              background-color: green;
+              color: white;
+              padding: 10px;
+              text-align: center;
+              z-index: 1000;
+          }
+    
+          .error-message-notification {
+              position: fixed;
+              bottom: 0;
+              left: 0;
+              right: 0;
+              margin: auto;
+              width: 90% !important;
+              background-color: red;
+              color: white;
+              padding: 10px;
+              text-align: center;
+              z-index: 1000;
+          }
+
+
+                   .load-button {
+                       display: flex;
+                       justify-content: center;
+                       align-items: center;
+                   }
 }
+
+/* Additional styles for landscape orientation */
+@media (max-width: 767px),
+(orientation: landscape) {
+    .table-container {
+        overflow-x: scroll !important;
+        overflow-y: hidden !important;
+    }
+
+    .card-container {
+        max-width: 100%;
+        overflow-x: auto;
+        overflow-y: auto;
+    }
+
+    
+}
+
+
+
+
+
+
 
 @media (max-width: 1400px) {
 

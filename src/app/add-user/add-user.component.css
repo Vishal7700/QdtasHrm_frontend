@@ -2,7 +2,6 @@
     overflow: hidden;
 }
 
-
 .card {
     box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.2);
     transition: 0.3s;
@@ -58,12 +57,13 @@
 }
 
 .icon-space {
-    margin-bottom: 10px; /* Adjust the vertical space as needed */
+    margin-bottom: 10px;
+    /* Adjust the vertical space as needed */
 }
 
 
 .success-message {
-position: fixed;
+    position: fixed;
     bottom: 0;
     left: 0;
     right: 0;
@@ -77,7 +77,7 @@ position: fixed;
 }
 
 .error-message-notification {
-position: fixed;
+    position: fixed;
     bottom: 0;
     left: 0;
     right: 0;
@@ -99,11 +99,36 @@ position: fixed;
     cursor: pointer;
 }
 
-/* Responsive styling */
-@media (max-width: 767px) {
+.load-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-    .col-md-6 {
-        width: 30%;
+
+/* Adjust the form layout for mobile devices */
+@media (max-width: 767px) {
+    .inp-row {
+        display: grid;
+        width: 100vw;
+        padding: 0px !important;
+    }
+
+    .container {
+        margin-top: 0% !important;
+    }
+
+    .title {
+        font-size: 24px !important;
+        color: maroon;
+    }
+
+    .card {
+        box-shadow: none;
+        transition: 0.3s;
+        width: 100% !important;
+        margin-top: 0% !important;
+        margin-left: 1% !important;
     }
 
     .adduserform {
@@ -111,16 +136,112 @@ position: fixed;
         flex-direction: column;
     }
 
-    
+    .col-md-6 {
+        width: 50%;
+    }
+
+    /* Add margin to the card */
+    .card {
+        margin: 2px;
+    }
+
+    .inp-field {
+        display: flex;
+        flex-direction: column;
+        gap: 0px !important;
+        /* Reduce the gap between input fields */
+    }
+
+    .inp {
+        width: 100%;
+        /* Set the width of input fields to full */
+    }
+
+    /* Add margin to the card */
+    .card {
+        margin: 2px;
+    }
+
+    .adduserform {
+        margin: 10px;
+        /* Add margin to the form container */
+    }
+
+    .suv-btn {
+        padding: 10px;
+        display: inline-block;
+    }
+
+    .form-control {
+        width: 280px !important;
+    }
+
+    /* Apply overflow properties for portrait orientation */
+    .table-container {
+        overflow-x: auto;
+        overflow-y: auto;
+    }
+
+    .card-container {
+        max-width: 100%;
+        overflow-x: auto;
+        overflow-y: auto;
+    }
+
+
+    .success-message {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+        width: 70% !important;
+        background-color: green;
+        color: white;
+        padding: 10px;
+        text-align: center;
+        z-index: 1000;
+    }
+
+    .error-message-notification {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+        width: 90% !important;
+        background-color: red;
+        color: white;
+        padding: 10px;
+        text-align: center;
+        z-index: 1000;
+    }
+
+
+        .load-button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+
 
 }
 
+/* Additional styles for landscape orientation */
+@media (max-width: 767px),
+(orientation: landscape) {
+    .table-container {
+        overflow-x: scroll !important;
+        overflow-y: hidden !important;
+    }
 
-
-
-
-
-
+    .card-container {
+        max-width: 100%;
+        overflow-x: auto;
+        overflow-y: auto;
+    }
+}
 
 
 @media (max-width: 1400px) {
@@ -152,7 +273,7 @@ th,
 td {
     border: 1px solid black;
     border-collapse: collapse;
-   
+
 
 }
 
@@ -165,7 +286,7 @@ th {
 } */
 
 #myInput {
-    
+
     /* Add a search icon to input */
     background-position: 10px 12px;
     /* Position the search icon */
@@ -194,7 +315,7 @@ th {
     /* Add a grey border */
     font-size: 16px;
     /* Increase font-size */
-  
+
 }
 
 #myTable th,
@@ -206,7 +327,7 @@ th {
 }
 
 #myTable tr {
-    
+
     /* Add a bottom border to all table rows */
     border-bottom: 1px solid #ddd;
 }
@@ -215,7 +336,7 @@ th {
 #myTable tr:hover {
     /* Add a grey background color to the table header and on hover */
     background-color: #f1f1f1;
-    
+
 }
 
 .inp-row {
@@ -245,7 +366,7 @@ th {
 
 .suv-btn {
     padding: 10px;
-   
+
 }
 
 .card {
@@ -257,11 +378,11 @@ th {
     background: transparent;
     display: flex;
     align-items: center;
-    
+
 }
 
 .icon-space {
     margin-right: 30px;
-    
-    
+
+
 }

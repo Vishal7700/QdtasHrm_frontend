@@ -1,8 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { UserService } from '../service/userServices';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSnackBarConfig } from '@angular/material/snack-bar';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { AddUserComponent } from '../add-user/add-user.component';
+
+
+
 
 
 @Component({
@@ -12,7 +17,13 @@ import { MatSnackBarConfig } from '@angular/material/snack-bar';
 })
 export class EditUserComponent implements OnInit {
 
-  constructor(private userService: UserService, private route: ActivatedRoute, private snackBar: MatSnackBar,) { }
+  constructor(private userService: UserService,
+     private route: ActivatedRoute,
+      private snackBar: MatSnackBar,
+      private dialogRef: MatDialogRef<AddUserComponent>,
+      
+     @Inject(MAT_DIALOG_DATA) public userId: number 
+      ) { }
 
   selectedField: string = '';
   newUsername: string = '';
@@ -28,7 +39,7 @@ export class EditUserComponent implements OnInit {
   newdesignation: string = '';
   newpassword: string = ' ';
 
-  uId: number = this.route.snapshot.params['uId'];
+  uId: number = this.userId;
 
   successMessage: string | null = null;
 errorMessage: string | null = null;
@@ -39,6 +50,7 @@ errorMessage: string | null = null;
       (res: any) => {
       }
     );
+    console.log(this.userId);
   }
 
   onFieldSelect(event: any) {
@@ -46,19 +58,22 @@ errorMessage: string | null = null;
   }
 
   saveEditedData(data: any) {
-  console.log(data);
+
   this.userService.updateUser(this.uId, data).subscribe(
     (res: any) => {
       this.successMessage = 'User updated Successfully';
       setTimeout(() => {
         this.successMessage = null;
       }, 3000);
+       this.dialogRef.close('success');
+      
     },
     (error) => {
       this.errorMessage = 'Error in updating user';
       setTimeout(() => {
         this.errorMessage = null;
       }, 3000);
+       this.dialogRef.close('failure');
     }
   );
 }
@@ -71,6 +86,11 @@ errorMessage: string | null = null;
 
 dismissErrorMessage() {
    this.errorMessage = null;
+}
+
+
+dismissDialogBox() {
+  this.dialogRef.close();
 }
 
 
