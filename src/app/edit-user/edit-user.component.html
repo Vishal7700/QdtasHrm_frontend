@@ -231,47 +231,6 @@
                     </div>
                 </div>
 
-                <!-- 
-
-                <div class="inp-row" *ngIf="selectedField === 'password'">
-                    <div class="inp-field">
-                        <div class="inp">
-                            <label class="form-label" for="password">Password</label>
-                            <input type="password" class="form-control" id="password" placeholder="Password" ngModel
-                                name="password" required [(ngModel)]="newpassword" #password="ngModel"
-                                pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&+=]).{8,14}$" [ngClass]="{ invalid:  password.invalid && (password.dirty || password.touched),
-                                          valid: password.valid && (password.dirty || password.touched) }" />
-                            <div *ngIf="password.invalid && (password.dirty || password.touched)" class="error-message">
-                                <span *ngIf="password.errors?.['required']">Please enter strong password</span>
-                                <span *ngIf="password.errors?.['pattern']">please enter one uppercase,one lowercase, one
-                                    special
-                                    character, one symbol</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="inp-row" *ngIf="selectedField === 'password'">
-                    <div class="inp-field">
-                        <div class="inp">
-                            <label class="form-label" for="confirmPassword">Confirm Password</label>
-                            <input type="password" class="form-control" id="confirmPassword" placeholder="Password"
-                                ngModel required #confirmPassword="ngModel"
-                                pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&+=]).{8,14}$"
-                                [ngClass]="{ invalid:  confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched),
-                                                      valid: confirmPassword.valid && (confirmPassword.dirty || confirmPassword.touched) }" />
-                            <div *ngIf="confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched)"
-                                class="error-message">
-                                <span *ngIf="confirmPassword.errors?.['required']">Please enter strong password</span>
-                                <span *ngIf="confirmPassword.errors?.['pattern']">please enter one uppercase,one
-                                    lowercase, one special
-                                    character, one symbol</span>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
-
 
                 <div class="inp-row" *ngIf="selectedField === 'password'">
                     <div class="inp-field">
@@ -307,7 +266,7 @@
 
                 <div class="col text-end suv-btn">
                     <button type="submit" class="btn btn-maroon" (click)="dismissDialogBox()">Cancel</button>
-                    <button type="submit" class="btn btn-maroon" [disabled]="!editfrom.valid">Submit</button>
+                    <button type="submit" class="btn btn-maroon" [disabled]="!editfrom.valid || !selectedField">Submit</button>
 
                 </div>
             </form>

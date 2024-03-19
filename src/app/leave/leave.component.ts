@@ -33,6 +33,7 @@ errorMessage: string | null = null;
 
 minDate = "";
 maxDate = "";
+startDateValue: string = '';
  @ViewChild('endDate') endDateInput: any; // This allows accessing the input element in the template
  endDate: string ='';
 
@@ -72,7 +73,9 @@ this.minDate = `${minYear}-${minMonth}-${minDay}`;
   }
 
   applyLeave(userData: any) {
+    console.log(userData);
     this.UserService.applyLeave(userData, this.empId).subscribe(
+      
       (response: any) => {
         this.successMessage = 'Leave Applied Successfully';
       setTimeout(() => {
