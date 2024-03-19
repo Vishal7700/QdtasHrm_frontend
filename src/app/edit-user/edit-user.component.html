@@ -19,7 +19,7 @@
                     <div class="inp-field">
                         <div class="inp">
                             <label class="form-label">Select field to edit</label>
-                            <select class="form-control" (change)="onFieldSelect($event)">
+                            <select class="form-select" (change)="onFieldSelect($event)">
                                 <option selected [disabled]="true">Select</option>
                                 <option value="userName">Username</option>
                                 <option value="email">Email</option>
@@ -41,8 +41,9 @@
                     <div class="inp-field">
                         <div class="inp">
                             <label class="form-label">New Username</label>
-                            <input type="text" class="form-control" [(ngModel)]="newUsername" ngModel required  placeholder="Username"
-                                name="userName" #userName="ngModel" pattern="^[A-Za-z]+$" [ngClass]="{
+                            <input type="text" class="form-control" [(ngModel)]="newUsername" ngModel required
+                                placeholder="Username" name="userName" #userName="ngModel" pattern="^[A-Za-z]+$"
+                                [ngClass]="{
                   invalid:
                     userName.invalid && (userName.dirty || userName.touched),
                   valid: userName.valid && (userName.dirty || userName.touched)
@@ -147,7 +148,7 @@
                             <input type="date" class="form-control" [(ngModel)]="newbirthdate" id="dob"
                                 placeholder="dd-mm-yy" ngModel name="birthDate" required #birthDate="ngModel"
                                 pattern="\d{4}-\d{2}-\d{2}" [ngClass]="{'invalid': birthDate.invalid && (birthDate.dirty || birthDate.touched), 'valid': birthDate.valid && (birthDate.dirty ||
-                                birthDate.touched)}" max="2005-12-31" (keydown)="preventManualInput($event)"  >
+                                birthDate.touched)}" max="2005-12-31" (keydown)="preventManualInput($event)">
                             <div *ngIf="birthDate.invalid && (birthDate.dirty || birthDate.touched)"
                                 class="error-message">
                                 <span *ngIf="birthDate.errors?.['required']">Please enter Birthdate</span>
@@ -161,7 +162,7 @@
                     <div class="inp-field">
                         <div class="inp">
                             <label class="form-label">New Department</label>
-                            <select class="form-control" ngModel name="deptId" required #deptId="ngModel" 
+                            <select class="form-select" ngModel name="deptId" required #deptId="ngModel"
                                 [(ngModel)]="newdeptId" [ngClass]="{'invalid': deptId.invalid && (deptId.dirty || deptId.touched), 'valid': deptId.valid && (deptId.dirty ||
                                 deptId.touched)}">
                                 <option selected [disabled]="true">Select Department</option>
@@ -182,7 +183,7 @@
                     <div class="inp-field">
                         <div class="inp">
                             <label class="form-label">Select Gender</label>
-                            <select class="form-control" ngModel name="gender" required #gender="ngModel"
+                            <select class="form-select" ngModel name="gender" required #gender="ngModel"
                                 [(ngModel)]="newgender" [ngClass]="{'invalid': gender.invalid && (gender.dirty || gender.touched), 'valid': gender.valid && (gender.dirty ||
                                 gender.touched)}">
                                 <option value="Male">Male</option>
@@ -199,7 +200,7 @@
                     <div class="inp-field">
                         <div class="inp">
                             <label class="form-label">New Role</label>
-                            <select class="form-control" ngModel name="role" required #role="ngModel"
+                            <select class="form-select" ngModel name="role" required #role="ngModel"
                                 [(ngModel)]="newrole" [ngClass]="{'invalid': role.invalid && (role.dirty || role.touched), 'valid': role.valid && (role.dirty ||
                                 role.touched)}">
                                 <option selected [disabled]="true">Select Role</option>
@@ -230,7 +231,7 @@
                     </div>
                 </div>
 
-<!-- 
+                <!-- 
 
                 <div class="inp-row" *ngIf="selectedField === 'password'">
                     <div class="inp-field">
@@ -273,37 +274,41 @@
 
 
                 <div class="inp-row" *ngIf="selectedField === 'password'">
-                <div class="inp-field">
-                    <div class="inp">
-                        <label class="form-label" for="password">Password</label>
-                        <input type="password" class="form-control" id="password" placeholder="Password" ngModel name="password"
-                            required #password="ngModel" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&+=]).{8,14}$" [ngClass]="{'invalid': password.invalid && (password.dirty || password.touched), 'valid': password.valid && (password.dirty ||
+                    <div class="inp-field">
+                        <div class="inp">
+                            <label class="form-label" for="password">Password</label>
+                            <input type="password" class="form-control" id="password" placeholder="Password" ngModel
+                                name="password" required #password="ngModel"
+                                pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&+=]).{8,14}$" [ngClass]="{'invalid': password.invalid && (password.dirty || password.touched), 'valid': password.valid && (password.dirty ||
                             password.touched)}">
-                        <div *ngIf="password.invalid && (password.dirty || password.touched)" class="error-message">
-                            <span *ngIf="password.errors?.['required']">Please enter a strong password</span>
-                            <span *ngIf="password.errors?.['pattern']">Please include one uppercase letter, one lowercase letter, one
-                                digit, one special character, and be 8-14 characters long</span>
+                            <div *ngIf="password.invalid && (password.dirty || password.touched)" class="error-message">
+                                <span *ngIf="password.errors?.['required']">Please enter a strong password</span>
+                                <span *ngIf="password.errors?.['pattern']">Please include one uppercase letter, one
+                                    lowercase letter, one
+                                    digit, one special character, and be 8-14 characters long</span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="inp">
-                        <label class="form-label" for="confirm_password">Confirm Password</label>
-                        <input type="password" class="form-control" id="confirm_password" placeholder="Confirm Password" ngModel
-                            name="confirmPassword" required #confirmPassword="ngModel" [ngClass]="{'invalid': confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched), 'valid': confirmPassword.valid && (confirmPassword.dirty ||
+                        <div class="inp">
+                            <label class="form-label" for="confirm_password">Confirm Password</label>
+                            <input type="password" class="form-control" id="confirm_password"
+                                placeholder="Confirm Password" ngModel name="confirmPassword" required
+                                #confirmPassword="ngModel" [ngClass]="{'invalid': confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched), 'valid': confirmPassword.valid && (confirmPassword.dirty ||
                             confirmPassword.touched)}" [pattern]="password.value" appMatchPassword>
-                        <div *ngIf="confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched)"
-                            class="error-message">
-                            <span *ngIf="confirmPassword.errors?.['required']">Please enter the confirmation password</span>
-                            <span *ngIf="confirmPassword.errors?.['pattern']">Passwords do not match</span>
+                            <div *ngIf="confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched)"
+                                class="error-message">
+                                <span *ngIf="confirmPassword.errors?.['required']">Please enter the confirmation
+                                    password</span>
+                                <span *ngIf="confirmPassword.errors?.['pattern']">Passwords do not match</span>
+                            </div>
                         </div>
                     </div>
                 </div>
-</div>
 
-               
+
                 <div class="col text-end suv-btn">
                     <button type="submit" class="btn btn-maroon" (click)="dismissDialogBox()">Cancel</button>
                     <button type="submit" class="btn btn-maroon" [disabled]="!editfrom.valid">Submit</button>
-                    
+
                 </div>
             </form>
         </div>

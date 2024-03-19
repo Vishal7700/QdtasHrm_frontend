@@ -122,7 +122,7 @@
                     <div class="inp-field">
                         <div class="inp">
                             <label class="form-label">Gender</label>
-                            <select class="form-control" ngModel name="gender" required #gender="ngModel" [ngClass]="{'invalid': gender.invalid && (gender.dirty || gender.touched), 'valid': gender.valid && (gender.dirty ||
+                            <select class="form-select" ngModel name="gender" required #gender="ngModel" [ngClass]="{'invalid': gender.invalid && (gender.dirty || gender.touched), 'valid': gender.valid && (gender.dirty ||
                                 gender.touched)}">
                                 <option value="male">Male</option>
                                 <option value="female">Female</option>
@@ -130,8 +130,8 @@
                             <div *ngIf="gender.invalid && (gender.dirty || gender.touched)" class="error-message">
                                 <span *ngIf="gender.errors?.['required']">Select gender</span>
                             </div>
-
                         </div>
+
                         <div class="inp">
                             <label class="form-label">Phone Number</label>
                             <input type="text" class="form-control" id="phoneNumber" placeholder="Phone No." ngModel
@@ -146,7 +146,7 @@
                     <div class="inp-field">
                         <div class="inp">
                             <label class="form-label">Department</label>
-                            <select class="form-control" ngModel name="deptId" placeholder="Select Department" required #deptId="ngModel" [ngClass]="{'invalid': deptId.invalid && (deptId.dirty || deptId.touched), 'valid': deptId.valid && (deptId.dirty ||
+                            <select class="form-select" ngModel name="deptId" placeholder="Select Department" required #deptId="ngModel" [ngClass]="{'invalid': deptId.invalid && (deptId.dirty || deptId.touched), 'valid': deptId.valid && (deptId.dirty ||
                                 deptId.touched)}">
                                 <option selected [disabled]="true">Select Department</option>
                                 <option value=1>DEVELOPER</option>
@@ -162,7 +162,7 @@
                         </div>
                         <div class="inp">
                             <label class="form-label">Role</label>
-                            <select class="form-control" ngModel name="role" required #role="ngModel" [ngClass]="{'invalid': role.invalid && (role.dirty || role.touched), 'valid': role.valid && (role.dirty ||
+                            <select class="form-select" ngModel name="role" required #role="ngModel" [ngClass]="{'invalid': role.invalid && (role.dirty || role.touched), 'valid': role.valid && (role.dirty ||
                                 role.touched)}">
                                 <option selected [disabled]="true">Select Role</option>
                                 <option value="ROLE_ADMIN">Admin</option>
