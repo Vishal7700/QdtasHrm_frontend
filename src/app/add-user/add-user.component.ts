@@ -13,6 +13,7 @@ import { FormsModule, NgForm } from '@angular/forms';
 
 
 
+
 @Component({
   selector: 'app-add-user',
   templateUrl: './add-user.component.html',
@@ -35,10 +36,12 @@ errorMessage: string | null = null;
 
 searchTerm: string = '';
 
+
   constructor(private userService: UserService,
     private router: Router,
     public dialog: MatDialog,
     private snackBar: MatSnackBar,
+   
   ) {
 
   }
@@ -167,6 +170,11 @@ dismissErrorMessage() {
     });
   }
 
+
+  // 
+preventManualInput(event: KeyboardEvent) {
+    event.preventDefault();
+}
 
 }
 

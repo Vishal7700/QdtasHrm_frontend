@@ -79,8 +79,8 @@
                             <label class="form-label">DOB</label>
                             <input type="date" name="datafield" class="form-control" id="dob" placeholder="dd-mm-yy"
                                 ngModel name="birthDate" required #birthDate="ngModel" pattern="\d{4}-\d{2}-\d{2}"
-                                [ngClass]="{'invalid': birthDate.invalid && (birthDate.dirty || birthDate.touched), 'valid': birthDate.valid && (birthDate.dirty ||
-                                birthDate.touched)}">
+                                [ngClass]="{'invalid': birthDate.invalid && (birthDate.dirty || birthDate.touched), 'valid': birthDate.valid && (birthDate.dirty || birthDate.touched)}"
+                                max="2005-12-31"  (keydown)="preventManualInput($event)" >
                             <div *ngIf="birthDate.invalid && (birthDate.dirty || birthDate.touched)"
                                 class="error-message">
                                 <span *ngIf="birthDate.errors?.['required']">Please enter Birthdate</span>
@@ -89,31 +89,35 @@
                         </div>
                     </div>
 
-                    
-                <div class="inp-field">
-                    <div class="inp">
-                        <label class="form-label" for="password">Password</label>
-                        <input type="password" class="form-control" id="password" placeholder="Password" ngModel name="password"
-                            required #password="ngModel" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&+=]).{8,14}$" [ngClass]="{'invalid': password.invalid && (password.dirty || password.touched), 'valid': password.valid && (password.dirty ||
+
+                    <div class="inp-field">
+                        <div class="inp">
+                            <label class="form-label" for="password">Password</label>
+                            <input type="password" class="form-control" id="password" placeholder="Password" ngModel
+                                name="password" required #password="ngModel"
+                                pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&+=]).{8,14}$" [ngClass]="{'invalid': password.invalid && (password.dirty || password.touched), 'valid': password.valid && (password.dirty ||
                             password.touched)}">
-                        <div *ngIf="password.invalid && (password.dirty || password.touched)" class="error-message">
-                            <span *ngIf="password.errors?.['required']">Please enter a strong password</span>
-                            <span *ngIf="password.errors?.['pattern']">Please include one uppercase letter, one lowercase letter, one
-                                digit, one special character, and be 8-14 characters long</span>
+                            <div *ngIf="password.invalid && (password.dirty || password.touched)" class="error-message">
+                                <span *ngIf="password.errors?.['required']">Please enter a strong password</span>
+                                <span *ngIf="password.errors?.['pattern']">Please include one uppercase letter, one
+                                    lowercase letter, one
+                                    digit, one special character, and be 8-14 characters long</span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="inp">
-                        <label class="form-label" for="confirm_password">Confirm Password</label>
-                        <input type="password" class="form-control" id="confirm_password" placeholder="Confirm Password" ngModel
-                            name="confirmPassword" required #confirmPassword="ngModel" [ngClass]="{'invalid': confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched), 'valid': confirmPassword.valid && (confirmPassword.dirty ||
+                        <div class="inp">
+                            <label class="form-label" for="confirm_password">Confirm Password</label>
+                            <input type="password" class="form-control" id="confirm_password"
+                                placeholder="Confirm Password" ngModel name="confirmPassword" required
+                                #confirmPassword="ngModel" [ngClass]="{'invalid': confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched), 'valid': confirmPassword.valid && (confirmPassword.dirty ||
                             confirmPassword.touched)}" [pattern]="password.value" appMatchPassword>
-                        <div *ngIf="confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched)"
-                            class="error-message">
-                            <span *ngIf="confirmPassword.errors?.['required']">Please enter the confirmation password</span>
-                            <span *ngIf="confirmPassword.errors?.['pattern']">Passwords do not match</span>
+                            <div *ngIf="confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched)"
+                                class="error-message">
+                                <span *ngIf="confirmPassword.errors?.['required']">Please enter the confirmation
+                                    password</span>
+                                <span *ngIf="confirmPassword.errors?.['pattern']">Passwords do not match</span>
+                            </div>
                         </div>
                     </div>
-                </div>
 
                     <div class="inp-field">
                         <div class="inp">
@@ -142,13 +146,13 @@
                     <div class="inp-field">
                         <div class="inp">
                             <label class="form-label">Department</label>
-                            <select class="form-control" ngModel name="deptId" required #deptId="ngModel" [ngClass]="{'invalid': deptId.invalid && (deptId.dirty || deptId.touched), 'valid': deptId.valid && (deptId.dirty ||
+                            <select class="form-control" ngModel name="deptId" placeholder="Select Department" required #deptId="ngModel" [ngClass]="{'invalid': deptId.invalid && (deptId.dirty || deptId.touched), 'valid': deptId.valid && (deptId.dirty ||
                                 deptId.touched)}">
                                 <option selected [disabled]="true">Select Department</option>
-                                <option value=3>DEVELOPER</option>
-                                <option value=10>QA</option>
-                                <option value=4>MARKETING</option>
-                                <option value=13>HR</option>
+                                <option value=1>DEVELOPER</option>
+                                <option value=2>QA</option>
+                                <option value=3>HR</option>
+                                <option value=4>Finance</option>
                             </select>
                             <div *ngIf="deptId.invalid && (deptId.dirty || deptId.touched)" class="error-message">
                                 <span *ngIf="deptId.errors?.['required']">Please select department</span>
@@ -196,7 +200,7 @@
                         </div>
 
 
-                        
+
                     </div>
                 </div>
             </form>
@@ -206,54 +210,55 @@
 
     <div class="card">
         <div class="card-container">
-        <div class="container p-2">
-            <form>
-                <input type="text" id="myInput" placeholder="Search.." [(ngModel)]="searchTerm" [ngModelOptions]="{standalone: true}" />
-                <div class="table-container">
-                <table class="table" id="myTable">
-                    <tr class="header">
-                        <th style="width: 15%">User-Id</th>
-                        <th style="width: 15%">Username</th>
-                        <th style="width: 15%">First name</th>
-                        <th style="width: 20%">Middle name</th>
-                        <th style="width: 15%">Last name</th>
-                        <th style="width: 5%">Gender</th>
-                        <th style="width: 15%">Department</th>
-                        <th style="width: 15%">Phone no.</th>
-                        <th style="width: 10%">Designation</th>
-                        <th style="width: 10%">Action</th>
-                    </tr>
-                    <tr *ngFor="let user of users | filter : searchTerm">
-                        <td>{{ user.userId }}</td>
-                        <td>{{ user.userName }}</td>
-                        <td>{{ user.firstName }}</td>
-                        <td>{{ user.middleName }}</td>
-                        <td>{{ user.lastName }}</td>
-                        <td>{{ user.gender }}</td>
-                        <td>{{ user.dept?.deptName }}</td>
-                        <td>{{ user.phoneNumber }}</td>
-                        <td>{{ user.designation }}</td>
-                        <td>
-                            <div class="icon-container">
-                                <i class="fa-solid fa-pen-to-square" (click)="openEidtUser(user.userId)"></i>
-                                <span class="icon-space"></span>
-                                <i class="fa-solid fa-trash-can" (click)="deleteUser(user.userId)"></i>
-                            </div>
-                        </td>
-                    </tr>
-                    
-                </table>
-                </div>
+            <div class="container p-2">
+                <form>
+                    <input type="text" id="myInput" placeholder="Search.." [(ngModel)]="searchTerm"
+                        [ngModelOptions]="{standalone: true}" />
+                    <div class="table-container">
+                        <table class="table" id="myTable">
+                            <tr class="header">
+                                <th style="width: 15%">User-Id</th>
+                                <th style="width: 15%">Username</th>
+                                <th style="width: 15%">First name</th>
+                                <th style="width: 20%">Middle name</th>
+                                <th style="width: 15%">Last name</th>
+                                <th style="width: 5%">Gender</th>
+                                <th style="width: 15%">Department</th>
+                                <th style="width: 15%">Phone no.</th>
+                                <th style="width: 10%">Designation</th>
+                                <th style="width: 10%">Action</th>
+                            </tr>
+                            <tr *ngFor="let user of users | filter : searchTerm">
+                                <td>{{ user.userId }}</td>
+                                <td>{{ user.userName }}</td>
+                                <td>{{ user.firstName }}</td>
+                                <td>{{ user.middleName }}</td>
+                                <td>{{ user.lastName }}</td>
+                                <td>{{ user.gender }}</td>
+                                <td>{{ user.dept?.deptName }}</td>
+                                <td>{{ user.phoneNumber }}</td>
+                                <td>{{ user.designation }}</td>
+                                <td>
+                                    <div class="icon-container">
+                                        <i class="fa-solid fa-pen-to-square" (click)="openEidtUser(user.userId)"></i>
+                                        <span class="icon-space"></span>
+                                        <i class="fa-solid fa-trash-can" (click)="deleteUser(user.userId)"></i>
+                                    </div>
+                                </td>
+                            </tr>
+
+                        </table>
+                    </div>
 
 
-                <div class="load-button">
-                <button (click)="loadMoreUsers()" *ngIf="hasMoreResult" mat-raised-button color="primary"
-                    class="rounded-pill align-middle text-center">
-                    Load More
-                </button>
-                </div>
-            </form>
+                    <div class="load-button">
+                        <button (click)="loadMoreUsers()" *ngIf="hasMoreResult" mat-raised-button color="primary"
+                            class="rounded-pill align-middle text-center">
+                            Load More
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-</div>
 </div>

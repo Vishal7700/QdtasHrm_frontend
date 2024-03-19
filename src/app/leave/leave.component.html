@@ -24,7 +24,7 @@
                             <div class="inp-field">
                                 <div class="inp">
                                     <label class="form-label">Start Date</label>
-                                    <input type="date" class="form-control" id="startDate" ngModel name="startDate"  required #startDate="ngModel"
+                                    <input type="date" [min]="minDate"  [max]="maxDate" class="form-control" id="startDate" ngModel name="startDate"  required #startDate="ngModel"
                                 pattern="\d{4}-\d{2}-\d{2}" [ngClass]="{'invalid': startDate.invalid && (startDate.dirty || startDate.touched), 'valid': startDate.valid && (startDate.dirty ||
                                 startDate.touched)}">
                             <div *ngIf="startDate.invalid && (startDate.dirty || startDate.touched)"
@@ -35,7 +35,7 @@
                                 </div>
                                 <div class="inp">
                                     <label class="form-label">End Date</label>
-                                    <input type="date" class="form-control" id="endtdate" ngModel name="endDate" required #endDate="ngModel"
+                                    <input type="date" [min]="maxDate" class="form-control" id="endtdate" ngModel name="endDate" required #endDate="ngModel"
                                 pattern="\d{4}-\d{2}-\d{2}" [ngClass]="{'invalid': endDate.invalid && (endDate.dirty || endDate.touched), 'valid': endDate.valid && (endDate.dirty ||
                                 endDate.touched)}">
                             <div *ngIf="endDate.invalid && (startDate.dirty || endDate.touched)"

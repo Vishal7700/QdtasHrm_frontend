@@ -37,6 +37,7 @@ import { FilterPipe } from 'src/app/add-user/filter.pipe';
 
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -69,6 +70,7 @@ import { FilterPipe } from 'src/app/add-user/filter.pipe';
     MatListModule,
     MatSnackBarModule,
     MatDialogModule,
+
     
   
 

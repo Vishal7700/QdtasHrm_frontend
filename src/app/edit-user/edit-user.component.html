@@ -147,7 +147,7 @@
                             <input type="date" class="form-control" [(ngModel)]="newbirthdate" id="dob"
                                 placeholder="dd-mm-yy" ngModel name="birthDate" required #birthDate="ngModel"
                                 pattern="\d{4}-\d{2}-\d{2}" [ngClass]="{'invalid': birthDate.invalid && (birthDate.dirty || birthDate.touched), 'valid': birthDate.valid && (birthDate.dirty ||
-                                birthDate.touched)}">
+                                birthDate.touched)}" max="2005-12-31" (keydown)="preventManualInput($event)"  >
                             <div *ngIf="birthDate.invalid && (birthDate.dirty || birthDate.touched)"
                                 class="error-message">
                                 <span *ngIf="birthDate.errors?.['required']">Please enter Birthdate</span>

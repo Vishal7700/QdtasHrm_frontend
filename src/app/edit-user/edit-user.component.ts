@@ -94,4 +94,8 @@ dismissDialogBox() {
 }
 
 
+preventManualInput(event: KeyboardEvent) {
+    event.preventDefault();
+}
+
 }
