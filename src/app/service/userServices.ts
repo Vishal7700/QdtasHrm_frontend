@@ -129,6 +129,15 @@ export class UserService {
     return this.http.post<String>(BASE_API_URL + `/leave/delete/` + leaveId, leaveId, { headers: this.getHeaders() });
   }
 
+  changeLeaveStatus(leaveId: number) {
+    return this.http.post<String>(BASE_API_URL + `/leave/reject/` + leaveId, leaveId, { headers: this.getHeaders() });
+  }
+
+  changeLeaveStatusApprove(leaveId: number) {
+    return this.http.post<String>(BASE_API_URL + `/leave/approve/` + leaveId, leaveId, { headers: this.getHeaders() });
+  }
+
+
   // Leave Methods
 }
 

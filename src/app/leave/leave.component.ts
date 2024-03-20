@@ -73,7 +73,7 @@ this.minDate = `${minYear}-${minMonth}-${minDay}`;
   }
 
   applyLeave(userData: any) {
-    console.log(userData);
+   
     this.UserService.applyLeave(userData, this.empId).subscribe(
       
       (response: any) => {
@@ -112,6 +112,8 @@ this.minDate = `${minYear}-${minMonth}-${minDay}`;
     this.loadLeaves(this.resultPage);
   }
 
+
+  //relect leave <----
   deleteUser(id: number): void {
     this.openConfirmationDialog(id);
   }
@@ -120,14 +122,52 @@ this.minDate = `${minYear}-${minMonth}-${minDay}`;
   openConfirmationDialog(index: number): void {
     const dialogRef = this.dialog.open(DialogboxComponent, {
       width: '300px',
-      data: { title: 'Confirmation', message: 'Are you sure you want to delete?' }
+      data: { title: 'Confirmation', message: 'Are you sure you want to reject this leave?' }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.UserService.deleteLeave(index).subscribe(
+        this.UserService.changeLeaveStatus(index).subscribe(
           (response: any) => {
-           this.successMessage = 'Leave deleted Successfully';
+           this.successMessage = 'Leave Rejected';
+      setTimeout(() => {
+        this.successMessage = null;
+	window.location.reload();
+      }, 3000);
+            
+          },
+          (error: any) => {
+            this.errorMessage = 'Something went wrong';
+      setTimeout(() => {
+        this.errorMessage = null;
+      }, 3000);
+          }
+        );
+
+      }
+    });
+  }
+
+  //------->
+
+
+  //Approve Leave <-----------
+   approveLeave(id: number): void {
+    this.openConfirmDialog(id);
+  }
+
+
+  openConfirmDialog(index: number): void {
+    const dialogRef = this.dialog.open(DialogboxComponent, {
+      width: '300px',
+      data: { title: 'Confirmation', message: 'Are you sure you want to Approve this leave?' }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.UserService.changeLeaveStatusApprove(index).subscribe(
+          (response: any) => {
+           this.successMessage = 'Leave Accepted';
       setTimeout(() => {
         this.successMessage = null;
 	window.location.reload();
@@ -147,12 +187,37 @@ this.minDate = `${minYear}-${minMonth}-${minDay}`;
   }
 
 
+  //-------
+
+
+
+
+
+
   dismissSuccessMessage() {
     this.successMessage = null;
 }
 
 dismissErrorMessage() {
    this.errorMessage = null;
+}
+
+preventManualInput(event: KeyboardEvent) {
+    event.preventDefault();
+}
+
+
+getStatusColor(status: string): string {
+  switch (status) {
+    case 'REJECTED':
+      return '#EE4B2B';
+    case 'APPROVED':
+      return '#32CD32';
+    case 'PENDING':
+      return '#fffee0';
+    default:
+      return 'black'; // or any default color
+  }
 }
 
 }

@@ -26,7 +26,7 @@
                                     <label class="form-label">Start Date</label>
                                     <input type="date" [min]="minDate"   class="form-control" id="startDate" [(ngModel)]="startDateValue" name="startDate"  required #startDate="ngModel"
                                 pattern="\d{4}-\d{2}-\d{2}" [ngClass]="{'invalid': startDate.invalid && (startDate.dirty || startDate.touched), 'valid': startDate.valid && (startDate.dirty ||
-                                startDate.touched)}">
+                                startDate.touched)}"  (keydown)="preventManualInput($event)"  >
                             <div *ngIf="startDate.invalid && (startDate.dirty || startDate.touched)"
                                 class="error-message">
                                 <span *ngIf="startDate.errors?.['required']">Please enter Start Date</span>
@@ -37,7 +37,7 @@
                                     <label class="form-label">End Date</label>
                                     <input type="date" [min]="startDateValue" class="form-control" id="endtdate" ngModel name="endDate" required #endDate="ngModel"
                                 pattern="\d{4}-\d{2}-\d{2}" [ngClass]="{'invalid': endDate.invalid && (endDate.dirty || endDate.touched), 'valid': endDate.valid && (endDate.dirty ||
-                                endDate.touched)}">
+                                endDate.touched)}"  (keydown)="preventManualInput($event)" >
                             <div *ngIf="endDate.invalid && (endDate.dirty || endDate.touched)"
                                 class="error-message">
                                 <span *ngIf="endDate.errors?.['required']">Please enter End Date</span>
@@ -76,7 +76,7 @@
 
                             <div>
                                 <div class="col text-end suv-btn">
-                                    <button class="btn btn-maroon" type="submit">Cancel</button>
+                                    <button class="btn btn-maroon" type="reset">Reset</button>
                                     <button class="btn btn-maroon" type="submit"  [disabled]="!leaveForm.valid"  >Submit</button>
                                 </div>
                             </div>
@@ -97,6 +97,7 @@
                                 <th style="width:15%;">End Date</th>
                                 <th style="width:20%;">Leave Type</th>
                                 <th style="width:15%;">Reason</th>
+                                <th style="width:15%;">Status</th>
                                 <th style="width:10%;">Action</th>
                             </tr>
                             <tr *ngFor="let l of leaves; let i = index">
@@ -104,12 +105,12 @@
                                 <td>{{ l.endDate }}</td>
                                 <td>{{l.type}}</td>
                                 <td>{{ l.reason }}</td>
-
+                                <td [ngStyle]="{ 'background-color': getStatusColor(l.status) }" >{{ l.status }}</td>
                                 <td>
                                     <div class="icon-container">
-                                        <i class="fa-solid fa-pen-to-square"></i>
+                                        <mat-icon (click)="approveLeave(l.leaveId)"   style="color: green;">check</mat-icon>
                                         <span class="icon-space"></span>
-                                        <i class="fa-solid fa-trash-can" (click)="deleteUser(l.leaveId)"></i>
+                                        <mat-icon  (click)="deleteUser(l.leaveId)" style="color: red;">close</mat-icon>
                                     </div>
                                 </td>
                             </tr>
