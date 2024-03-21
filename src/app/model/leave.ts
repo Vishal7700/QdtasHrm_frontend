@@ -1,8 +1,10 @@
+import { User } from "./user";
+
 export class Leave {
 
     leaveId!: number;
 
-    employee!: number;
+    employee!: User;
 
     startDate!: Date;
 
@@ -13,4 +15,7 @@ export class Leave {
     reason!: string;
 
     status!: string;
+
 }
+
+

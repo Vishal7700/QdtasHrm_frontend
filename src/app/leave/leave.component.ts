@@ -9,6 +9,7 @@ import { Leave } from '../model/leave';
 import { Subscription } from 'rxjs';
 import { OnInit, ViewChild } from '@angular/core';
 
+
 @Component({
   selector: 'app-leave',
   templateUrl: './leave.component.html',
@@ -73,16 +74,13 @@ this.minDate = `${minYear}-${minMonth}-${minDay}`;
   }
 
   applyLeave(userData: any) {
-   
     this.UserService.applyLeave(userData, this.empId).subscribe(
-      
       (response: any) => {
         this.successMessage = 'Leave Applied Successfully';
       setTimeout(() => {
         this.successMessage = null;
 	window.location.reload();
       }, 3000);
-        
       },
       (error: any) => {
         this.errorMessage = 'Something went wrong';
@@ -93,8 +91,10 @@ this.minDate = `${minYear}-${minMonth}-${minDay}`;
     );
   }
 
+
+
   loadLeaves(currentPage: number) {
-    this.subscriptions.push(
+       this.subscriptions.push(
       this.UserService.getAllLeaves(currentPage, this.resultSize).subscribe(
         (l: Leave[]) => {
           this.leaves.push(...l);
@@ -108,9 +108,12 @@ this.minDate = `${minYear}-${minMonth}-${minDay}`;
       )
     );
   }
+
+
   loadMoreleaves(): void {
     this.loadLeaves(this.resultPage);
   }
+
 
 
   //relect leave <----
@@ -219,5 +222,10 @@ getStatusColor(status: string): string {
       return 'black'; // or any default color
   }
 }
+
+
+
+
+
 
 }

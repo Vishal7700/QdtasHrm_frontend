@@ -3,10 +3,10 @@ import { Token } from '@angular/compiler';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BASE_API_URL } from '../constansts';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject , forkJoin } from 'rxjs';
 import { User } from '../model/user';
 import { Leave } from '../model/leave';
-
+import { map, catchError } from 'rxjs/operators';
 
 
 
@@ -103,12 +103,6 @@ export class UserService {
     return this.http.get<any>(BASE_API_URL + `/user/` + uId, { headers: this.getHeaders() });
   }
 
-  //   applyLeave(user: any) {
-  //   let headers = new HttpHeaders().set("Authorization", `Bearer ${localStorage.getItem('token')}`);
-  //   return this.http.post<any>(BASE_API_URL + `/user/leave`, user, { headers: this.getHeaders() });
-  // }
-
-
 
   deleteUser(userId: number) {
     return this.http.post<String>(BASE_API_URL + `/user/deleteUser?uId=` + userId, userId, { headers: this.getHeaders() });
@@ -120,10 +114,14 @@ export class UserService {
   getAllLeaves(currentPage: number, resultSize: number) {
     return this.http.get<Leave[]>(BASE_API_URL + `/leave/getAllLeaves?pgn=` + currentPage + `&sz=` + resultSize, { headers: this.getHeaders() });
   }
+
+
+
   applyLeave(leaveData: any, empId: number) {
     let headers = new HttpHeaders().set("Authorization", `Bearer ${localStorage.getItem('token')}`);
     return this.http.post<any>(BASE_API_URL + `/leave/create/` + empId, leaveData, { headers: this.getHeaders() });
   }
+
 
   deleteLeave(leaveId: number) {
     return this.http.post<String>(BASE_API_URL + `/leave/delete/` + leaveId, leaveId, { headers: this.getHeaders() });
