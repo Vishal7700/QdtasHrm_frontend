@@ -47,7 +47,7 @@ searchTerm: string = '';
   }
 
 
-
+  isLoading: boolean = false; 
 
 
   ngOnInit(): void {
@@ -106,8 +106,22 @@ searchTerm: string = '';
   }
 
   loadMoreUsers(): void {
+    this.isLoading = true;
     this.loadUsers(this.resultPage);
+    setTimeout(() => {
+       this.isLoading = false;
+    }, 1000);
   }
+
+
+
+  //  loadMoreleaves(): void {
+  //   this.isLoading = true;
+  //   this.loadLeaves(this.resultPage);
+  //   setTimeout(() => {
+  //     this.isLoading = false;
+  //   }, 1000);
+  // }
 
 
   openConfirmationDialog(uId: number): void {

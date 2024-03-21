@@ -251,8 +251,14 @@
                     </div>
 
 
+                    <div *ngIf="isLoading" class="loading-bar">
+                        <div class="spinner-container">
+                            <mat-spinner mode="indeterminate" color="warn" diameter="30"></mat-spinner>
+                        </div>
+                    </div>
+
                     <div class="load-button">
-                        <button (click)="loadMoreUsers()" *ngIf="hasMoreResult" mat-raised-button color="primary"
+                        <button (click)="loadMoreUsers()" *ngIf="hasMoreResult" mat-raised-button color="primary"  style="background-color: maroon;"
                             class="rounded-pill align-middle text-center">
                             Load More
                         </button>

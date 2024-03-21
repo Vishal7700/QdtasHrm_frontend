@@ -17,7 +17,7 @@ export class User {
      designation: string | undefined;
      emailVerified: Boolean | undefined;
      projects: Project[] = [];
-     birthDate: string | undefined;
+     birthDate: Date | undefined;
      joinDate: string | undefined;
 
 }

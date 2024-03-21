@@ -28,7 +28,7 @@ import { DialogboxComponent } from './dialogbox/dialogbox.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatDialogModule } from '@angular/material/dialog';
 import { FilterPipe } from 'src/app/add-user/filter.pipe';
-
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 
 
@@ -70,6 +70,7 @@ import { FilterPipe } from 'src/app/add-user/filter.pipe';
     MatListModule,
     MatSnackBarModule,
     MatDialogModule,
+    MatProgressSpinnerModule
 
     
   

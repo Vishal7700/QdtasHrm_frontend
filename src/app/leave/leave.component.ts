@@ -28,6 +28,8 @@ export class LeaveComponent {
   hasMoreResult: boolean = true;
   fetchingResult: boolean = false;
   private subscriptions: Subscription[] = [];
+ 
+
 
    successMessage: string | null = null;
 errorMessage: string | null = null;
@@ -64,10 +66,17 @@ const minDay = ('0' + sevenDaysAgo.getDate()).slice(-2);
 // Set minDate to 7 days ago
 this.minDate = `${minYear}-${minMonth}-${minDay}`;
 
+
+//leave status
+  const storedApprovalStatus = localStorage.getItem('leaveApprovalStatus');
+  if (storedApprovalStatus) {
+    this.leaveApprovalStatus = JSON.parse(storedApprovalStatus);
+  }
+
 }
 
   isSidebarExpanded: boolean = true;
-
+  isLoading: boolean = false; 
 
   onToggleSidebar(expanded: boolean) {
     this.isSidebarExpanded = expanded;
@@ -111,12 +120,16 @@ this.minDate = `${minYear}-${minMonth}-${minDay}`;
 
 
   loadMoreleaves(): void {
+    this.isLoading = true;
     this.loadLeaves(this.resultPage);
+    setTimeout(() => {
+      this.isLoading = false;
+    }, 1000);
   }
 
 
 
-  //relect leave <----
+  //Reject leave <----
   deleteUser(id: number): void {
     this.openConfirmationDialog(id);
   }
@@ -137,7 +150,8 @@ this.minDate = `${minYear}-${minMonth}-${minDay}`;
         this.successMessage = null;
 	window.location.reload();
       }, 3000);
-            
+              this.leaveApprovalStatus[index] = true;
+         localStorage.setItem('leaveApprovalStatus', JSON.stringify(this.leaveApprovalStatus));
           },
           (error: any) => {
             this.errorMessage = 'Something went wrong';
@@ -153,6 +167,7 @@ this.minDate = `${minYear}-${minMonth}-${minDay}`;
 
   //------->
 
+leaveApprovalStatus: { [key: number]: boolean } = {};
 
   //Approve Leave <-----------
    approveLeave(id: number): void {
@@ -175,7 +190,8 @@ this.minDate = `${minYear}-${minMonth}-${minDay}`;
         this.successMessage = null;
 	window.location.reload();
       }, 3000);
-            
+         this.leaveApprovalStatus[index] = true;
+         localStorage.setItem('leaveApprovalStatus', JSON.stringify(this.leaveApprovalStatus));
           },
           (error: any) => {
             this.errorMessage = 'Something went wrong';

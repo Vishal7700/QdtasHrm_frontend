@@ -105,6 +105,21 @@
     align-items: center;
 }
 
+.loading-bar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    /* Ensures it takes the full height of its container */
+}
+
+.spinner-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
 
 
 

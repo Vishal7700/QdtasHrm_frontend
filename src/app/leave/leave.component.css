@@ -127,6 +127,27 @@ position: absolute;
     cursor: pointer;
 }
 
+.load-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loading-bar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    /* Ensures it takes the full height of its container */
+}
+
+.spinner-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
 /* Adjust the form layout for mobile devices */
 @media (max-width: 767px) {
     .inp-row {
