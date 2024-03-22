@@ -22,31 +22,64 @@
                         <div class="inp-row">
                             <h2 class="title mb-3">Leave Application</h2>
                             <div class="inp-field">
-                                <div class="inp">
+                                <!-- <div class="inp">
                                     <label class="form-label">Start Date</label>
                                     <input type="date" [min]="minDate" class="form-control" id="startDate"
                                         [(ngModel)]="startDateValue" name="startDate" required #startDate="ngModel"
                                         pattern="\d{4}-\d{2}-\d{2}" [ngClass]="{'invalid': startDate.invalid && (startDate.dirty || startDate.touched), 'valid': startDate.valid && (startDate.dirty ||
-                                startDate.touched)}" (keydown)="preventManualInput($event)">
+                                startDate.touched)}">
                                     <div *ngIf="startDate.invalid && (startDate.dirty || startDate.touched)"
                                         class="error-message">
                                         <span *ngIf="startDate.errors?.['required']">Please enter Start Date</span>
                                         <span *ngIf="startDate.errors?.['pattern']">Please enter in YYYY-MM-DD</span>
                                     </div>
                                 </div>
+
                                 <div class="inp">
                                     <label class="form-label">End Date</label>
                                     <input type="date" [min]="startDateValue" class="form-control" id="endtdate" ngModel
                                         name="endDate" required #endDate="ngModel" pattern="\d{4}-\d{2}-\d{2}"
                                         [ngClass]="{'invalid': endDate.invalid && (endDate.dirty || endDate.touched), 'valid': endDate.valid && (endDate.dirty ||
-                                endDate.touched)}" (keydown)="preventManualInput($event)">
+                                endDate.touched)}">
                                     <div *ngIf="endDate.invalid && (endDate.dirty || endDate.touched)"
                                         class="error-message">
                                         <span *ngIf="endDate.errors?.['required']">Please enter End Date</span>
                                         <span *ngIf="endDate.errors?.['pattern']">Please enter in YYYY-MM-DD</span>
                                     </div>
-                                </div>
+                                </div> -->
+
+                                <!-- <mat-form-field>
+                                    <mat-label >Enter a date range</mat-label>
+                                    <mat-date-range-input [rangePicker]="picker">
+
+                                        <input matStartDate placeholder="Start date"    id="startDate"
+                                        name="startDate"  >
+
+                                        <input matEndDate placeholder="End date"  id="endDate" ngModel
+                                        name="endDate" >
+                                    </mat-date-range-input>
+                                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                                    <mat-date-range-picker #picker></mat-date-range-picker>
+                                </mat-form-field> -->
+
+                                <mat-form-field>
+                                    <input matInput [matDatepicker]="startPicker" [min]="minDate" ngModel name="startDate" id="sDate"
+                                        [(ngModel)]="startDate" placeholder="Choose Start Date">
+                                    <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+                                    <mat-datepicker #startPicker></mat-datepicker>
+                                </mat-form-field>
+
+                                <mat-form-field>
+                                    <input matInput [matDatepicker]="endPicker" [min]="startDate" ngModel name="endDate"  id="eDate"
+                                        placeholder="Choose End Date">
+                                    <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+                                    <mat-datepicker #endPicker></mat-datepicker>
+                                </mat-form-field>
+
+
+
                             </div>
+
 
 
 
@@ -114,29 +147,33 @@
                                     <td>{{ l.endDate }}</td>
                                     <td>{{l.type}}</td>
                                     <td>{{ l.reason }}</td>
-                                    
+
                                     <td [ngStyle]="{ 'background-color': getStatusColor(l.status) }">{{ l.status }}</td>
                                     <td>
-                                        <div class="icon-container" *ngIf="!leaveApprovalStatus[l.leaveId]">
-                                            <mat-icon (click)="approveLeave(l.leaveId)" style="color: green;">check</mat-icon>
-                                            <span class="icon-space"></span>
-                                            <mat-icon (click)="deleteUser(l.leaveId)" style="color: red;">close</mat-icon>
+                                        <div class="icon-container">
+                                            <mat-icon (click)="approveLeave(l.leaveId)" *ngIf="l.status == 'PENDING' "
+                                                style="color: green;">check</mat-icon>
+                                            <mat-icon (click)="rejectLeave(l.leaveId)" *ngIf="l.status == 'PENDING' "
+                                                style="color: red;">close</mat-icon>
+                                            <mat-icon (click)="deleteLeave(l.leaveId)"
+                                                *ngIf="l.status == 'REJECTED' || l.status =='APPROVED' "
+                                                style="color: red;">delete</mat-icon>
                                         </div>
                                     </td>
                                 </tr>
                             </table>
                         </div>
-                <div *ngIf="isLoading" class="loading-bar">
-                    <div class="spinner-container">
-                        <mat-spinner mode="indeterminate" color="warn" diameter="30"></mat-spinner>
-                    </div>
-                </div>
-                    <div class="load-button">
-                        <button (click)="loadMoreleaves()" *ngIf="hasMoreResult" mat-raised-button color="primary" style="background-color: maroon;"
-                            class="rounded-pill align-middle text-center">
-                            Load More
-                        </button>
-                    </div>
+                        <div *ngIf="isLoading" class="loading-bar">
+                            <div class="spinner-container">
+                                <mat-spinner mode="indeterminate" color="warn" diameter="30"></mat-spinner>
+                            </div>
+                        </div>
+                        <div class="load-button">
+                            <button (click)="loadMoreleaves()" *ngIf="hasMoreResult" mat-raised-button color="primary"
+                                style="background-color: maroon;" class="rounded-pill align-middle text-center">
+                                Load More
+                            </button>
+                        </div>
 
                     </form>
                 </div>

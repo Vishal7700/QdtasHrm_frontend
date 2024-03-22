@@ -8,16 +8,35 @@ import { User } from '../model/user';
 import { Leave } from '../model/leave';
 import { Subscription } from 'rxjs';
 import { OnInit, ViewChild } from '@angular/core';
+import {NativeDateAdapter} from '@angular/material/core';
+import { FormControl } from '@angular/forms';
+import { MatDatepickerInput } from '@angular/material/datepicker';
 
 
 @Component({
   selector: 'app-leave',
   templateUrl: './leave.component.html',
-  styleUrls: ['./leave.component.css']
+  styleUrls: ['./leave.component.css'],
+  
 })
 export class LeaveComponent {
-  constructor(private UserService: UserService, public dialog: MatDialog, private snackBar: MatSnackBar) {
+  constructor(private UserService: UserService, 
+    public dialog: MatDialog,
+     private snackBar: MatSnackBar ) {
+       
+       const currentDate = new Date();
+    currentDate.setDate(currentDate.getDate() - 7);
+    this.minDate = currentDate;
+    
+
+  
+   
   }
+
+
+  minDate : Date;
+  startDate!: Date;
+
 
   sideNavStatus: boolean = false;
   u: User = this.UserService.getAuthUserFromCache();
@@ -32,47 +51,14 @@ export class LeaveComponent {
 
 
    successMessage: string | null = null;
-errorMessage: string | null = null;
+  errorMessage: string | null = null;
 
-minDate = "";
-maxDate = "";
-startDateValue: string = '';
- @ViewChild('endDate') endDateInput: any; // This allows accessing the input element in the template
- endDate: string ='';
+   
 
   ngOnInit() {
     this.UserService.profile();
     this.empId = this.UserService.getAuthUserId();
     this.loadLeaves(this.resultPage);
-
-const today = new Date();
-const year = today.getFullYear();
-const month = ('0' + (today.getMonth() + 1)).slice(-2); // Adding 1 because months are zero-based
-const day = ('0' + today.getDate()).slice(-2);
-this.endDate = `${year}-${month}-${day}`;
-
-// Set maxDate to today's date
-this.maxDate = this.endDate;
-
-// Calculate the date 7 days ago
-const sevenDaysAgo = new Date(today);
-sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
-
-// Format the date 7 days ago
-const minYear = sevenDaysAgo.getFullYear();
-const minMonth = ('0' + (sevenDaysAgo.getMonth() + 1)).slice(-2);
-const minDay = ('0' + sevenDaysAgo.getDate()).slice(-2);
-
-// Set minDate to 7 days ago
-this.minDate = `${minYear}-${minMonth}-${minDay}`;
-
-
-//leave status
-  const storedApprovalStatus = localStorage.getItem('leaveApprovalStatus');
-  if (storedApprovalStatus) {
-    this.leaveApprovalStatus = JSON.parse(storedApprovalStatus);
-  }
-
 }
 
   isSidebarExpanded: boolean = true;
@@ -83,6 +69,7 @@ this.minDate = `${minYear}-${minMonth}-${minDay}`;
   }
 
   applyLeave(userData: any) {
+    console.log(userData);
     this.UserService.applyLeave(userData, this.empId).subscribe(
       (response: any) => {
         this.successMessage = 'Leave Applied Successfully';
@@ -130,7 +117,7 @@ this.minDate = `${minYear}-${minMonth}-${minDay}`;
 
 
   //Reject leave <----
-  deleteUser(id: number): void {
+  rejectLeave(id: number): void {
     this.openConfirmationDialog(id);
   }
 
@@ -150,8 +137,6 @@ this.minDate = `${minYear}-${minMonth}-${minDay}`;
         this.successMessage = null;
 	window.location.reload();
       }, 3000);
-              this.leaveApprovalStatus[index] = true;
-         localStorage.setItem('leaveApprovalStatus', JSON.stringify(this.leaveApprovalStatus));
           },
           (error: any) => {
             this.errorMessage = 'Something went wrong';
@@ -190,8 +175,7 @@ leaveApprovalStatus: { [key: number]: boolean } = {};
         this.successMessage = null;
 	window.location.reload();
       }, 3000);
-         this.leaveApprovalStatus[index] = true;
-         localStorage.setItem('leaveApprovalStatus', JSON.stringify(this.leaveApprovalStatus));
+
           },
           (error: any) => {
             this.errorMessage = 'Something went wrong';
@@ -207,9 +191,40 @@ leaveApprovalStatus: { [key: number]: boolean } = {};
 
 
   //-------
+//delete leave 
+
+deleteLeave(id:number) {
+   this.openConfirmDialogforDelete(id);
+}
 
 
+  openConfirmDialogforDelete(index: number): void {
+    const dialogRef = this.dialog.open(DialogboxComponent, {
+      width: '300px',
+      data: { title: 'Confirmation', message: 'Are you sure you want to Delete this leave?' }
+    });
 
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.UserService.deleteLeave(index).subscribe(
+          (response: any) => {
+           this.successMessage = 'Leave Deleted';
+      setTimeout(() => {
+        this.successMessage = null;
+	window.location.reload();
+      }, 3000);
+          },
+          (error: any) => {
+            this.errorMessage = 'Something went wrong';
+      setTimeout(() => {
+        this.errorMessage = null;
+      }, 3000);
+          }
+        );
+
+      }
+    });
+  }
 
 
 
@@ -221,9 +236,9 @@ dismissErrorMessage() {
    this.errorMessage = null;
 }
 
-preventManualInput(event: KeyboardEvent) {
-    event.preventDefault();
-}
+// preventManualInput(event: KeyboardEvent) {
+//     event.preventDefault();
+// }
 
 
 getStatusColor(status: string): string {

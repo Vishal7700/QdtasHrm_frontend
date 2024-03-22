@@ -123,6 +123,8 @@ export class UserService {
   }
 
 
+
+
   deleteLeave(leaveId: number) {
     return this.http.post<String>(BASE_API_URL + `/leave/delete/` + leaveId, leaveId, { headers: this.getHeaders() });
   }
@@ -137,5 +139,15 @@ export class UserService {
 
 
   // Leave Methods
+
+
+  //TimeSheet
+
+   addTimeSheet(user: any) {
+    let headers = new HttpHeaders().set("Authorization", `Bearer ${localStorage.getItem('token')}`);
+    return this.http.post<any>(BASE_API_URL + `/ts/add`, user, { headers: this.getHeaders() });
+  }
+
+ 
 }
 
