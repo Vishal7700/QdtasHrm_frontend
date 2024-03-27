@@ -66,7 +66,6 @@ errorMessage: string | null = null;
         this.successMessage = null;
       }, 3000);
        this.dialogRef.close('success');
-      
     },
     (error) => {
       this.errorMessage = 'Error in updating user';

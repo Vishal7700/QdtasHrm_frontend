@@ -10,9 +10,9 @@
 
 
 
-<div class="adduser">
+<div class="adduser"  >
 
-    <div class="card">
+    <div class="card"  *ngIf="isLoggedIn?.role !== 'ROLE_USER'">
         <div class="container p-2">
             <form class="adduserform" #addUserData="ngForm" (submit)="saveUser(addUserData.value)">
                 <div class="inp-row">
@@ -226,7 +226,7 @@
                                 <th style="width: 15%">Department</th>
                                 <th style="width: 15%">Phone no.</th>
                                 <th style="width: 10%">Designation</th>
-                                <th style="width: 10%">Action</th>
+                                <th style="width: 10%"  *ngIf="isLoggedIn?.role !== 'ROLE_USER'"  >Action</th>
                             </tr>
                             <tr *ngFor="let user of users | filter : searchTerm">
                                 <td>{{ user.userId }}</td>
@@ -238,8 +238,8 @@
                                 <td>{{ user.dept?.deptName }}</td>
                                 <td>{{ user.phoneNumber }}</td>
                                 <td>{{ user.designation }}</td>
-                                <td>
-                                    <div class="icon-container">
+                                <td *ngIf="isLoggedIn?.role !== 'ROLE_USER'"  >
+                                    <div class="icon-container" >
                                         <i class="fa-solid fa-pen-to-square" (click)="openEidtUser(user.userId)"></i>
                                         <span class="icon-space"></span>
                                         <i class="fa-solid fa-trash-can" (click)="deleteUser(user.userId)"></i>

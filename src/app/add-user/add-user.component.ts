@@ -35,7 +35,7 @@ export class AddUserComponent implements OnInit {
 errorMessage: string | null = null;
 
 searchTerm: string = '';
-
+isLoggedIn! : User ;
 
   constructor(private userService: UserService,
     private router: Router,
@@ -52,6 +52,7 @@ searchTerm: string = '';
 
   ngOnInit(): void {
     this.loadUsers(this.resultPage);
+   this.isLoggedIn = this.userService.getAuthUserFromCache()
 
   }
 

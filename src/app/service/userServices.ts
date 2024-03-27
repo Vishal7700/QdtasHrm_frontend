@@ -3,7 +3,7 @@ import { Token } from '@angular/compiler';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BASE_API_URL } from '../constansts';
-import { Observable, Subject , forkJoin } from 'rxjs';
+import { Observable, Subject , forkJoin , throwError} from 'rxjs';
 import { User } from '../model/user';
 import { Leave } from '../model/leave';
 import { map, catchError } from 'rxjs/operators';
@@ -99,8 +99,24 @@ export class UserService {
   }
 
 
-  getUserById(uId: number) {
-    return this.http.get<any>(BASE_API_URL + `/user/` + uId, { headers: this.getHeaders() });
+  // getUserById(uId: number) {
+  //   return this.http.get<any>(BASE_API_URL + `/user/` + uId, { headers: this.getHeaders() });
+  // }
+
+  getUserById(uId: number): Observable<User> {
+    return this.http.get<any>(BASE_API_URL + `/user/` + uId, { headers: this.getHeaders() }).pipe(
+      map(res => {
+        // Map response data to User class
+        return new User(
+          res.userId,res.userName,res.email,res.password,res.firstName,res.middleName,res.lastName,res.gender,res.dept,res.role,res.phoneNumber,
+          res.address,res.designation,res.emailVerified,res.birthDate,res.joinDate,res.projects
+        );
+      }),
+      catchError(error => {
+        console.error('Error occurred:', error);
+        return throwError('Something went wrong while fetching user data.');
+      })
+    );
   }
 
 

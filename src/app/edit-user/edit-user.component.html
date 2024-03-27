@@ -33,6 +33,7 @@
                                 <option value="role">Role</option>
                                 <option value="designation">Designation</option>
                                 <option value="password">Password</option>
+                                <option value="address">Address</option>
                             </select>
                         </div>
                     </div>
@@ -264,9 +265,30 @@
                 </div>
 
 
+
+                <div class="inp-row" *ngIf="selectedField === 'address'">
+                    <div class="inp-field">
+                        <div class="inp">
+                            <label class="form-label">New Address</label>
+                            <input type="text" class="form-control" [(ngModel)]="newUsername" ngModel required
+                                placeholder="Address" name="address" #address="ngModel"
+                                pattern="[A-Za-z0-9 !@#$%^&*()-_+=]+" [ngClass]="{
+                                  invalid:address.invalid && (address.dirty || address.touched),
+                                  valid: address.valid && (address.dirty || address.touched)
+                                }" />
+                            <div *ngIf="address.invalid && (address.dirty || address.touched)" class="error-message">
+                                <span *ngIf="address.errors?.['required']">Please enter address</span>
+                                <span *ngIf="address.errors?.['pattern']">Please enter address</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
                 <div class="col text-end suv-btn">
                     <button type="submit" class="btn btn-maroon" (click)="dismissDialogBox()">Cancel</button>
-                    <button type="submit" class="btn btn-maroon" [disabled]="!editfrom.valid || !selectedField">Submit</button>
+                    <button type="submit" class="btn btn-maroon"
+                        [disabled]="!editfrom.valid || !selectedField">Submit</button>
 
                 </div>
             </form>

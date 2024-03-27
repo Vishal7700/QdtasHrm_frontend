@@ -9,7 +9,7 @@
     width: 90%;
     margin-top: 3%;
     margin-left: 5%;
-
+    margin-bottom: 5%;                                                                                                                                                                                                                                                                                                                                                                                                                              
 
 }
 
@@ -146,6 +146,7 @@
         width: 100% !important;
         margin-top: 0% !important;
         margin-left: 1% !important;
+        margin-bottom: 5%;
     }
 
     .adduserform {
