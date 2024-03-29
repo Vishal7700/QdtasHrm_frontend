@@ -25,3 +25,31 @@
     margin-right: 20px;
     /* Adjust based on your collapsed sidebar width */
 }
+
+
+
+
+/* Adjust the form layout for mobile devices */
+@media (max-width: 767px) {
+
+.expanded {
+        margin-left: 50px;
+        margin-right: 50px;
+    }
+
+    .collapsed {
+        margin-left: 70px;
+        margin-right: 50px;
+    }
+
+
+}
+
+/* Additional styles for landscape orientation */
+@media (max-width: 767px),
+(orientation: landscape) {
+
+
+
+}
+

@@ -3,7 +3,7 @@ import { UserService } from '../service/userServices';
 import { Router} from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { User } from '../model/user';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable  } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -36,6 +36,8 @@ errorMessage: string | null = null;
 
 searchTerm: string = '';
 isLoggedIn! : User ;
+
+
 
   constructor(private userService: UserService,
     private router: Router,
@@ -184,7 +186,6 @@ dismissErrorMessage() {
       }
     });
   }
-
 
   // 
 preventManualInput(event: KeyboardEvent) {

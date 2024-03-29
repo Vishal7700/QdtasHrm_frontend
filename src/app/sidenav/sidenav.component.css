@@ -57,6 +57,7 @@
 
 .mat-icon {
     margin-right: 8px;
+    vertical-align: middle;
 
   
 }
@@ -64,9 +65,11 @@
 
 .sidebar-link {
     display: flex;
+    justify-content: center;
     align-items: center;
 
 }
+
 
 .sidebar-link mat-icon {
     margin-right: 8px;

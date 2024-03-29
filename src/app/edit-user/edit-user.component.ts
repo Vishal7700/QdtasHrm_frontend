@@ -5,7 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSnackBarConfig } from '@angular/material/snack-bar';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { AddUserComponent } from '../add-user/add-user.component';
-
+import { User } from '../model/user';
 
 
 
@@ -18,12 +18,13 @@ import { AddUserComponent } from '../add-user/add-user.component';
 export class EditUserComponent implements OnInit {
 
   constructor(private userService: UserService,
-     private route: ActivatedRoute,
+      private route: ActivatedRoute,
       private snackBar: MatSnackBar,
       private dialogRef: MatDialogRef<AddUserComponent>,
-      
-     @Inject(MAT_DIALOG_DATA) public userId: number 
-      ) { }
+     @Inject(MAT_DIALOG_DATA) public userId: number  ) 
+     { 
+
+      }
 
   selectedField: string = '';
   newUsername: string = '';
@@ -38,19 +39,23 @@ export class EditUserComponent implements OnInit {
   newrole: string = '';
   newdesignation: string = '';
   newpassword: string = ' ';
+  
 
-  uId: number = this.userId;
+ uId: number = this.userId;
 
   successMessage: string | null = null;
 errorMessage: string | null = null;
+isLoggedIn! : User ;
+u: User = this.userService.getAuthUserFromCache();
 
 
-  ngOnInit() {
+
+ngOnInit() {
     this.userService.getUserById(this.uId).subscribe(
       (res: any) => {
       }
     );
-    console.log(this.userId);
+    this.isLoggedIn = this.userService.getAuthUserFromCache();
   }
 
   onFieldSelect(event: any) {
@@ -58,7 +63,6 @@ errorMessage: string | null = null;
   }
 
   saveEditedData(data: any) {
-
   this.userService.updateUser(this.uId, data).subscribe(
     (res: any) => {
       this.successMessage = 'User updated Successfully';
@@ -67,7 +71,7 @@ errorMessage: string | null = null;
       }, 3000);
        this.dialogRef.close('success');
     },
-    (error) => {
+    (error: any) => {
       this.errorMessage = 'Error in updating user';
       setTimeout(() => {
         this.errorMessage = null;
@@ -96,5 +100,11 @@ dismissDialogBox() {
 preventManualInput(event: KeyboardEvent) {
     event.preventDefault();
 }
+
+
+
+
+
+
 
 }

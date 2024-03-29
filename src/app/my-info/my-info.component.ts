@@ -30,10 +30,10 @@ u! : User;
   
 
 
-isMale() : string{
-  if(this.u.gender?.toLowerCase() == 'male'){
+isMale(): string {
+  if (this.u && this.u.gender && this.u.gender.toLowerCase() === 'male') {
     return './assets/images/male.png';
-  }else{
+  } else {
     return './assets/images/female.png';
   }
 }
@@ -47,7 +47,6 @@ isMale() : string{
     this.UserService.profile();
      this.UserService.getUserById(this.UserService.getAuthUserId()).subscribe(user => {
       this.u = user;
-      console.log(this.u.userName)
     });
     }
 
@@ -65,7 +64,7 @@ isMale() : string{
       data: uId,
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe(result=> {
       if (result == 'success') {
      this.successMessage = 'Updated Successfully'; 
      window.location.reload();

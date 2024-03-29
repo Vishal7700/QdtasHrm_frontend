@@ -23,15 +23,16 @@
                                 <option selected [disabled]="true">Select</option>
                                 <option value="userName">Username</option>
                                 <option value="email">Email</option>
-                                <option value="firstName">First name</option>
-                                <option value="middleName">Middle name</option>
-                                <option value="lastName">Last name</option>
+                                <option value="firstName" *ngIf="isLoggedIn?.role !== 'ROLE_USER'">First name</option>
+                                <option value="middleName" *ngIf="isLoggedIn?.role !== 'ROLE_USER'">Middle name</option>
+                                <option value="lastName" *ngIf="isLoggedIn?.role !== 'ROLE_USER'">Last name</option>
                                 <option value="phoneno">Phone number</option>
                                 <option value="birthdate">Birthdate</option>
-                                <option value="deptId">Department</option>
-                                <option value="gender">Gender</option>
-                                <option value="role">Role</option>
-                                <option value="designation">Designation</option>
+                                <option value="deptId" *ngIf="isLoggedIn?.role !== 'ROLE_USER'">Department</option>
+                                <option value="gender" *ngIf="isLoggedIn?.role !== 'ROLE_USER'">Gender</option>
+                                <option value="role" *ngIf="isLoggedIn?.role !== 'ROLE_USER'">Role</option>
+                                <option value="designation" *ngIf="isLoggedIn?.role !== 'ROLE_USER'">Designation
+                                </option>
                                 <option value="password">Password</option>
                                 <option value="address">Address</option>
                             </select>
@@ -44,15 +45,15 @@
                             <label class="form-label">New Username</label>
                             <input type="text" class="form-control" [(ngModel)]="newUsername" ngModel required
                                 placeholder="Username" name="userName" #userName="ngModel" pattern="^[A-Za-z]+$"
-                                [ngClass]="{
-                  invalid:
+                                [ngClass]="{invalid:
                     userName.invalid && (userName.dirty || userName.touched),
-                  valid: userName.valid && (userName.dirty || userName.touched)
-                }" />
+                  valid: userName.valid && (userName.dirty || userName.touched) }" />
                             <div *ngIf="userName.invalid && (userName.dirty || userName.touched)" class="error-message">
                                 <span *ngIf="userName.errors?.['required']">Please enter Username</span>
                                 <span *ngIf="userName.errors?.['pattern']">Please enter only alphabets</span>
                             </div>
+                            <span *ngIf="u.userName?.toLowerCase() == this.newUsername.toLowerCase()"
+                                class="error-message">Entered username is same as previous Username</span>
                         </div>
                     </div>
                 </div>
@@ -65,17 +66,18 @@
                                 placeholder="Email" ngModel name="email" #email="ngModel" required
                                 pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" [ngClass]="{
                   invalid: email.invalid && (email.dirty || email.touched),
-                  valid: email.valid && (email.dirty || email.touched)
-                }" />
+                  valid: email.valid && (email.dirty || email.touched) }" />
                             <div *ngIf="email.invalid && (email.dirty || email.touched)" class="error-message">
                                 <span *ngIf="email.errors?.['required']">Email is required.</span>
                                 <span *ngIf="email.errors?.['pattern']">Email must contain @ and . symbols.</span>
                             </div>
+                            <span *ngIf="u.email?.toLowerCase() == this.newEmail.toLowerCase()"
+                                class="error-message">Entered email is same as previous email</span>
                         </div>
                     </div>
                 </div>
 
-                <div class="inp-row" *ngIf="selectedField === 'firstName'">
+                <div class="inp-row" *ngIf="selectedField === 'firstName' ">
                     <div class="inp-field">
                         <div class="inp">
                             <label class="form-label">New First name</label>
@@ -88,6 +90,9 @@
                                 <span *ngIf="firstName.errors?.['required']">Please enter first name</span>
                                 <span *ngIf="firstName.errors?.['pattern']">Please enter only alphabets</span>
                             </div>
+                            <span *ngIf="u.firstName?.toLowerCase() == this.newfirstName.toLowerCase()"
+                                class="error-message">Entered name is same as
+                                previous First Name</span>
                         </div>
                     </div>
                 </div>
@@ -105,6 +110,9 @@
                                 <span *ngIf="middleName.errors?.['required']">Please enter middle name</span>
                                 <span *ngIf="middleName.errors?.['pattern']">Please enter only alphabets</span>
                             </div>
+                            <span *ngIf="u.middleName?.toLowerCase() == this.newmiddleName.toLowerCase()"
+                                class="error-message">Entered name is same as
+                                previous middlename</span>
                         </div>
                     </div>
                 </div>
@@ -121,6 +129,9 @@
                                 <span *ngIf="lastName.errors?.['required']">Please enter last name</span>
                                 <span *ngIf="lastName.errors?.['pattern']">Please enter only alphabets</span>
                             </div>
+                            <span *ngIf="u.lastName?.toLowerCase() == this.newlastName.toLowerCase()"
+                                class="error-message">Entered name is same as
+                                previous lastname</span>
                         </div>
                     </div>
                 </div>
@@ -138,6 +149,9 @@
                                 <span *ngIf="phoneNumber.errors?.['required']">Please enter phone number</span>
                                 <span *ngIf="phoneNumber.errors?.['pattern']">please enter 10 digits number</span>
                             </div>
+                            <span *ngIf="u.phoneNumber?.toString() == this.newphoneno.toString()"
+                                class="error-message">Entered phone number is same as
+                                previous phone number</span>
                         </div>
                     </div>
                 </div>
@@ -155,6 +169,10 @@
                                 <span *ngIf="birthDate.errors?.['required']">Please enter Birthdate</span>
                                 <span *ngIf="birthDate.errors?.['pattern']">Please enter in YYYY-MM-DD</span>
                             </div>
+                            <span *ngIf="u.birthDate?.toString() == this.birthDate.toString()"
+                                class="error-message">Entered birthdate is same
+                                as
+                                previous birthdate </span>
                         </div>
                     </div>
                 </div>
@@ -174,7 +192,6 @@
                             </select>
                             <div *ngIf="deptId.invalid && (deptId.dirty || deptId.touched)" class="error-message">
                                 <span *ngIf="deptId.errors?.['required']">Please select department</span>
-
                             </div>
                         </div>
                     </div>
@@ -193,6 +210,10 @@
                             <div *ngIf="gender.invalid && (gender.dirty || gender.touched)" class="error-message">
                                 <span *ngIf="gender.errors?.['required']">Select gender</span>
                             </div>
+                            <span *ngIf="u.gender?.toString() == this.newgender.toString()"
+                                class="error-message">Entered gender is same
+                                as
+                                previous gender</span>
                         </div>
                     </div>
                 </div>
@@ -211,6 +232,10 @@
                             <div *ngIf="role.invalid && (role.dirty || role.touched)" class="error-message">
                                 <span *ngIf="role.errors?.['required']">Please select role</span>
                             </div>
+                            <span *ngIf="u.role?.toString() == this.newrole.toString()" class="error-message">Entered
+                                role is same
+                                as
+                                previous role</span>
                         </div>
                     </div>
                 </div>
@@ -228,6 +253,10 @@
                                 <span *ngIf="lastName.errors?.['required']">Please enter Designation</span>
                                 <span *ngIf="lastName.errors?.['pattern']">Please enter only alphabets</span>
                             </div>
+                            <span *ngIf="u.designation?.toString() == this.newdesignation.toString()"
+                                class="error-message">Entered designation is same
+                                as
+                                previous designation </span>
                         </div>
                     </div>
                 </div>
@@ -247,6 +276,9 @@
                                     lowercase letter, one
                                     digit, one special character, and be 8-14 characters long</span>
                             </div>
+                            <span *ngIf="u.password == this.newpassword" class="error-message">Entered password is same
+                                as
+                                previous password</span>
                         </div>
                         <div class="inp">
                             <label class="form-label" for="confirm_password">Confirm Password</label>
@@ -260,6 +292,7 @@
                                     password</span>
                                 <span *ngIf="confirmPassword.errors?.['pattern']">Passwords do not match</span>
                             </div>
+                            
                         </div>
                     </div>
                 </div>
@@ -288,7 +321,17 @@
                 <div class="col text-end suv-btn">
                     <button type="submit" class="btn btn-maroon" (click)="dismissDialogBox()">Cancel</button>
                     <button type="submit" class="btn btn-maroon"
-                        [disabled]="!editfrom.valid || !selectedField">Submit</button>
+                        [disabled]="!editfrom.valid ||
+                         !selectedField  || 
+                         ( u.userName?.toLowerCase() == this.newUsername.toLowerCase() ||
+                         u.email?.toLowerCase() == this.newEmail.toLowerCase() ||
+                         u.firstName?.toLowerCase() == this.newfirstName.toLowerCase() ||
+                         u.middleName?.toLowerCase() == this.newmiddleName.toLowerCase() ||
+                         u.lastName?.toLowerCase() == this.newlastName.toLowerCase() ||
+                         u.phoneNumber?.toString() == this.newphoneno.toString() || 
+                         u.gender?.toString() == this.newgender.toString()||
+                         u.role?.toString() == this.newrole.toString()||
+                         u.designation?.toString() == this.newdesignation.toString() ) ">Submit</button>
 
                 </div>
             </form>
