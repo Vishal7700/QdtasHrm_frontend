@@ -1,0 +1,51 @@
+<div class="container-fluid g-0">
+    <app-header> </app-header>
+
+    <main>
+        <app-sidenav (toggle)="onToggleSidebar($event)"></app-sidenav>
+
+        <div class="display-area" [ngClass]="{'expanded': isSidebarExpanded, 'collapsed': !isSidebarExpanded}">
+
+            <div class="card">
+                <div class="container p-2">
+                    <form>
+                        <div class="table-container">
+                            <h1></h1>
+                            <table class="table" id="myTable">
+                                <tr class="header">
+                                    <th style="width:20%;">Date</th>
+                                    <th style="width:20%;">Start Time</th>
+                                    <th style="width:20%;">End Time</th>
+                                    <th style="width:40%;">Note</th>
+                                </tr>
+                                <tr *ngFor="let t of timeSheets">
+                                    <td>{{ t.date }}</td>
+                                    <td>{{ t.startTime }}</td>
+                                    <td>{{ t.endTime }}</td>
+                                    <td>{{ t.note }}</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div *ngIf="isLoading" class="loading-bar">
+                            <div class="spinner-container">
+                                <mat-spinner mode="indeterminate" color="warn" diameter="30"></mat-spinner>
+                            </div>
+                        </div>
+
+                        <div *ngIf="timeSheets.length === 0" class="no-data-found">
+                            <h3>No Data Found</h3>
+                        </div>
+                        
+                        <!-- <div class="load-button">
+                            <button (click)="loadMoreTimeSheet()" *ngIf="hasMoreResult" mat-raised-button
+                                color="primary" style="background-color: maroon;"
+                                class="rounded-pill align-middle text-center">
+                                Load More
+                            </button>
+                        </div> -->
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>

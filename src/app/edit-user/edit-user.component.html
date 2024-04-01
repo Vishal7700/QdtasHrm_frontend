@@ -322,16 +322,7 @@
                     <button type="submit" class="btn btn-maroon" (click)="dismissDialogBox()">Cancel</button>
                     <button type="submit" class="btn btn-maroon"
                         [disabled]="!editfrom.valid ||
-                         !selectedField  || 
-                         ( u.userName?.toLowerCase() == this.newUsername.toLowerCase() ||
-                         u.email?.toLowerCase() == this.newEmail.toLowerCase() ||
-                         u.firstName?.toLowerCase() == this.newfirstName.toLowerCase() ||
-                         u.middleName?.toLowerCase() == this.newmiddleName.toLowerCase() ||
-                         u.lastName?.toLowerCase() == this.newlastName.toLowerCase() ||
-                         u.phoneNumber?.toString() == this.newphoneno.toString() || 
-                         u.gender?.toString() == this.newgender.toString()||
-                         u.role?.toString() == this.newrole.toString()||
-                         u.designation?.toString() == this.newdesignation.toString() ) ">Submit</button>
+                         !selectedField ">Submit</button>
 
                 </div>
             </form>

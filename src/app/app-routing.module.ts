@@ -9,6 +9,7 @@ import { MyInfoComponent } from './my-info/my-info.component';
 import { EditUserComponent } from './edit-user/edit-user.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { TempPasswordComponent } from './temp-password/temp-password.component';
+import { TimeSheetDataComponent } from './time-sheet-data/time-sheet-data.component';
 
 const routes: Routes = [
   {
@@ -46,6 +47,10 @@ const routes: Routes = [
   {
     component: TempPasswordComponent,
     path: 'changeTempPassword'
+  },
+   {
+    component: TimeSheetDataComponent,
+    path: 'timesheet'
   }
 
 

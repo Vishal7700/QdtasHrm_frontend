@@ -10,10 +10,10 @@ export class FilterPipe implements PipeTransform {
     }
     searchTerm = searchTerm.toLowerCase();
     return items.filter(item => {
-      // Filter based on the properties you want to search
       return item.userName.toLowerCase().includes(searchTerm) ||
              item.firstName.toLowerCase().includes(searchTerm) ||
              item.lastName.toLowerCase().includes(searchTerm);
+             
     });
   }
 }

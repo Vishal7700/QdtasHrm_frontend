@@ -7,6 +7,7 @@ import { Observable, Subject , forkJoin , throwError} from 'rxjs';
 import { User } from '../model/user';
 import { Leave } from '../model/leave';
 import { map, catchError } from 'rxjs/operators';
+import { Time } from '../model/time';
 
 
 
@@ -165,6 +166,18 @@ export class UserService {
     let headers = new HttpHeaders().set("Authorization", `Bearer ${localStorage.getItem('token')}`);
     return this.http.post<any>(BASE_API_URL + `/ts/add`, user, { headers: this.getHeaders() });
   }
+
+  getTimeSheetByEmpId(eid: Number) {
+      let headers = new HttpHeaders().set("Authorization", `Bearer ${localStorage.getItem('token')}`);
+    return this.http.get<any>(BASE_API_URL + `/ts/getByEmpId/` + eid,  { headers: this.getHeaders() });
+  }
+
+  //  getTimeSheetByEmpId(currentPage: number, resultSize: number, eId: Number) {
+  //   return this.http.get<any>(BASE_API_URL + `/ts/getByEmpId/` + eId,  { headers: this.getHeaders() });
+  // }
+
+
+  
 
  
 }
