@@ -167,17 +167,15 @@ export class UserService {
     return this.http.post<any>(BASE_API_URL + `/ts/add`, user, { headers: this.getHeaders() });
   }
 
-  getTimeSheetByEmpId(eid: Number) {
+  getTimeSheetByEmpId(currentPage: Number, resultSize: Number, eId: Number) {
       let headers = new HttpHeaders().set("Authorization", `Bearer ${localStorage.getItem('token')}`);
-    return this.http.get<any>(BASE_API_URL + `/ts/getByEmpId/` + eid,  { headers: this.getHeaders() });
+    return this.http.get<any>(BASE_API_URL + `/ts/getByEmpId/` + eId +  `?pgn=` + currentPage + `&sz=` + resultSize , { headers: this.getHeaders() });
   }
 
-  //  getTimeSheetByEmpId(currentPage: number, resultSize: number, eId: Number) {
-  //   return this.http.get<any>(BASE_API_URL + `/ts/getByEmpId/` + eId,  { headers: this.getHeaders() });
-  // }
 
 
-  
+
+
 
  
 }

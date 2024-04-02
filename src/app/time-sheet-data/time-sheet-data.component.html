@@ -32,17 +32,17 @@
                             </div>
                         </div>
 
-                        <div *ngIf="timeSheets.length === 0" class="no-data-found">
-                            <h3>No Data Found</h3>
+                        <div *ngIf="noResultMessage" class="no-data-found">
+                            <h3>{{noResultMessage}}</h3>
                         </div>
-                        
-                        <!-- <div class="load-button">
+
+                        <div class="load-button">
                             <button (click)="loadMoreTimeSheet()" *ngIf="hasMoreResult" mat-raised-button
                                 color="primary" style="background-color: maroon;"
                                 class="rounded-pill align-middle text-center">
                                 Load More
                             </button>
-                        </div> -->
+                        </div>
                     </form>
                 </div>
             </div>

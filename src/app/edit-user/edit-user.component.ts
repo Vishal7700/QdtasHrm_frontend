@@ -46,16 +46,17 @@ export class EditUserComponent implements OnInit {
   successMessage: string | null = null;
 errorMessage: string | null = null;
 isLoggedIn! : User ;
-u: User = this.userService.getAuthUserFromCache();
+  u! : User;
+
+
 
 
 
 ngOnInit() {
-    this.userService.getUserById(this.uId).subscribe(
-      (res: any) => {
-      }
-    );
     this.isLoggedIn = this.userService.getAuthUserFromCache();
+      this.userService.getUserById(this.uId).subscribe(user => {
+      this.u = user;
+    });
   }
 
   onFieldSelect(event: any) {
@@ -100,11 +101,6 @@ dismissDialogBox() {
 preventManualInput(event: KeyboardEvent) {
     event.preventDefault();
 }
-
-
-
-
-
 
 
 }

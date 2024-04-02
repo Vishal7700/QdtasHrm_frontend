@@ -19,7 +19,7 @@
                     <div class="inp-field">
                         <div class="inp">
                             <label class="form-label">Select field to edit</label>
-                            <select class="form-select" (change)="onFieldSelect($event)">
+                            <select class="form-select" id="select-field" (change)="onFieldSelect($event)">
                                 <option selected [disabled]="true">Select</option>
                                 <option value="userName">Username</option>
                                 <option value="email">Email</option>
@@ -170,7 +170,7 @@
                                 <span *ngIf="birthDate.errors?.['pattern']">Please enter in YYYY-MM-DD</span>
                             </div>
                             <span *ngIf="u.birthDate?.toString() == this.birthDate.toString()"
-                                class="error-message">Entered birthdate is same
+                                class="error-message">Entered birthdate is same 
                                 as
                                 previous birthdate </span>
                         </div>
@@ -292,7 +292,7 @@
                                     password</span>
                                 <span *ngIf="confirmPassword.errors?.['pattern']">Passwords do not match</span>
                             </div>
-                            
+
                         </div>
                     </div>
                 </div>
@@ -319,11 +319,20 @@
 
 
                 <div class="col text-end suv-btn">
-                    <button type="submit" class="btn btn-maroon" (click)="dismissDialogBox()">Cancel</button>
-                    <button type="submit" class="btn btn-maroon"
-                        [disabled]="!editfrom.valid ||
-                         !selectedField ">Submit</button>
-
+                    <button type="reset" class="btn btn-maroon" (click)="dismissDialogBox()">Cancel</button>
+                    <button type="submit" class="btn btn-maroon" [disabled]="!editfrom.valid || !selectedField || 
+                                     u.userName?.toLowerCase() == this.newUsername.toLowerCase() ||
+                                     u.email?.toLowerCase() == this.newEmail.toLowerCase() ||
+                                     u.firstName?.toLowerCase() == this.newfirstName.toLowerCase() ||
+                                     u.middleName?.toLowerCase() == this.newmiddleName.toLowerCase() ||
+                                     u.lastName?.toLowerCase() == this.newlastName.toLowerCase() ||
+                                     u.phoneNumber?.toString() == this.newphoneno.toString() ||
+                                     u.gender?.toString() == this.newgender.toString() ||
+                                     u.role?.toString() == this.newrole.toString() ||
+                                     u.designation?.toString() == this.newdesignation.toString() ||
+                                     u.password?.toString() == this.newpassword.toString() "  >
+                        Submit
+                    </button>
                 </div>
             </form>
         </div>
