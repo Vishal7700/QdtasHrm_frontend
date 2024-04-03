@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../service/userServices';
+import { User } from '../model/user';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -36,7 +37,6 @@ constructor(private userService: UserService, private router: Router) {}
     this.userService.clearc(); 
     this.router.navigate(['/']); 
   }
-
 
 
 }

@@ -7,9 +7,16 @@
         <div class="display-area" [ngClass]="{'expanded': isSidebarExpanded, 'collapsed': !isSidebarExpanded}">
             <div class="card">
                 <div class="container p-2">
+                    <div *ngIf="isLoading" class="loading-bar">
+                        <div class="spinner-container">
+                            <mat-progress-bar mode="indeterminate" color="warn"></mat-progress-bar>
+                        </div>
+                    </div>
                     <form class="timesheetform" #timeSheetForm="ngForm" (submit)="saveTimesheet(timeSheetForm.value)">
                         <div class="inp-row">
-                            <h2 class="title mb-3">TimeSheet for: {{u.userName}} </h2>
+                            <div *ngIf="u">
+                            <h2 class="title mb-3">TimeSheet for: {{u.firstName + ' ' + u.lastName}} </h2>
+                            </div>
                             <input type="hidden" ngModel name="employeeId">
                             <div class="inp-field">
                                 <div class="inp">
@@ -32,7 +39,11 @@
 
                                 <div class="inp">
                                     <label class="form-label">Project</label>
-                                    <input type="text" class="form-control" id="projectId" ngModel name="projectId">
+                                    <select class="form-select">
+                                        <option selected [disabled]="true">Select Project</option>
+                                        <option value="">HRM</option>
+                                        <option value="">HomeLyf</option>
+                                    </select>
                                 </div>
                             </div>
 
@@ -88,7 +99,7 @@
                         </div>
                         <div *ngIf="isLoading" class="loading-bar">
                             <div class="spinner-container">
-                                <mat-spinner mode="indeterminate" color="warn" diameter="30"></mat-spinner>
+                                <mat-progress-bar mode="indeterminate" color="warn"></mat-progress-bar>
                             </div>
                         </div>
 

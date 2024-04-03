@@ -38,7 +38,6 @@ searchTerm: string = '';
 isLoggedIn! : User ;
 
 
-
   constructor(private userService: UserService,
     private router: Router,
     public dialog: MatDialog,
@@ -191,6 +190,12 @@ dismissErrorMessage() {
 preventManualInput(event: KeyboardEvent) {
     event.preventDefault();
 }
+
+
+ isFormEmpty(form: NgForm): boolean {
+    // Check if the form is invalid or pristine (not touched)
+    return !form.valid || Object.keys(form.controls).some(control => form.controls[control].value === '');
+  }
 
 }
 

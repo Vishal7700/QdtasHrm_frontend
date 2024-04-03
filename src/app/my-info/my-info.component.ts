@@ -14,10 +14,9 @@ import { Observable } from 'rxjs';
 export class MyInfoComponent   {
 
   sideNavStatus: boolean = true;
- 
-    successMessage: string | null = null;
+  successMessage: string | null = null;
   errorMessage: string | null = null;
-  
+  isLoading: boolean = false; 
 
 
 
@@ -27,26 +26,33 @@ constructor(private UserService:UserService, public dialog: MatDialog,private ht
 
 u! : User;
 
-  
-
 
 isMale(): string {
-  if (this.u && this.u.gender && this.u.gender.toLowerCase() === 'male') {
-    return './assets/images/male.png';
+  if (this.u && this.u.gender) {
+    const gender = this.u.gender.toLowerCase();
+    if (gender === 'male') {
+      return './assets/images/male.png';
+    } else if (gender === 'female') {
+      return './assets/images/female.png';
+    } else {
+      return './assets/images/default.png';
+    }
   } else {
-    return './assets/images/female.png';
+    return './assets/images/default.png';
   }
 }
 
 
-    saveEmployee() {
-          this.isFormSubmitted = true;
+  saveEmployee() {
+  this.isFormSubmitted = true;
    }
   
   ngOnInit() {
+    this.isLoading = true;
     this.UserService.profile();
      this.UserService.getUserById(this.UserService.getAuthUserId()).subscribe(user => {
       this.u = user;
+       this.isLoading = false;
     });
     }
 

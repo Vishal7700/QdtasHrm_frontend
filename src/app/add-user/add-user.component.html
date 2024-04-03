@@ -11,7 +11,7 @@
 
 
 <div class="adduser"  >
-
+    
     <div class="card"  *ngIf="isLoggedIn?.role !== 'ROLE_USER'">
         <div class="container p-2">
             <form class="adduserform" #addUserData="ngForm" (submit)="saveUser(addUserData.value)">
@@ -196,9 +196,13 @@
 
 
                     <div>
-                        <div class="col text-end suv-btn">
+                        <div class="col text-end suv-btn" >
                             <button class="btn btn-maroon" type="submit" [disabled]="!addUserData.valid">Submit</button>
                         </div>
+
+                    <div class="error-message mandatory" *ngIf="isFormEmpty(addUserData)">
+                        <h5>Please fill all the above fields.</h5>
+                    </div>
 
 
 
@@ -253,9 +257,9 @@
 
 
                     <div *ngIf="isLoading" class="loading-bar">
-                        <div class="spinner-container">
-                            <mat-spinner mode="indeterminate" color="warn" diameter="30"></mat-spinner>
-                        </div>
+                         <div class="spinner-container">
+                            <mat-progress-bar mode="indeterminate" color="warn"></mat-progress-bar>
+                        </div> 
                     </div>
 
                     <div class="load-button">

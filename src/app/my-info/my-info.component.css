@@ -162,6 +162,10 @@
   margin-left: 5px;
 }
 
+.spinner {
+  margin-top: 10px;
+}
+
 /* Adjust the form layout for mobile devices */
 @media (max-width: 767px) {
   .inp-row {

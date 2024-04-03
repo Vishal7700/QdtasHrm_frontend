@@ -91,12 +91,16 @@
     align-items: center;
 }
 
-.loading-bar {
+/* .loading-bar {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100%;
-    /* Ensures it takes the full height of its container */
+} */
+
+.loading-bar {
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 .spinner-container {

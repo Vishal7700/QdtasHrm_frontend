@@ -22,16 +22,30 @@ export class TimeComponent  implements OnInit{
   sideNavStatus: boolean = false;
   minDate = "";
   maxDate = "";
+  isSidebarExpanded: boolean = true;
+ u!: User;
+
+
  @ViewChild('endDate') endDateInput: any; // This allows accessing the input element in the template
  endDate: string ='';
   constructor(private UserService:UserService,
     private router: Router,
-    private route: ActivatedRoute, ){ }
+    private route: ActivatedRoute,
+     ){
+      
+      }
 
  
   ngOnInit() {
+    this.isLoading = true;
+     this.UserService.getUserById(this.UserService.getAuthUserId()).subscribe(user => {
+      this.u = user;
+      this.isLoading = false;
+    });
+    // this.u=this.UserService.getAuthUserFromCache();
     this.UserService.profile();
     this.loadUsers(this.resultPage);
+    
 
     const today = new Date();
 const year = today.getFullYear();
@@ -57,8 +71,7 @@ this.minDate = `${minYear}-${minMonth}-${minDay}`;
 
     }
 
- isSidebarExpanded: boolean = true;
- u: User = this.UserService.getAuthUserFromCache();
+
 
   onToggleSidebar(expanded: boolean) {
     this.isSidebarExpanded = expanded;
