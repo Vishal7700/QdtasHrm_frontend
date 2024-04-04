@@ -4,6 +4,8 @@ import { User } from '../model/user';
 import { OnInit, ViewChild } from '@angular/core';
 import { Subscription, Observable  } from 'rxjs';
 import { ActivatedRoute, Router} from '@angular/router';
+import {MatTableDataSource, MatTableModule} from '@angular/material/table';
+
 @Component({
   selector: 'app-time',
   templateUrl: './time.component.html',
@@ -20,11 +22,12 @@ export class TimeComponent  implements OnInit{
  isLoading: boolean = false; 
  searchTerm: string = '';
   sideNavStatus: boolean = false;
-  minDate = "";
-  maxDate = "";
+  minDate : Date;
+  startDate!: Date;
   isSidebarExpanded: boolean = true;
  u!: User;
-
+  displayedColumns: string[] = ['userId', 'firstName', 'lastName', 'deptId','designation','view',];
+  dataSource: MatTableDataSource<User>;
 
  @ViewChild('endDate') endDateInput: any; // This allows accessing the input element in the template
  endDate: string ='';
@@ -32,7 +35,10 @@ export class TimeComponent  implements OnInit{
     private router: Router,
     private route: ActivatedRoute,
      ){
-      
+      const currentDate = new Date();
+    currentDate.setDate(currentDate.getDate());
+    this.minDate = currentDate ;
+    this.dataSource = new MatTableDataSource();
       }
 
  
@@ -45,30 +51,6 @@ export class TimeComponent  implements OnInit{
     // this.u=this.UserService.getAuthUserFromCache();
     this.UserService.profile();
     this.loadUsers(this.resultPage);
-    
-
-    const today = new Date();
-const year = today.getFullYear();
-const month = ('0' + (today.getMonth() + 1)).slice(-2); // Adding 1 because months are zero-based
-const day = ('0' + today.getDate()).slice(-2);
-this.endDate = `${year}-${month}-${day}`;
-
-// Set maxDate to today's date
-this.maxDate = this.endDate;
-
-// Calculate the date 7 days ago
-const sevenDaysAgo = new Date(today);
-sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
-
-// Format the date 7 days ago
-const minYear = sevenDaysAgo.getFullYear();
-const minMonth = ('0' + (sevenDaysAgo.getMonth() + 1)).slice(-2);
-const minDay = ('0' + sevenDaysAgo.getDate()).slice(-2);
-
-// Set minDate to 7 days ago
-this.minDate = `${minYear}-${minMonth}-${minDay}`;
-
-
     }
 
 
@@ -87,6 +69,7 @@ console.log(data);
     this.subscriptions.push(
       this.UserService.getAllUsers(currentPage, this.resultSize).subscribe(
         (us: User[]) => {
+          this.dataSource.data =us;
           this.users.push(...us);
           if (this.users.length <= 0 && this.resultPage === 1)
             if (this.users.length <= 0) this.hasMoreResult = false;
@@ -112,5 +95,10 @@ console.log(data);
     this.router.navigate(['/timesheet', { eId: JSON.stringify(data) }],{ relativeTo: this.route, queryParams: {'eId':{data}} });
   };
 
+
+    FilterChange(data : Event) {
+    const value = (data.target as HTMLInputElement).value;
+    this.dataSource.filter = value;
+  }
  
 }

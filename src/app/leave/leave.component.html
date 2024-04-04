@@ -22,23 +22,55 @@
                         <div class="inp-row">
                             <h2 class="title mb-3">Leave Application</h2>
                             <div class="inp-field">
-                                <div class="inp">
+                                
+                                <!-- <div class="inp">
                                      <mat-form-field class="inp-date">
                                     <input matInput [matDatepicker]="startPicker" [min]="minDate" ngModel name="startDate" id="sDate"
                                         [(ngModel)]="startDate" placeholder="Choose Start Date">
                                     <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
                                     <mat-datepicker #startPicker></mat-datepicker>
                                 </mat-form-field>
-                                </div>
+                                </div> -->
                                 <div class="inp">
+                                    <mat-form-field class="inp-date">
+                                        <input matInput [matDatepicker]="startPicker" [min]="minDate" [(ngModel)]="startDate" name="startDate"
+                                            id="sDate" placeholder="Choose Start Date" #startDateInput="ngModel" required>
+                                        <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+                                        <mat-datepicker #startPicker></mat-datepicker>
+                                        <mat-error class="error-message" *ngIf="startDateInput.invalid && (startDateInput.dirty || startDateInput.touched)">
+                                            <span *ngIf="startDateInput.errors?.['required']">Start Date is required</span>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+
+
+                                <!-- <div class="inp">
                                 <mat-form-field class="inp-date">
                                     <input matInput [matDatepicker]="endPicker" [min]="startDate" ngModel name="endDate"  id="eDate"
                                         placeholder="Choose End Date">
                                     <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
                                     <mat-datepicker #endPicker></mat-datepicker>
                                 </mat-form-field>
+                            </div> -->
+                            <div class="inp">
+                                <mat-form-field class="inp-date">
+                                    <input matInput [matDatepicker]="endPicker" [min]="startDate" ngModel name="endDate"
+                                        id="eDate" placeholder="Choose End Date" #endDateInput="ngModel" required>
+                                    <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+                                    <mat-datepicker #endPicker></mat-datepicker>
+                                    <mat-error class="error-message" *ngIf="endDateInput.invalid && (endDateInput.dirty || endDateInput.touched)">
+                                        <span *ngIf="endDateInput.errors?.['required']">End Date is required</span>
+                                    </mat-error>
+                                </mat-form-field>
                             </div>
+
                             </div>
+
+
+                            
+
+
+                            
 
                             <div class="inp-field">
                                 <div class="inp">
@@ -83,7 +115,7 @@
             </div>
 
 
-            <div class="card">
+            <!-- <div class="card">
                 <div class="container p-2">
                     <form>
 
@@ -120,12 +152,7 @@
                                 </tr>
                             </table>
                         </div>
-                        <!-- <div *ngIf="isLoading" class="loading-bar">
-                            <div class="spinner-container">
-                                <mat-spinner mode="indeterminate" color="warn" diameter="30"></mat-spinner>
-                            </div>
-                        </div> -->
-
+                        
                         <div *ngIf="isLoading" class="loading-bar">
                             <div class="spinner-container">
                                 <mat-progress-bar mode="indeterminate" color="warn"></mat-progress-bar>
@@ -141,8 +168,86 @@
 
                     </form>
                 </div>
-            </div>
+            </div> -->
 
+            <div class="card">
+            
+                <div class="table-container">
+                <table  mat-table [dataSource]="dataSource" class="mat-elevation-z8 ">
+            
+                    <!-- ID Column -->
+                    <ng-container matColumnDef="employee">
+                            <th  mat-header-cell *matHeaderCellDef class="center"> Employee-ID </th>
+                            <td mat-cell *matCellDef="let leave" class="center"> {{leave.employee.userId}} </td>
+                    </ng-container>
+            
+                    <!-- Start Date Column -->
+                    <ng-container matColumnDef="startDate">
+                        <th mat-header-cell *matHeaderCellDef class="center"> Start Date </th>
+                        <td mat-cell *matCellDef="let leave" class="center"> {{leave.startDate}} </td>
+                    </ng-container>
+            
+                    <!-- End Date Column -->
+                    <ng-container matColumnDef="endDate">
+                        <th mat-header-cell *matHeaderCellDef class="center"> End Date </th>
+                        <td mat-cell *matCellDef="let leave" class="center"> {{leave.endDate}} </td>
+                    </ng-container>
+            
+                    <!-- Reason Column -->
+                    <ng-container matColumnDef="reason">
+                        <th mat-header-cell *matHeaderCellDef class="center"> Reason </th>
+                        <td mat-cell *matCellDef="let leave" class="center"> {{leave.reason}} </td>
+                    </ng-container>
+            
+                    <!-- ID Column -->
+                    <ng-container matColumnDef="type">
+                        <th mat-header-cell *matHeaderCellDef class="center"> Type </th>
+                        <td mat-cell *matCellDef="let leave" class="center"> {{leave.type}} </td>
+                    </ng-container>
+            
+                    <!-- ID Column -->
+                    <ng-container matColumnDef="status">
+                        <th mat-header-cell *matHeaderCellDef class="center"> Status </th>
+                        <td mat-cell *matCellDef="let leave" class="center"> {{leave.status}} </td>
+                    </ng-container>
+            
+                    <ng-container matColumnDef="actions">
+                        <th mat-header-cell *matHeaderCellDef class="center" > Actions </th>
+                        <td mat-cell *matCellDef="let leave" class="center"  >
+                            <button *ngIf="leave.status == 'APPROVED' || leave.status == 'REJECTED'" mat-icon-button
+                                (click)="deleteLeave(leave.leaveId)" color="warn">
+                                <mat-icon>delete</mat-icon>
+                            </button>
+                            <button *ngIf="leave.status == 'PENDING'" mat-icon-button color="primary"
+                                (click)="approveLeave(leave.leaveId)">
+                                <mat-icon>done</mat-icon>
+                            </button>
+            
+                            <button *ngIf="leave.status == 'PENDING'" mat-icon-button color="warn"
+                                (click)="rejectLeave(leave.leaveId)">
+                                <mat-icon>clear</mat-icon>
+                            </button>
+            
+                        </td>
+                    </ng-container>
+            
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+                </div>
+                <div *ngIf="isLoading" class="loading-bar">
+                    <div class="spinner-container">
+                        <mat-progress-bar mode="indeterminate" color="warn"></mat-progress-bar>
+                    </div>
+                </div>
+                
+                <div class="load-button">
+                    <button (click)="loadMoreleaves()" *ngIf="hasMoreResult" mat-raised-button color="primary"
+                        style="background-color: maroon;" class="rounded-pill align-middle text-center">
+                        Load More
+                    </button>
+                </div>
+        </div>
         </div>
     </main>
 </div>

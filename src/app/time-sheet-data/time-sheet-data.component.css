@@ -254,7 +254,7 @@
     }
 }
 
-table,
+/* table,
 th,
 td {
     border: 1px solid black;
@@ -263,7 +263,7 @@ td {
 
 th {
     text-align: left;
-}
+} */
 
 
 #myTable {
@@ -305,6 +305,14 @@ th {
     margin-bottom: 20px;
 }
 
+
+tr:hover {
+background-color: rgb(255, 235, 235);
+}
+
+.center {
+    text-align: center;
+}
 
 
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { UserService } from '../service/userServices';
 import { Router} from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -10,6 +10,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { DialogboxComponent } from '../dialogbox/dialogbox.component';
 import { EditUserComponent } from '../edit-user/edit-user.component';
 import { FormsModule, NgForm } from '@angular/forms';
+import {MatTableDataSource, MatTableModule} from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
 
 
 
@@ -36,6 +38,9 @@ errorMessage: string | null = null;
 
 searchTerm: string = '';
 isLoggedIn! : User ;
+  displayedColumns: string[] = ['userId', 'userName', 'firstName', 'middleName','lastName','gender','deptId', 'phoneNumber', 'designation' , 'actions'];
+  dataSource: MatTableDataSource<User>;
+  @ViewChild(MatSort) sort !: MatSort;
 
 
   constructor(private userService: UserService,
@@ -44,7 +49,7 @@ isLoggedIn! : User ;
     private snackBar: MatSnackBar,
    
   ) {
-
+    this.dataSource = new MatTableDataSource<User>();
   }
 
 
@@ -54,7 +59,6 @@ isLoggedIn! : User ;
   ngOnInit(): void {
     this.loadUsers(this.resultPage);
    this.isLoggedIn = this.userService.getAuthUserFromCache()
-
   }
 
    saveUser(userData: any) {
@@ -86,6 +90,10 @@ isLoggedIn! : User ;
     );
   }
 
+  ngAfterViewInit() {
+    this.dataSource.sort = this.sort;
+}
+
 
   deleteUser(uId: number): void {
     this.openConfirmationDialog(uId);
@@ -95,6 +103,7 @@ isLoggedIn! : User ;
     this.subscriptions.push(
       this.userService.getAllUsers(currentPage, this.resultSize).subscribe(
         (us: User[]) => {
+          this.dataSource.data = us;
           this.users.push(...us);
           if (this.users.length <= 0 && this.resultPage === 1)
             if (this.users.length <= 0) this.hasMoreResult = false;
@@ -195,6 +204,11 @@ preventManualInput(event: KeyboardEvent) {
  isFormEmpty(form: NgForm): boolean {
     // Check if the form is invalid or pristine (not touched)
     return !form.valid || Object.keys(form.controls).some(control => form.controls[control].value === '');
+  }
+
+  FilterChange(data : Event) {
+    const value = (data.target as HTMLInputElement).value;
+    this.dataSource.filter = value
   }
 
 }

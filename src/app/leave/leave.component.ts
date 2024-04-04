@@ -11,6 +11,7 @@ import { OnInit, ViewChild } from '@angular/core';
 import {NativeDateAdapter} from '@angular/material/core';
 import { FormControl } from '@angular/forms';
 import { MatDatepickerInput } from '@angular/material/datepicker';
+import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 
 
 @Component({
@@ -20,6 +21,11 @@ import { MatDatepickerInput } from '@angular/material/datepicker';
   
 })
 export class LeaveComponent {
+  displayedColumns: string[] = ['employee', 'startDate', 'endDate', 'type','reason','status','actions'];
+  dataSource: MatTableDataSource<Leave>;
+
+
+
   constructor(private UserService: UserService, 
     public dialog: MatDialog,
      private snackBar: MatSnackBar ) {
@@ -27,10 +33,7 @@ export class LeaveComponent {
        const currentDate = new Date();
     currentDate.setDate(currentDate.getDate() - 7);
     this.minDate = currentDate;
-    
-
-  
-   
+    this.dataSource = new MatTableDataSource<Leave>();
   }
 
 
@@ -93,6 +96,7 @@ export class LeaveComponent {
        this.subscriptions.push(
       this.UserService.getAllLeaves(currentPage, this.resultSize).subscribe(
         (l: Leave[]) => {
+          this.dataSource.data =l;
           this.leaves.push(...l);
           if (this.leaves.length <= 0 && this.resultPage === 1)
             if (this.leaves.length <= 0) this.hasMoreResult = false;

@@ -300,7 +300,7 @@ input[type="search"] {
 input[type="search"]::placeholder {
     color: #bbb;
 }
-
+/* 
 table,
 th,
 td {
@@ -312,11 +312,9 @@ td {
 
 th {
     text-align: left;
-}
-
-/* tr:nth-child(even) {
-     background-color: #D6EEEE; 
 } */
+
+
 
 #myInput {
 
@@ -418,4 +416,12 @@ th {
     margin-right: 30px;
 
 
+}
+
+tr:hover {
+    background-color: rgb(255,235,235);
+}
+
+.center {
+    text-align: center;
 }

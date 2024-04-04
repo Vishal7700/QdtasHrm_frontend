@@ -11,6 +11,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import { TempPasswordComponent } from './temp-password/temp-password.component';
 import { TimeSheetDataComponent } from './time-sheet-data/time-sheet-data.component';
 
+
 const routes: Routes = [
   {
     component: LoginComponent,

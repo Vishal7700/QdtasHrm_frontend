@@ -4,7 +4,7 @@ import { UserService } from '../service/userServices';
 import { Time } from '../model/time';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs';
-
+import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 
 @Component({
   selector: 'app-time-sheet-data',
@@ -12,7 +12,8 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./time-sheet-data.component.css']
 })
 export class TimeSheetDataComponent {
-
+  displayedColumns: string[] = ['date', 'startTime', 'endTime', 'note',];
+  dataSource: MatTableDataSource<Time>;
     sideNavStatus: boolean = false;
     isSidebarExpanded: boolean = true;
    
@@ -22,7 +23,10 @@ export class TimeSheetDataComponent {
   }
 
   constructor(private route: ActivatedRoute,
-    private userService: UserService,    ){}
+    private userService: UserService,    )
+    {
+      this.dataSource = new MatTableDataSource();
+    }
 
   private subscriptions: Subscription[] = [];
   timeSheets: Time[] = [];
@@ -46,8 +50,9 @@ export class TimeSheetDataComponent {
       this.isLoading = true;
       this.subscriptions.push(
       this.userService.getTimeSheetByEmpId(currentPage ,resultSize , eId).subscribe(
-        (l: Time[]) => {
-          this.timeSheets.push(...l);
+        (t: Time[]) => {
+          this.dataSource.data =t;
+          this.timeSheets.push(...t);
           this.isLoading = false;
           if (this.timeSheets.length <= 0 && this.resultPage === 1) {
             this.hasMoreResult = false;
