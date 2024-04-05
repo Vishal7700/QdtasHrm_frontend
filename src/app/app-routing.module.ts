@@ -10,6 +10,7 @@ import { EditUserComponent } from './edit-user/edit-user.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { TempPasswordComponent } from './temp-password/temp-password.component';
 import { TimeSheetDataComponent } from './time-sheet-data/time-sheet-data.component';
+import { AuthGuard } from './shared/auth.guard';
 
 
 const routes: Routes = [
@@ -19,45 +20,49 @@ const routes: Routes = [
   },
   {
     component: ProfileComponent,
-    path: 'profile'
+    path: 'profile',
+     canActivate: [AuthGuard]
   },
   {
     component: AddUserComponent,
-    path: 'adduser'
+    path: 'adduser',
+     canActivate: [AuthGuard]
   },
   {
     component: LeaveComponent,
-    path: 'leave'
+    path: 'leave',
+     canActivate: [AuthGuard]
   },
   {
     component: TimeComponent,
-    path: 'time'
+    path: 'time',
+     canActivate: [AuthGuard]
   },
   {
     component: MyInfoComponent,
-    path: 'myinfo'
+    path: 'myinfo',
+     canActivate: [AuthGuard]
   },
   {
     component: EditUserComponent,
-    path: 'edit-user'
+    path: 'edit-user',
+     canActivate: [AuthGuard]
   },
   {
     component: ResetPasswordComponent,
-    path: 'reset'
+    path: 'reset',
+     canActivate: [AuthGuard]
   },
   {
     component: TempPasswordComponent,
-    path: 'changeTempPassword'
+    path: 'changeTempPassword',
+     canActivate: [AuthGuard]
   },
    {
     component: TimeSheetDataComponent,
-    path: 'timesheet'
-  }
-
-
-
-
-
+    path: 'timesheet',
+    canActivate: [AuthGuard]
+  },
 ];
 
 @NgModule({

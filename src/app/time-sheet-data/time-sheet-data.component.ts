@@ -51,8 +51,8 @@ export class TimeSheetDataComponent {
       this.subscriptions.push(
       this.userService.getTimeSheetByEmpId(currentPage ,resultSize , eId).subscribe(
         (t: Time[]) => {
-          this.dataSource.data =t;
           this.timeSheets.push(...t);
+          this.dataSource.data =this.timeSheets;
           this.isLoading = false;
           if (this.timeSheets.length <= 0 && this.resultPage === 1) {
             this.hasMoreResult = false;

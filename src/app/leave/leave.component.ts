@@ -96,8 +96,8 @@ export class LeaveComponent {
        this.subscriptions.push(
       this.UserService.getAllLeaves(currentPage, this.resultSize).subscribe(
         (l: Leave[]) => {
-          this.dataSource.data =l;
           this.leaves.push(...l);
+          this.dataSource.data = this.leaves;
           if (this.leaves.length <= 0 && this.resultPage === 1)
             if (this.leaves.length <= 0) this.hasMoreResult = false;
           this.fetchingResult = false;

@@ -32,12 +32,11 @@ export class AddUserComponent implements OnInit {
   fetchingResult: boolean = false;
   sideNavStatus: boolean = false;
   private subscriptions: Subscription[] = [];
-
   successMessage: string | null = null;
-errorMessage: string | null = null;
-
-searchTerm: string = '';
-isLoggedIn! : User ;
+  errorMessage: string | null = null;
+  searchTerm: string = '';
+  isLoggedIn! : User ;
+  isLoading: boolean = false; 
   displayedColumns: string[] = ['userId', 'userName', 'firstName', 'middleName','lastName','gender','deptId', 'phoneNumber', 'designation' , 'actions'];
   dataSource: MatTableDataSource<User>;
   @ViewChild(MatSort) sort !: MatSort;
@@ -51,10 +50,6 @@ isLoggedIn! : User ;
   ) {
     this.dataSource = new MatTableDataSource<User>();
   }
-
-
-  isLoading: boolean = false; 
-
 
   ngOnInit(): void {
     this.loadUsers(this.resultPage);
@@ -103,8 +98,8 @@ isLoggedIn! : User ;
     this.subscriptions.push(
       this.userService.getAllUsers(currentPage, this.resultSize).subscribe(
         (us: User[]) => {
-          this.dataSource.data = us;
           this.users.push(...us);
+          this.dataSource.data = this.users;
           if (this.users.length <= 0 && this.resultPage === 1)
             if (this.users.length <= 0) this.hasMoreResult = false;
           this.fetchingResult = false;

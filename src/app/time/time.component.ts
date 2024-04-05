@@ -69,8 +69,8 @@ console.log(data);
     this.subscriptions.push(
       this.UserService.getAllUsers(currentPage, this.resultSize).subscribe(
         (us: User[]) => {
-          this.dataSource.data =us;
           this.users.push(...us);
+          this.dataSource.data =this.users;
           if (this.users.length <= 0 && this.resultPage === 1)
             if (this.users.length <= 0) this.hasMoreResult = false;
           this.fetchingResult = false;
