@@ -5,6 +5,8 @@ import { OnInit, ViewChild } from '@angular/core';
 import { Subscription, Observable  } from 'rxjs';
 import { ActivatedRoute, Router} from '@angular/router';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
+import { Time } from '../model/time';
+
 
 @Component({
   selector: 'app-time',
@@ -19,6 +21,7 @@ export class TimeComponent  implements OnInit{
   hasMoreResult: boolean = true;
   fetchingResult: boolean = false;
   private subscriptions: Subscription[] = [];
+
  isLoading: boolean = false; 
  searchTerm: string = '';
   sideNavStatus: boolean = false;
@@ -28,6 +31,10 @@ export class TimeComponent  implements OnInit{
  u!: User;
   displayedColumns: string[] = ['userId', 'firstName', 'lastName', 'deptId','designation','view',];
   dataSource: MatTableDataSource<User>;
+ empId: number = this.UserService.getAuthUserId();
+   successMessage: string | null = null;
+  errorMessage: string | null = null;
+  isLoggedIn! : User ;
 
  @ViewChild('endDate') endDateInput: any; // This allows accessing the input element in the template
  endDate: string ='';
@@ -39,7 +46,11 @@ export class TimeComponent  implements OnInit{
     currentDate.setDate(currentDate.getDate());
     this.minDate = currentDate ;
     this.dataSource = new MatTableDataSource();
+
       }
+
+
+
 
  
   ngOnInit() {
@@ -60,10 +71,39 @@ export class TimeComponent  implements OnInit{
   }
 
 
+// saveTimesheet(data: any) {
+// console.log(data);
+// }
 
-saveTimesheet(data: any) {
-console.log(data);
-}
+applyTimeSheet(userData: any) {
+  console.log(userData)
+    this.UserService.addTimeSheet(userData).subscribe(
+      (response: any) => {
+        this.successMessage = 'Timesheet updated Successfully'; 
+	 setTimeout(() => {
+        this.successMessage = null;
+        window.location.reload();
+      }, 3000);
+        
+      },
+      (error: any) => {
+        if (error.status == 400) {
+          this.errorMessage = 'An error occurred while adding the user'; 
+	 setTimeout(() => {
+        this.successMessage = null;
+      }, 3000);
+
+        } else {
+          console.log('added');
+          this.errorMessage = 'An error occurred while adding the user'; 
+	 setTimeout(() => {
+        this.successMessage = null;
+      }, 3000);
+
+        }
+      }
+    );
+  }
 
   loadUsers(currentPage: number): void {
     this.subscriptions.push(
@@ -91,14 +131,25 @@ console.log(data);
   }
 
 
+  
+
   navigateToTs(data : Number) {
     this.router.navigate(['/timesheet', { eId: JSON.stringify(data) }],{ relativeTo: this.route, queryParams: {'eId':{data}} });
   };
 
 
+ 
     FilterChange(data : Event) {
     const value = (data.target as HTMLInputElement).value;
     this.dataSource.filter = value;
   }
+
+    dismissSuccessMessage() {
+    this.successMessage = null;
+}
+
+dismissErrorMessage() {
+   this.errorMessage = null;
+}
  
 }

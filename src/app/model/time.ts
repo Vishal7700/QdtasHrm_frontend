@@ -12,7 +12,7 @@ export class Time {
 
     note!: string;
 
-    projectId!: number;
+    projectId!: Number ;
  
 
 }

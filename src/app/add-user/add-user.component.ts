@@ -36,8 +36,9 @@ export class AddUserComponent implements OnInit {
   errorMessage: string | null = null;
   searchTerm: string = '';
   isLoggedIn! : User ;
+  role : number = this.userService.getAuthUserId()
   isLoading: boolean = false; 
-  displayedColumns: string[] = ['userId', 'userName', 'firstName', 'middleName','lastName','gender','deptId', 'phoneNumber', 'designation' , 'actions'];
+  displayedColumns: string[] = [];
   dataSource: MatTableDataSource<User>;
   @ViewChild(MatSort) sort !: MatSort;
 
@@ -52,8 +53,10 @@ export class AddUserComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.isLoggedIn = this.userService.getAuthUserFromCache();
+    this.displayColumns();
     this.loadUsers(this.resultPage);
-   this.isLoggedIn = this.userService.getAuthUserFromCache()
+   
   }
 
    saveUser(userData: any) {
@@ -205,6 +208,16 @@ preventManualInput(event: KeyboardEvent) {
     const value = (data.target as HTMLInputElement).value;
     this.dataSource.filter = value
   }
+
+
+
+    displayColumns () {
+      if(this.isLoggedIn.role == 'ROLE_USER') {
+        this.displayedColumns = ['userId', 'userName', 'firstName', 'middleName','lastName','gender','deptId', 'phoneNumber', 'designation'];
+      }else {
+        this.displayedColumns = ['userId', 'userName', 'firstName', 'middleName','lastName','gender','deptId', 'phoneNumber', 'designation' , 'actions'];
+      }
+    }
 
 }
 

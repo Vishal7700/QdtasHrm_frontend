@@ -5,6 +5,15 @@
         <app-sidenav (toggle)="onToggleSidebar($event)"></app-sidenav>
 
         <div class="display-area" [ngClass]="{'expanded': isSidebarExpanded, 'collapsed': !isSidebarExpanded}">
+            <div *ngIf="successMessage" class="success-message">
+                {{ successMessage }}
+                <mat-icon class="close-icon" (click)="dismissSuccessMessage()">close</mat-icon>
+            </div>
+            
+            <div *ngIf="errorMessage" class="error-message-notification">
+                {{ errorMessage }}
+                <mat-icon class="close-icon" (click)="dismissErrorMessage()">close</mat-icon>
+            </div>
             <div class="card">
                 <div class="container p-2">
                     <div *ngIf="isLoading" class="loading-bar">
@@ -12,7 +21,7 @@
                             <mat-progress-bar mode="indeterminate" color="warn"></mat-progress-bar>
                         </div>
                     </div>
-                    <form class="timesheetform" #timeSheetForm="ngForm" (submit)="saveTimesheet(timeSheetForm.value)">
+                    <form class="timesheetform" #timeSheetForm="ngForm" (submit)="applyTimeSheet(timeSheetForm.value)">
                         <div class="inp-row">
                             <div *ngIf="u">
                                 <h2 class="title mb-3">TimeSheet for: {{u.firstName + ' ' + u.lastName}} </h2>
@@ -21,21 +30,21 @@
                             <div class="inp-field">
                                 <div class="inp">
                                     <label class="form-label">Start Time</label>
-                                    <input type="time" class="form-control" id="startTime" ngModel name="startTime"
-                                        #startTimeInput="ngModel" required>
-                                    <div *ngIf="startTimeInput.invalid && (startTimeInput.dirty || startTimeInput.touched)"
+                                    <input type="time" step="1" class="form-control" id="startTime" ngModel name="startTime"
+                                        #startTime="ngModel" required>
+                                    <div *ngIf="startTime.invalid && (startTime.dirty || startTime.touched)"
                                         class="error-message">
-                                        <span *ngIf="startTimeInput.errors?.['required']">Start Time is required</span>
+                                        <span *ngIf="startTime.errors?.['required']">Start Time is required</span>
                                     </div>
                                 </div>
 
                                 <div class="inp">
                                     <label class="form-label">End Time</label>
-                                    <input type="time" class="form-control" id="endTime" ngModel name="endTime"
-                                        #endTimeInput="ngModel" required>
-                                    <div *ngIf="endTimeInput.invalid && (endTimeInput.dirty || endTimeInput.touched)"
+                                    <input type="time" step="1" class="form-control" id="endTime" ngModel name="endTime"
+                                        #endTime="ngModel" required>
+                                    <div *ngIf="endTime.invalid && (endTime.dirty || endTime.touched)"
                                         class="error-message">
-                                        <span *ngIf="endTimeInput.errors?.['required']">End Time is required</span>
+                                        <span *ngIf="endTime.errors?.['required']">End Time is required</span>
                                     </div>
                                 </div>
                             </div>
@@ -46,29 +55,29 @@
                                 <div class="inp">
                                     <mat-form-field class="inp-date">
                                         <input matInput [matDatepicker]="startPicker" [max]="minDate"
-                                            [(ngModel)]="startDate" name="startDate" id="sDate"
-                                            placeholder="Choose Date" #startDateInput="ngModel" required>
+                                            [(ngModel)]="startDate" name="date" id="sDate"
+                                            placeholder="Choose Date" #date="ngModel" required>
                                         <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
                                         <mat-datepicker #startPicker></mat-datepicker>
                                         <mat-error class="error-message"
-                                            *ngIf="startDateInput.invalid && (startDateInput.dirty || startDateInput.touched)">
-                                            <span *ngIf="startDateInput.errors?.['required']">Please select Date</span>
+                                            *ngIf="date.invalid && (date.dirty || date.touched)">
+                                            <span *ngIf="date.errors?.['required']">Please select Date</span>
                                         </mat-error>
                                     </mat-form-field>
                                 </div>
 
                                 <div class="inp">
                                     <label class="form-label">Project</label>
-                                    <select class="form-select" id="project" name="project" ngModel required
-                                        #project="ngModel" [ngClass]="{'invalid': project.invalid && (project.dirty || project.touched), 'valid': project.valid && (project.dirty ||
-                                                            project.touched)}">
-                                        <option selected [disabled]="true">Select Project</option>
-                                        <option>HRM</option>
-                                        <option>HomeLyf</option>
+                                    <select class="form-select" id="project" name="projectId" ngModel required
+                                        #projectId="ngModel" [ngClass]="{'invalid': projectId.invalid && (projectId.dirty || projectId.touched), 'valid': projectId.valid && (projectId.dirty ||
+                                                            projectId.touched)}">
+                                        <option selected [disabled]="true">Select project</option>
+                                        <option value=1>HRM</option>
+                                        <option value=2>HomeLyf </option>
                                     </select>
-                                    <div *ngIf="project.invalid && (project.dirty || project.touched)"
+                                    <div *ngIf="projectId.invalid && (projectId.dirty || projectId.touched)"
                                         class="error-message">
-                                        <span *ngIf="project.errors?.['required']">Please select Project</span>
+                                        <span *ngIf="projectId.errors?.['required']">Please select projectId</span>
                                     </div>
                                 </div>
                             </div>
@@ -89,9 +98,12 @@
                             <div>
                                 <div class="col text-end suv-btn">
                                     <button class="btn btn-maroon" type="reset">Reset</button>
-                                    <button class="btn btn-maroon" type="submit">Submit</button>
+                                    <button class="btn btn-maroon" type="submit"   [disabled]="!timeSheetForm.valid">Submit</button>
                                 </div>
                             </div>
+
+                            
+
                         </div>
                     </form>
                 </div>
@@ -129,7 +141,7 @@
                         </div> -->
 
 
-                        <div class="table-container">
+                        <div class="table-container" *ngIf="isLoggedIn?.role !== 'ROLE_USER'"  >
                             <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 ">
 
 
@@ -193,7 +205,9 @@
                                 Load More
                             </button>
                         </div>
+                        
                     </form>
+                    
                 </div>
             </div>
         </div>

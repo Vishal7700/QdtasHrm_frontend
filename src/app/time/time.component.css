@@ -132,6 +132,42 @@
   margin-bottom: 10px;
 }
 
+.success-message {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 30% !important;
+  background-color: green;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  z-index: 1000;
+}
+
+.error-message-notification {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 90% !important;
+  background-color: red;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  z-index: 1000;
+}
+
+.close-icon {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
 @media (max-width: 767px) {
   .inp-row {
     display: grid;
@@ -213,34 +249,7 @@
     overflow-y: auto;
   }
 
-  .success-message {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin: auto;
-    width: 70% !important;
-    background-color: green;
-    color: white;
-    padding: 10px;
-    text-align: center;
-    z-index: 1000;
-  }
-
-  .error-message-notification {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin: auto;
-    width: 90% !important;
-    background-color: red;
-    color: white;
-    padding: 10px;
-    text-align: center;
-    z-index: 1000;
-  }
-
+  
   .expanded {
     margin-left: 50px;
     margin-right: 50px;

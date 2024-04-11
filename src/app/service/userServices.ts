@@ -162,9 +162,9 @@ export class UserService {
 
   //TimeSheet
 
-   addTimeSheet(user: any) {
+  addTimeSheet(timeSheetData: any) {
     let headers = new HttpHeaders().set("Authorization", `Bearer ${localStorage.getItem('token')}`);
-    return this.http.post<any>(BASE_API_URL + `/ts/add`, user, { headers: this.getHeaders() });
+    return this.http.post<any>(BASE_API_URL + `/ts/add` , timeSheetData,  {headers:this.getHeaders() });
   }
 
   getTimeSheetByEmpId(currentPage: Number, resultSize: Number, eId: Number) {
@@ -172,11 +172,5 @@ export class UserService {
     return this.http.get<any>(BASE_API_URL + `/ts/getByEmpId/` + eId +  `?pgn=` + currentPage + `&sz=` + resultSize , { headers: this.getHeaders() });
   }
 
-
-
-
-
-
- 
 }
 
