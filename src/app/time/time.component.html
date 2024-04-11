@@ -141,7 +141,7 @@
                         </div> -->
 
 
-                        <div class="table-container" *ngIf="isLoggedIn?.role !== 'ROLE_USER'"  >
+                        <div class="table-container"   >
                             <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 ">
 
 
@@ -205,6 +205,63 @@
                                 Load More
                             </button>
                         </div>
+
+
+                        <!-- new table -->
+
+
+                        <div class="table-container"  *ngIf="isLoggedIn && isLoggedIn?.role !== 'ROLE_USER'">
+                            <table mat-table [dataSource]="dataSourceForUser" class="mat-elevation-z8 ">
+                        
+                        
+                                <ng-container matColumnDef="date">
+                                    <tr>
+                                        <th mat-header-cell *matHeaderCellDef class="center"> Date </th>
+                                        <td mat-cell *matCellDef="let t" class="center"> {{t.date}} </td>
+                                    </tr>
+                                </ng-container>
+                        
+                        
+                                <ng-container matColumnDef="startTime">
+                                    <th mat-header-cell *matHeaderCellDef class="center"> Start TIme </th>
+                                    <td mat-cell *matCellDef="let t" class="center"> {{t.startTime}} </td>
+                                </ng-container>
+                        
+                        
+                                <ng-container matColumnDef="endTime">
+                                    <th mat-header-cell *matHeaderCellDef class="center"> End Time </th>
+                                    <td mat-cell *matCellDef="let t" class="center"> {{t.endTime}} </td>
+                                </ng-container>
+                        
+                        
+                                <ng-container matColumnDef="note">
+                                    <th mat-header-cell *matHeaderCellDef class="center"> Note </th>
+                                    <td mat-cell *matCellDef="let t" class="center"> {{t.note}} </td>
+                                </ng-container>
+                        
+
+                                <tr mat-header-row *matHeaderRowDef="displayedColumnsForUser"></tr>
+                                <tr mat-row *matRowDef="let row; columns: displayedColumnsForUser;"></tr>
+                            </table>
+                        </div>
+                        
+                        
+                        <div *ngIf="isLoading" class="loading-bar">
+                            <div class="spinner-container" *ngIf="isLoggedIn && isLoggedIn?.role !== 'ROLE_USER'">
+                                <mat-progress-bar mode="indeterminate" color="warn"></mat-progress-bar>
+                            </div>
+                        </div>
+
+                        
+                        
+                        <div class="load-button" *ngIf="isLoggedIn && isLoggedIn?.role !== 'ROLE_USER'">
+                            <button (click)="loadMoreTimeSheet()" *ngIf="hasMoreResult" mat-raised-button color="primary"
+                                style="background-color: maroon;" class="rounded-pill align-middle text-center">
+                                Load More
+                            </button>
+                        </div>
+                        
+                        <!-- new table -->
                         
                     </form>
                     

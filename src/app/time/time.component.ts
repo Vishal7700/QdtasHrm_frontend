@@ -7,7 +7,6 @@ import { ActivatedRoute, Router} from '@angular/router';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import { Time } from '../model/time';
 
-
 @Component({
   selector: 'app-time',
   templateUrl: './time.component.html',
@@ -21,7 +20,9 @@ export class TimeComponent  implements OnInit{
   hasMoreResult: boolean = true;
   fetchingResult: boolean = false;
   private subscriptions: Subscription[] = [];
-
+ timeSheets: Time[] = [];
+  noResultMessage : string = '';
+  eId: Number = 0;
  isLoading: boolean = false; 
  searchTerm: string = '';
   sideNavStatus: boolean = false;
@@ -35,7 +36,8 @@ export class TimeComponent  implements OnInit{
    successMessage: string | null = null;
   errorMessage: string | null = null;
   isLoggedIn! : User ;
-
+ displayedColumnsForUser: string[] = ['date', 'startTime', 'endTime', 'note',];
+  dataSourceForUser: MatTableDataSource<Time>;
  @ViewChild('endDate') endDateInput: any; // This allows accessing the input element in the template
  endDate: string ='';
   constructor(private UserService:UserService,
@@ -46,7 +48,7 @@ export class TimeComponent  implements OnInit{
     currentDate.setDate(currentDate.getDate());
     this.minDate = currentDate ;
     this.dataSource = new MatTableDataSource();
-
+  this.dataSourceForUser = new MatTableDataSource();
       }
 
 
@@ -54,14 +56,17 @@ export class TimeComponent  implements OnInit{
 
  
   ngOnInit() {
+    this.eId = this.UserService.getAuthUserId();
+    console.log(this.eId)
+  this.loadTimeSheet(this.resultPage, this.resultSize , this.eId);
     this.isLoading = true;
      this.UserService.getUserById(this.UserService.getAuthUserId()).subscribe(user => {
       this.u = user;
       this.isLoading = false;
     });
-    // this.u=this.UserService.getAuthUserFromCache();
     this.UserService.profile();
     this.loadUsers(this.resultPage);
+
     }
 
 
@@ -138,6 +143,35 @@ applyTimeSheet(userData: any) {
   };
 
 
+  loadTimeSheet(currentPage: Number , resultSize: Number, eId: Number) {
+      this.isLoading = true;
+      this.subscriptions.push(
+      this.UserService.getTimeSheetByEmpId(currentPage ,resultSize , eId).subscribe(
+        (t: Time[]) => {
+          this.timeSheets.push(...t);
+          this.dataSourceForUser.data =this.timeSheets;
+          this.isLoading = false;
+          if (this.timeSheets.length <= 0 && this.resultPage === 1) {
+            this.hasMoreResult = false;
+            this.noResultMessage = "No result found."
+          }
+          this.fetchingResult = false;
+          this.resultPage++;
+        }, (error) => {
+          console.log(error);
+        }
+      )
+    );
+  }
+
+  loadMoreTimeSheet(): void {
+    this.isLoading = true;
+    this.loadTimeSheet(this.resultPage, this.resultSize ,  this.eId);
+    setTimeout(() => {
+       this.isLoading = false;
+    }, 1000);
+  }
+
  
     FilterChange(data : Event) {
     const value = (data.target as HTMLInputElement).value;
@@ -151,5 +185,6 @@ applyTimeSheet(userData: any) {
 dismissErrorMessage() {
    this.errorMessage = null;
 }
+
  
 }
