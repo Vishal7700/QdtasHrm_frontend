@@ -56,6 +56,7 @@ export class TimeComponent  implements OnInit{
 
  
   ngOnInit() {
+    this.isLoggedIn = this.UserService.getAuthUserFromCache();
     this.eId = this.UserService.getAuthUserId();
     console.log(this.eId)
   this.loadTimeSheet(this.resultPage, this.resultSize , this.eId);
@@ -186,5 +187,5 @@ dismissErrorMessage() {
    this.errorMessage = null;
 }
 
- 
+
 }

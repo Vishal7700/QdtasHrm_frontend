@@ -113,7 +113,7 @@
             <div class="card">
                 <div class="container p-2">
                     <form>
-                        <input type="text" id="myInput" placeholder="Search.." (keyup)="FilterChange($event)" />
+                        <input type="text" *ngIf="isLoggedIn?.role !== 'ROLE_USER'"  id="myInput" placeholder="Search.." (keyup)="FilterChange($event)" />
                         <!-- <div class="table-container">
                             <table class="table" id="myTable">
                                 <tr class="header">
@@ -141,7 +141,7 @@
                         </div> -->
 
 
-                        <div class="table-container"   >
+                        <div class="table-container"   *ngIf="isLoggedIn?.role !== 'ROLE_USER'"  >
                             <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 ">
 
 
@@ -193,13 +193,13 @@
                         </div>
 
 
-                        <div *ngIf="isLoading" class="loading-bar">
-                            <div class="spinner-container">
+                        <div *ngIf="isLoading" class="loading-bar" >
+                            <div class="spinner-container" *ngIf="isLoggedIn?.role !== 'ROLE_USER'" >
                                 <mat-progress-bar mode="indeterminate" color="warn"></mat-progress-bar>
                             </div>
                         </div>
 
-                        <div class="load-button">
+                        <div class="load-button" *ngIf="isLoggedIn?.role !== 'ROLE_USER'">
                             <button (click)="loadMoreUsers()" *ngIf="hasMoreResult" mat-raised-button color="primary"
                                 style="background-color: maroon;" class="rounded-pill align-middle text-center">
                                 Load More
@@ -210,7 +210,7 @@
                         <!-- new table -->
 
 
-                        <div class="table-container"  *ngIf="isLoggedIn && isLoggedIn?.role !== 'ROLE_USER'">
+                        <div class="table-container"  *ngIf="isLoggedIn?.role !== 'ROLE_ADMIN'" >
                             <table mat-table [dataSource]="dataSourceForUser" class="mat-elevation-z8 ">
                         
                         
@@ -247,14 +247,14 @@
                         
                         
                         <div *ngIf="isLoading" class="loading-bar">
-                            <div class="spinner-container" *ngIf="isLoggedIn && isLoggedIn?.role !== 'ROLE_USER'">
+                            <div class="spinner-container"  *ngIf="isLoggedIn?.role !== 'ROLE_ADMIN'" >
                                 <mat-progress-bar mode="indeterminate" color="warn"></mat-progress-bar>
                             </div>
                         </div>
 
                         
                         
-                        <div class="load-button" *ngIf="isLoggedIn && isLoggedIn?.role !== 'ROLE_USER'">
+                        <div class="load-button"  *ngIf="isLoggedIn?.role !== 'ROLE_ADMIN'" >
                             <button (click)="loadMoreTimeSheet()" *ngIf="hasMoreResult" mat-raised-button color="primary"
                                 style="background-color: maroon;" class="rounded-pill align-middle text-center">
                                 Load More
