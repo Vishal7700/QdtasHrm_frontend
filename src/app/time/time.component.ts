@@ -1,4 +1,4 @@
-import { Component, Query } from '@angular/core';
+import { Component, } from '@angular/core';
 import { UserService } from '../service/userServices';
 import { User } from '../model/user';
 import { OnInit, ViewChild } from '@angular/core';
@@ -29,7 +29,7 @@ export class TimeComponent  implements OnInit{
   minDate : Date;
   startDate!: Date;
   isSidebarExpanded: boolean = true;
- u!: User;
+  u!: User;
   displayedColumns: string[] = ['userId', 'firstName', 'lastName', 'deptId','designation','view',];
   dataSource: MatTableDataSource<User>;
  empId: number = this.UserService.getAuthUserId();
@@ -40,6 +40,12 @@ export class TimeComponent  implements OnInit{
   dataSourceForUser: MatTableDataSource<Time>;
  @ViewChild('endDate') endDateInput: any; // This allows accessing the input element in the template
  endDate: string ='';
+  startTime: string = "";
+  endTime:  string = "";
+
+
+
+
   constructor(private UserService:UserService,
     private router: Router,
     private route: ActivatedRoute,
@@ -48,17 +54,15 @@ export class TimeComponent  implements OnInit{
     currentDate.setDate(currentDate.getDate());
     this.minDate = currentDate ;
     this.dataSource = new MatTableDataSource();
-  this.dataSourceForUser = new MatTableDataSource();
-      }
-
-
-
+    this.dataSourceForUser = new MatTableDataSource();
+  
+ }
 
  
   ngOnInit() {
-    this.isLoggedIn = this.UserService.getAuthUserFromCache();
+   this.isLoggedIn = this.UserService.getAuthUserFromCache();
     this.eId = this.UserService.getAuthUserId();
-    console.log(this.eId)
+    console.log(this.eId);
   this.loadTimeSheet(this.resultPage, this.resultSize , this.eId);
     this.isLoading = true;
      this.UserService.getUserById(this.UserService.getAuthUserId()).subscribe(user => {
@@ -71,15 +75,35 @@ export class TimeComponent  implements OnInit{
     }
 
 
+    updateTimeConstraints() {
+    // Update the minimum value of end time to start time
+    // const endTimeInput = document.getElementById('endTime') as HTMLInputElement;
+    // endTimeInput.min = this.startTime;
+    
+    // If end time is earlier than start time, reset it to start time
+    if (this.endTime < this.startTime) {
+      this.endTime = this.startTime;
+    }
+  }
+
+
+  
+setTime() {
+  this.endTime = this.startTime
+  console.log(this.startTime)
+  console.log(this.endTime)
+}
+
+
+
+  
+
 
   onToggleSidebar(expanded: boolean) {
     this.isSidebarExpanded = expanded;
   }
 
-
-// saveTimesheet(data: any) {
-// console.log(data);
-// }
+ 
 
 applyTimeSheet(userData: any) {
   console.log(userData)
@@ -186,6 +210,8 @@ applyTimeSheet(userData: any) {
 dismissErrorMessage() {
    this.errorMessage = null;
 }
+
+
 
 
 }

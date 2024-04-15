@@ -4,9 +4,9 @@ export class Time {
 
     employee!: User;
 
-    startTime!: Time;
+    startTime!: string;
 
-    endTime!: Time;
+    endTime!: string;
 
     date!: Date;
 

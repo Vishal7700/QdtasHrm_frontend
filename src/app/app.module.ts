@@ -36,7 +36,7 @@ import {MatNativeDateModule} from '@angular/material/core';
 import { TimeSheetDataComponent } from './time-sheet-data/time-sheet-data.component';
 import { MatTableModule } from '@angular/material/table';
 import {MatSortModule} from '@angular/material/sort';
-
+import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 
 
 
@@ -83,6 +83,7 @@ import {MatSortModule} from '@angular/material/sort';
     MatNativeDateModule,
     MatTableModule,
     MatSortModule,
+    NgxMaterialTimepickerModule
 
   ],
   providers: [],
