@@ -198,7 +198,7 @@
 
                     <div>
                         <div class="col text-end suv-btn">
-                            <button class="btn btn-maroon" type="submit" [disabled]="!addUserData.valid">Submit</button>
+                            <button class="btn btn-maroon" id="sub" type="submit" [disabled]="!addUserData.valid">Submit</button>
                         </div>
 
                         <div class="error-message mandatory" *ngIf="isFormEmpty(addUserData)">
@@ -316,7 +316,7 @@
                                 <th mat-header-cell *matHeaderCellDef class="center"> Action </th>
                                 <td mat-cell *matCellDef="let user"  >
                                     <div class="icon-container"  >
-                                        <i class="fa-solid fa-pen-to-square" (click)="openEidtUser(user.userId)"></i>
+                                        <i class="fa-solid fa-pen-to-square" id="edit" (click)="openEidtUser(user.userId)"></i>
                                         <span class="icon-space"></span>
                                         <i class="fa-solid fa-trash-can" (click)="deleteUser(user.userId)"></i>
                                     </div>
