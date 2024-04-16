@@ -53,7 +53,7 @@
                             <div class="inp-field">
                                 <div class="inp">
                                     <mat-form-field class="inp-date">
-                                        <input matInput [matDatepicker]="startPicker" [max]="minDate"
+                                        <input matInput [matDatepicker]="startPicker" [max]="minDate" [min]="maxDate"  
                                             [(ngModel)]="startDate" name="date" id="sDate"
                                             placeholder="Choose Date" #date="ngModel" required>
                                         <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>

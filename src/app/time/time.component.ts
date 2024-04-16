@@ -27,6 +27,7 @@ export class TimeComponent  implements OnInit{
  searchTerm: string = '';
   sideNavStatus: boolean = false;
   minDate : Date;
+   maxDate! : Date;
   startDate!: Date;
   isSidebarExpanded: boolean = true;
   u!: User;
@@ -51,8 +52,11 @@ export class TimeComponent  implements OnInit{
     private route: ActivatedRoute,
      ){
       const currentDate = new Date();
+      const mDate = new Date();
     currentDate.setDate(currentDate.getDate());
-    this.minDate = currentDate ;
+    this.minDate = currentDate;
+    mDate.setDate(mDate.getDate() - 7)  
+    this.maxDate = mDate;
     this.dataSource = new MatTableDataSource();
     this.dataSourceForUser = new MatTableDataSource();
   
