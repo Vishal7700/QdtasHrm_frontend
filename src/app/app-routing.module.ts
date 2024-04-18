@@ -11,6 +11,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import { TempPasswordComponent } from './temp-password/temp-password.component';
 import { TimeSheetDataComponent } from './time-sheet-data/time-sheet-data.component';
 import { AuthGuard } from './shared/auth.guard';
+import { ProjectsComponent } from './projects/projects.component';
 
 
 const routes: Routes = [
@@ -63,6 +64,12 @@ const routes: Routes = [
     path: 'timesheet',
     canActivate: [AuthGuard]
   },
+   {
+    component: ProjectsComponent,
+    path: 'project',
+    canActivate: [AuthGuard]
+  }
+
 ];
 
 @NgModule({

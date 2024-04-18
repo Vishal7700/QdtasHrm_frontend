@@ -76,12 +76,14 @@
                                 <span *ngIf="lastName.errors?.['pattern']">Please enter only alphabets</span>
                             </div>
                         </div>
+
+                        
                         <div class="inp">
                             <label class="form-label">DOB</label>
                             <input type="date" name="datafield" class="form-control" id="dob" placeholder="dd-mm-yy"
                                 ngModel name="birthDate" required #birthDate="ngModel" pattern="\d{4}-\d{2}-\d{2}"
                                 [ngClass]="{'invalid': birthDate.invalid && (birthDate.dirty || birthDate.touched), 'valid': birthDate.valid && (birthDate.dirty || birthDate.touched)}"
-                                max="2005-12-31" (keydown)="preventManualInput($event)">
+                                max="2005-12-31" > <!--(keydown)="preventManualInput($event)"-->
                             <div *ngIf="birthDate.invalid && (birthDate.dirty || birthDate.touched)"
                                 class="error-message">
                                 <span *ngIf="birthDate.errors?.['required']">Please enter Birthdate</span>

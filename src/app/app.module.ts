@@ -37,11 +37,10 @@ import { TimeSheetDataComponent } from './time-sheet-data/time-sheet-data.compon
 import { MatTableModule } from '@angular/material/table';
 import {MatSortModule} from '@angular/material/sort';
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
-
-
-
-
-
+import { ProjectsComponent } from './projects/projects.component';
+import {FormControl,  ReactiveFormsModule} from '@angular/forms';
+import {MatSelectModule} from '@angular/material/select';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 @NgModule({
   declarations: [
@@ -59,7 +58,8 @@ import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
     TempPasswordComponent,
     DialogboxComponent,
     FilterPipe,
-    TimeSheetDataComponent
+    TimeSheetDataComponent,
+    ProjectsComponent
   ],
   imports: [
     BrowserModule,
@@ -83,7 +83,12 @@ import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
     MatNativeDateModule,
     MatTableModule,
     MatSortModule,
-    NgxMaterialTimepickerModule
+    NgxMaterialTimepickerModule,
+    MatSelectModule,
+    ReactiveFormsModule,
+    NgMultiSelectDropDownModule.forRoot()
+  
+
 
   ],
   providers: [],
