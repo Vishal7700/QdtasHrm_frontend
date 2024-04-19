@@ -20,7 +20,8 @@
 
 
 .projects {
-    overflow: hidden;
+    overflow: auto;
+   
 }
 
 .card {
