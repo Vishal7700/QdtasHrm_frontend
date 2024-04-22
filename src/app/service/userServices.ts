@@ -170,5 +170,23 @@ export class UserService {
     return this.http.get<any>(BASE_API_URL + `/ts/getByEmpId/` + eId +  `?pgn=` + currentPage + `&sz=` + resultSize , { headers: this.getHeaders() });
   }
 
+
+  //project Modules
+
+
+
+  addProject(projectData: any) {
+    let headers = new HttpHeaders().set("Authorization", `Bearer ${localStorage.getItem('token')}`);
+    return this.http.post<any>(BASE_API_URL + `/project/add` , projectData,  {headers:this.getHeaders() });
+  }
+
+  getAllProjects(currentPage: Number, resultSize: Number,) {
+      let headers = new HttpHeaders().set("Authorization", `Bearer ${localStorage.getItem('token')}`);
+    return this.http.post<any>(BASE_API_URL + `/project/getAllProjects`  +  `?pgn=` + currentPage + `&sz=` + resultSize , resultSize , { headers: this.getHeaders() });
+  }
+
+
 }
+
+
 
