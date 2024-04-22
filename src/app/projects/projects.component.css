@@ -145,7 +145,9 @@
     margin-left: 25px;
 }
 
-
+.center {
+    text-align: center;
+}
 
 
 /* Adjust the form layout for mobile devices */
@@ -431,7 +433,7 @@ th {
     background: transparent;
     display: flex;
     align-items: center;
-
+    justify-content: center;
 }
 
 .icon-space {
